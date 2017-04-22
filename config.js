@@ -3,7 +3,7 @@ const config = {
     port: 3001,
 
     database: {
-        DATABASE: 'koa_demo',
+        DATABASE: 'softbei',
         USERNAME: 'root',
         PASSWORD: '931010',
         PORT: '3306',
