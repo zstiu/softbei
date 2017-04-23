@@ -4,6 +4,7 @@
 
 const validator = require('validator')
 const userModel = require('./../models/user-info')
+const tokenModel = require('./../models/access-token')
 const userCode = require('./../codes/user')
 
 const user = {
@@ -32,7 +33,7 @@ const user = {
     },
 
     /**
-     * 登录业务操作
+     * 本业务内登录操作
      * @param  {object} formData 登录表单信息
      * @return {object}          登录业务操作结果
      */
@@ -41,6 +42,7 @@ const user = {
             'password': formData.password,
             'name': formData.userName
         })
+
         return resultData
     },
 
@@ -54,11 +56,16 @@ const user = {
 
         let resultData = await userModel.getUserInfoByUserName(userName) || {}
         let userInfo = {
-            // id: resultData.id,
+            id: resultData.id,
+            name: resultData.name,
             email: resultData.email,
-            userName: resultData.name,
-            detailInfo: resultData.detail_info,
-            createTime: resultData.create_time
+            // userName: resultData.name,
+            major: resultData.major,
+            marked: resultData.marked,
+            create_time: resultData.create_time,
+            modified_time: resultData.modified_time,
+            score: resultData.score,
+            level: resultData.level
         }
         return userInfo
     },

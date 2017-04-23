@@ -1,5 +1,7 @@
 const userInfoService = require('./../services/user-info')
+const accessTokenService = require('./../services/access-token')
 const userCode = require('./../codes/user')
+const uuidV4 = require('uuid/v4');
 
 module.exports = {
 
@@ -21,13 +23,30 @@ module.exports = {
         if (userResult) {
             if (formData.userName === userResult.name) {
                 result.success = true
+                let userInfo = await userInfoService.getUserInfoByUserName(formData.userName)
+                if (userInfo) {
+                    result.data = userInfo;
+                    const access_token = uuidV4();
+                    let token = {
+                        userId: userInfo.id,
+                        accessToken: access_token,
+                        deadline: new Date().getTime() + (365 * 24 * 60 * 60 * 1000), //过期时间一年
+                        type: 1
+                    };
+                    if (await accessTokenService.create(token)) {
+                        result.data.token = access_token;
+                    }
+                }
+                // else {
+                //     result.message = userCode.FAIL_USER_NO_LOGIN
+                // }
             } else {
                 result.message = userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR
                 result.code = 'FAIL_USER_NAME_OR_PASSWORD_ERROR'
             }
         } else {
-            result.code = 'FAIL_USER_NO_EXIST',
-                result.message = userCode.FAIL_USER_NO_EXIST
+            result.code = 'FAIL_USER_NO_EXIST';
+            result.message = userCode.FAIL_USER_NO_EXIST
         }
 
         if (formData.source === 'form' && result.success === true) {
@@ -84,6 +103,7 @@ module.exports = {
             password: formData.password,
             name: formData.userName,
             create_time: new Date().getTime(),
+            score: 0,
             level: 0,
         })
 
@@ -130,23 +150,11 @@ module.exports = {
     },
 
     /**
-     * 校验用户是否登录
+     * 校验用户的登录状态
      * @param  {obejct} ctx 上下文对象
      */
-    validateLogin(ctx) {
-        let result = {
-            success: false,
-            message: userCode.FAIL_USER_NO_LOGIN,
-            data: null,
-            code: 'FAIL_USER_NO_LOGIN',
-        }
-        let session = ctx.session
-        if (session && session.isLogin === true) {
-            result.success = true
-            result.message = ''
-            result.code = ''
-        }
-        return result
+    isLogin(ctx) {
+
     }
 
 
