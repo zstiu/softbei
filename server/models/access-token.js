@@ -49,7 +49,7 @@ const token = {
         let deadline = new Date().getTime() + (365 * 24 * 60 * 60 * 1000);
 
         // let userId = await dbUtils.query(user_sql, ["user_info", user.name]);
-        console.log(user.id);
+        // console.log(user.id);
         let result = await dbUtils.query(token_sql, ["access_token", user.id]);
 
         // if (result) {

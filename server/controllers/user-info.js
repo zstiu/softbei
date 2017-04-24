@@ -119,7 +119,7 @@ module.exports = {
         }
 
         let existOne = await userInfoService.getExistOne(formData)
-        console.log(existOne)
+            // console.log(existOne)
 
         if (existOne) {
             if (existOne.name === formData.name) {
@@ -144,7 +144,7 @@ module.exports = {
             level: 0,
         })
 
-        console.log(userResult)
+        // console.log(userResult)
 
         if (userResult && userResult.insertId * 1 > 0) {
             result.success = true
