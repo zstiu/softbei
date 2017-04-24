@@ -27,7 +27,7 @@ const user = {
     async getExistOne(formData) {
         let resultData = await userModel.getExistOne({
             'email': formData.email,
-            'name': formData.userName
+            'name': formData.name
         })
         return resultData
     },
@@ -40,10 +40,20 @@ const user = {
     async signIn(formData) {
         let resultData = await userModel.getOneByUserNameAndPassword({
             'password': formData.password,
-            'name': formData.userName
+            'name': formData.name
         })
 
         return resultData
+    },
+
+
+    /**
+     * 更新用户信息
+     * @param {object} user 
+     */
+    async updateUserInfo(user) {
+        let result = await userModel.updateUserInfo(user);
+        return result;
     },
 
 
@@ -91,7 +101,7 @@ const user = {
             message: '',
         }
 
-        if (/[a-z0-9\u4e00-\u9fa5\_\-]{1,10}/.test(userInfo.userName) === false) {
+        if (/[a-z0-9\u4e00-\u9fa5\_\-]{1,10}/.test(userInfo.name) === false) {
             result.message = userCode.ERROR_USER_NAME
             return result
         }

@@ -23,13 +23,13 @@ module.exports = {
         let userResult = await userInfoService.signIn(formData)
 
         if (userResult) {
-            if (formData.userName === userResult.name) {
+            if (formData.name === userResult.name) {
                 result.success = true
-                let userInfo = await userInfoService.getUserInfoByUserName(formData.userName)
+                let userInfo = await userInfoService.getUserInfoByUserName(formData.name)
                 if (userInfo) {
                     result.data = userInfo;
-
-                    let token = await accessTokenService.getToken(formData);
+                    // formDate.id = userInfo.id; //为登录用户
+                    let token = await accessTokenService.getToken(userInfo);
                     if (token[0]) {
                         result.data.token = token[0].accessToken;
                     } else {
@@ -58,16 +58,16 @@ module.exports = {
             result.message = userCode.FAIL_USER_NO_EXIST
         }
 
-        if (formData.source === 'form' && result.success === true) {
-            let session = ctx.session
-            session.isLogin = true
-            session.userName = userResult.name
-            session.userId = userResult.id
+        // if (formData.source === 'form' && result.success === true) {
+        //     let session = ctx.session
+        //     session.isLogin = true
+        //     session.userName = userResult.name
+        //     session.userId = userResult.id
 
-            ctx.body = "登录成功"
-        } else {
-            ctx.body = result
-        }
+        //     ctx.body = "登录成功"
+        // } else {
+        ctx.body = result
+            // }
     },
 
     /**
@@ -122,7 +122,7 @@ module.exports = {
         console.log(existOne)
 
         if (existOne) {
-            if (existOne.name === formData.userName) {
+            if (existOne.name === formData.name) {
                 result.message = userCode.FAIL_USER_NAME_IS_EXIST
                 ctx.body = result
                 return
@@ -138,7 +138,7 @@ module.exports = {
         let userResult = await userInfoService.create({
             email: formData.email,
             password: formData.password,
-            name: formData.userName,
+            name: formData.name,
             create_time: new Date().getTime(),
             score: 0,
             level: 0,
@@ -154,6 +154,72 @@ module.exports = {
 
         ctx.body = result
     },
+
+
+    /**
+     * 更新用户信息
+     * @param {object} ctx 上下文对象 
+     */
+    async update(ctx) {
+        let formData = ctx.request.body
+        let result = {
+            success: false,
+            message: '',
+            data: null,
+            code: ''
+        }
+
+        let tokenStatus = await accessTokenService.isLoged(formData);
+        if (tokenStatus === 1) {
+
+            let user = {
+                id: formData.id,
+                // email: formData.email,
+                // // password: formData.password,
+                // major: formData.major || '',
+                // marked: formData.marked || '',
+                // name: formData.name,
+                modified_time: new Date().getTime(),
+            }
+
+            if (formData.name) {
+                user.name = formData.name;
+            }
+
+            if (formData.email) {
+                user.email = formData.email;
+            }
+
+            if (formData.major) {
+                user.major = formData.major;
+            }
+
+            if (formData.marked) {
+                user.marked = formData.marked;
+            }
+
+
+            let userInfo = await userInfoService.updateUserInfo(user);
+            if (userInfo) {
+                result.data = userInfo
+                result.success = true
+            } else {
+                result.message = userCode.ERROR_SYS;
+            }
+        } else if (tokenStatus === 0) {
+            result.code = 9999;
+            result.message = userCode.FAIL_TOKEN_TIME;
+        } else {
+            // TODO
+            result.code = 0000;
+            result.message = userCode.FAIL_USER_NO_LOGIN;
+        }
+
+        ctx.body = result
+
+    },
+
+
 
     /**
      * 获取用户信息
@@ -175,7 +241,7 @@ module.exports = {
         }
         let tokenStatus = await accessTokenService.isLoged(userDate);
         if (tokenStatus === 1) {
-            let userInfo = await userInfoService.getUserInfoByUserName(userDate.userName);
+            let userInfo = await userInfoService.getUserInfoByUserName(userDate.name);
             if (userInfo) {
                 result.data = userInfo
                 result.success = true
@@ -187,6 +253,7 @@ module.exports = {
             result.message = userCode.FAIL_TOKEN_TIME;
         } else {
             // TODO
+            result.code = 0000;
             result.message = userCode.FAIL_USER_NO_LOGIN;
         }
 

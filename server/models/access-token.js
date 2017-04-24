@@ -24,13 +24,13 @@ const token = {
      * @param {object} user 
      */
     async delete(user) {
-        let user_sql = "SELECT id FROM ?? WHERE name = ? ";
+        // let user_sql = "SELECT id FROM ?? WHERE name = ? ";
         let token_sql = "SELECT id FROM ?? WHERE userId = ? ";
 
 
-        let userId = await dbUtils.query(user_sql, ["user_info", user.userName]);
+        // let userId = await dbUtils.query(user_sql, ["user_info", user.name]);
 
-        let id = await dbUtils.query(token_sql, ["access_token", userId[0].id]);
+        let id = await dbUtils.query(token_sql, ["access_token", user.id]);
 
         let result = await dbUtils.deleteDataById("access_token", id[0].id);
 
@@ -43,16 +43,17 @@ const token = {
      * @param {object} user 
      */
     async getToken(user) {
-        let user_sql = "SELECT id FROM ?? WHERE name = ? ";
+        // let user_sql = "SELECT id FROM ?? WHERE name = ? ";
         let token_sql = "SELECT * FROM ?? WHERE userId = ? ";
         let set_token_sql = "UPDATE ?? SET deadline = ? WHERE userId = ?";
         let deadline = new Date().getTime() + (365 * 24 * 60 * 60 * 1000);
 
-        let userId = await dbUtils.query(user_sql, ["user_info", user.userName]);
-        let result = await dbUtils.query(token_sql, ["access_token", userId[0].id]);
+        // let userId = await dbUtils.query(user_sql, ["user_info", user.name]);
+        console.log(user.id);
+        let result = await dbUtils.query(token_sql, ["access_token", user.id]);
 
         // if (result) {
-        await dbUtils.query(set_token_sql, ["access_token", deadline, userId[0].id]);
+        await dbUtils.query(set_token_sql, ["access_token", deadline, user.id]);
         // }
 
 

@@ -60,8 +60,8 @@ const user = {
      */
     async getUserInfoByUserName(userName) {
 
-        let result = await dbUtils.select(
-            'user_info', ['id', 'email', 'name', 'major', 'marked', 'create_time', 'modified_time', 'score', 'level'])
+        let result = await dbUtils.selectDateByName(
+            'user_info', ['id', 'email', 'name', 'major', 'marked', 'create_time', 'modified_time', 'score', 'level'], userName)
         if (Array.isArray(result) && result.length > 0) {
             result = result[0]
         } else {
@@ -69,6 +69,17 @@ const user = {
         }
         return result
     },
+
+
+
+    /**
+     * 更新相应用户信息
+     * @param {object} user 
+     */
+    async updateUserInfo(user) {
+        let result = await dbUtils.updateData("user_info", user, user.id);
+        return result;
+    }
 
 
 
