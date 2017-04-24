@@ -14,6 +14,10 @@ const userCode = {
 
     ERROR_SYS: '系统错误',
 
+    ERROR_USER: '用户认证失败',
+
+    FAIL_TOKEN_TIME: 'token时间已过期，请重新登录',
+
     FAIL_EMAIL_IS_EXIST: '邮箱已被注册',
 
     FAIL_USER_NAME_IS_EXIST: '用户名已被注册',

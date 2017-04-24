@@ -47,6 +47,15 @@ const user = {
     },
 
 
+    // /**
+    //  * 校验用户的登录状态
+    //  * @param  {obejct} ctx 上下文对象
+    //  */
+    // async isLogin(ctx) {
+    //     let userData = await userModel.getUserInfoByUserName(ctx.request.body.userName);
+    // },
+
+
     /**
      * 根据用户名查找用户业务操作
      * @param  {string} userName 用户名
@@ -54,20 +63,20 @@ const user = {
      */
     async getUserInfoByUserName(userName) {
 
-        let resultData = await userModel.getUserInfoByUserName(userName) || {}
-        let userInfo = {
-            id: resultData.id,
-            name: resultData.name,
-            email: resultData.email,
-            // userName: resultData.name,
-            major: resultData.major,
-            marked: resultData.marked,
-            create_time: resultData.create_time,
-            modified_time: resultData.modified_time,
-            score: resultData.score,
-            level: resultData.level
-        }
-        return userInfo
+        let resultData = await userModel.getUserInfoByUserName(userName) || {};
+        // let userInfo = {
+        //     id: resultData.id,
+        //     name: resultData.name,
+        //     email: resultData.email,
+        //     // userName: resultData.name,
+        //     major: resultData.major,
+        //     marked: resultData.marked,
+        //     create_time: resultData.create_time,
+        //     modified_time: resultData.modified_time,
+        //     score: resultData.score,
+        //     level: resultData.level
+        // }
+        return resultData;
     },
 
 
