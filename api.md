@@ -10,9 +10,9 @@
 ### 注册 **signUp**
 method: -> post
 所需数据(标星号为必须字段，下同)
-> *name  
-> *password  
-> *confirmPassword  
+> * name  
+> * password  
+> * confirmPassword  
 > email  
 
 示例http://115.159.26.94:3001/api/user/signUp
@@ -29,8 +29,8 @@ method: -> post
 ### 登录  **signIn**
 method: -> post
 所需数据
-> *name  
-> *password  
+> * name  
+> * password  
 
 示例http://115.159.26.94:3001/api/user/signIn
 ```
@@ -44,8 +44,8 @@ method: -> post
 ### 登出  **signOut**
 method: -> post
 所需数据
-> *id   
-> *token(登录时服务端返回数据)
+> * id   
+> * token(登录时服务端返回数据)
 
 示例http://115.159.26.94:3001/api/user/signOut
 ```
@@ -60,11 +60,11 @@ method: -> post
 ### 获取用户信息  **getUserInfo**
 method: -> post
 所需数据
-> *id (检验登录)  
-> *name （获取信息）  
-> *token(登录时服务端返回数据)
+> * id (检验登录)  
+> * name （获取信息）  
+> * token(登录时服务端返回数据)
 
-示例http://115.159.26.94:3001/api/user/signOut
+示例http://115.159.26.94:3001/api/user/getUserInfo
 ```
 {
 "id": "3",
@@ -76,12 +76,12 @@ method: -> post
 ### 更新用户信息  **update**
 method: -> post
 所需数据
-> *id (检验登录)  
+> * id (检验登录)  
 > name （修改信息,缺省时数据不发生变化，下同）  
 > email(可缺省)  
 > major（可缺省）  
 > marked（可缺省）  
-> *token(登录时服务端返回数据)
+> * token(登录时服务端返回数据)
 
 示例http://115.159.26.94:3001/api/user/signOut
 ```

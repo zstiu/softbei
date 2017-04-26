@@ -107,7 +107,8 @@ module.exports = {
         let result = {
             success: false,
             message: '',
-            data: null
+            data: null,
+            code: ""
         }
 
         let validateResult = userInfoService.validatorSignUp(formData)
@@ -148,6 +149,7 @@ module.exports = {
 
         if (userResult && userResult.insertId * 1 > 0) {
             result.success = true
+            result.code = "1111";
         } else {
             result.message = userCode.ERROR_SYS
         }
