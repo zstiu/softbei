@@ -72,7 +72,7 @@ module.exports = {
 
     /**
      * 用户登出操作
-     * TODO：先检验用户登陆状态，删除token表相应数据
+     * TODO：先检验用户登陆状态，（删除token表相应数据）
      * @param {object} ctx 
      */
     async signOut(ctx) {
@@ -83,14 +83,18 @@ module.exports = {
             data: null,
             code: ''
         }
-        if (await accessTokenService.isLoged(formData)) {
-            let resultDate = await accessTokenService.delete(formData);
-            if (resultDate) {
-                result.success = true;
-            }
-        } else {
+        if (await accessTokenService.isLoged(formData) === 1) {
+            // let resultDate = await accessTokenService.delete(formData);
+            // if (resultDate) {
+            result.success = true;
+            // }
+        } else if (await accessTokenService.isLoged(formData) === -1) {
+            result.success = false;
             result.code = 'FAIL_USER_NO_LOGIN';
             result.message = userCode.FAIL_USER_NO_LOGIN;
+        } else {
+            result.code = 'FAIL_TOKEN_TIME';
+            result.message = userCode.FAIL_TOKEN_TIME;
         }
 
 
@@ -111,7 +115,7 @@ module.exports = {
             code: ""
         }
 
-        let validateResult = userInfoService.validatorSignUp(formData)
+        let validateResult = userInfoService.validatorSignUp(formData);
 
         if (validateResult.success === false) {
             result = validateResult

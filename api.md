@@ -14,6 +14,7 @@ method: -> post
 > * password  
 > * confirmPassword  
 > email  
+> phone
 
 示例http://115.159.26.94:3001/api/user/signUp
 ```
@@ -21,10 +22,33 @@ method: -> post
     "password": "123456",
     "confirmPassword": "123456",
     "name": "zstiu",
-    "email": "zstiu@foxmail.com"
+    "email": "zstiu@foxmail.com",
+    "phone"
     }
 
 ```
+
+成功时返回
+```
+{
+  "success": true,
+  "message": "",
+  "data": null,
+  "code": "1111"
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "邮箱已被注册",
+  "data": null,
+  "code": ""
+  }
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
 
 ### 登录  **signIn**
 method: -> post
@@ -34,12 +58,46 @@ method: -> post
 
 示例http://115.159.26.94:3001/api/user/signIn
 ```
-{
-"password": "123456",
-"name": "zstiu"
-}
+  {
+  "password": "123456",
+  "name": "zstiu"
+  }
 
 ```
+
+成功时返回
+```
+  {
+  "success": true,
+  "message": "",
+  "data":
+  {
+    "id": 3,
+    "email": "zstiu@foxmail.com",
+    "name": "zstiu",
+    "major": null,
+    "marked": null,
+    "create_time": "1492958357022",
+    "modified_time": null,
+    "score": 0,
+    "level": 0,
+    "token": "c38fff51-90ad-46c6-9fde-182020c4f2e5"
+  },
+  "code": ""
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "用户不存在",
+  "data": null,
+  "code": "FAIL_USER_NO_EXIST"
+  }
+```
+
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
 
 ### 登出  **signOut**
 method: -> post
@@ -56,6 +114,30 @@ method: -> post
 
 
 ```
+
+成功时返回
+```
+  {
+  "success": true,
+  "message": "",
+  "data": null,
+  "code": ""
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "用户未登录",
+  "data": null,
+  "code": "FAIL_USER_NO_LOGIN"
+  }
+```
+
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+
 
 ### 获取用户信息  **getUserInfo**
 method: -> post
@@ -83,7 +165,7 @@ method: -> post
 > marked（可缺省）  
 > * token(登录时服务端返回数据)
 
-示例http://115.159.26.94:3001/api/user/signOut
+示例http://115.159.26.94:3001/api/user/update
 ```
 
 {
@@ -96,3 +178,82 @@ method: -> post
 }
 
 ```
+
+成功时返回
+```
+  {
+  "success": true,
+  "message": "",
+  "data":
+  {
+    "fieldCount": 0,
+    "affectedRows": 1,
+    "insertId": 0,
+    "serverStatus": 2,
+    "warningCount": 0,
+    "message": "(Rows matched: 1 Changed: 1 Warnings: 0",
+    "protocol41": true,
+    "changedRows": 1
+  },
+  "code": ""
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "用户未登录",
+  "data": null,
+  "code": 0
+  }
+```
+
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+
+## 管理员模块
+
+> 目录： /manager
+
+### 注册 **signUp**
+method: -> post
+所需数据(标星号为必须字段，下同)
+> * name  
+> * password  
+> * confirmPassword  
+> * email  
+> * phone
+
+示例http://115.159.26.94:3001/api/manager/signUp
+```
+  {
+    "password": "123456",
+    "confirmPassword": "123456",
+    "email": "zst@foxmail.com",
+    "name": "测试3",
+    "phone": "15095891362"
+  }
+
+```
+
+成功时返回
+```
+  {
+  "success": true,
+  "message": "",
+  "data": null,
+  "code": "1111"
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "两次密码不一致",
+  "data": null,
+  "code": ""
+  }
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因

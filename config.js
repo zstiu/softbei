@@ -1,5 +1,9 @@
 const config = {
 
+    imageHost: "115.159.26.94",
+
+    imagePath: "",
+
     port: 3001,
 
     database: {

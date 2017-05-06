@@ -51,6 +51,7 @@ const token = {
         // let userId = await dbUtils.query(user_sql, ["user_info", user.name]);
         // console.log(user.id);
         let result = await dbUtils.query(token_sql, ["access_token", user.id]);
+        console.log(result);
 
         // if (result) {
         await dbUtils.query(set_token_sql, ["access_token", deadline, user.id]);

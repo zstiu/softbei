@@ -1,10 +1,9 @@
 /**
- * restful api 子路由 （user模块）
+ * restful api 子路由 （image模块）
  */
 
 const router = require('koa-router')()
-const userInfoController = require('./../controllers/user-info')
-const managerController = require('./../controllers/manager')
+    // const userInfoController = require('./../controllers/user-info')
 
 const routers = router
     .post('/user/getUserInfo', userInfoController.getLoginUserInfo)
@@ -12,7 +11,6 @@ const routers = router
     .post('/user/signUp', userInfoController.signUp)
     .post('/user/signOut', userInfoController.signOut)
     .post('/user/update', userInfoController.update)
-    .post('/manager/signUp', managerController.signUp)
 
 
 module.exports = routers

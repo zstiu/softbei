@@ -22,6 +22,8 @@ const userCode = {
 
     FAIL_USER_NAME_IS_EXIST: '用户名已被注册',
 
+    FAIL_USER_PHONE_IS_EXIST: '手机号已被注册',
+
     FAIL_USER_NAME_OR_PASSWORD_ERROR: '用户名或登录密码错误',
 
     FAIL_USER_NO_LOGIN: '用户未登录',

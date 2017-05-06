@@ -31,8 +31,21 @@ let query = function(sql, values) {
 
 }
 
-let createTable = function(sql) {
-    return query(sql, [])
+/**
+ * 
+ * @param {String} table 表名
+ * @param {Array} options 对象数组，包含所有表元素及其属性（每个object包括name, limit）
+ */
+let createTable = function(table, options) {
+    let _sql = "CREATE TABLE ?? (";
+    for (let colume in options.colume) {
+        _sql = _sql + "`" + colume.name + "` " + colume.limit + ",";
+    }
+    for (let property in options.property) {
+        _sql = _sql + property + ",";
+    }
+    _sql = _sql + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+    return query(_sql, [table]);
 }
 
 
