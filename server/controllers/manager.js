@@ -170,7 +170,7 @@ module.exports = {
      * @param   {obejct} ctx 上下文对象
      */
     async uploadPicture(ctx) {
-        let formData = ctx.request.body;
+        // let formData = ctx.request.body;
         // let result = {
         //     success: false,
         //     message: '',

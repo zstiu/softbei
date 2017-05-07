@@ -1,6 +1,6 @@
 const config = {
 
-    imageHost: "115.159.26.94",
+    imageHost: "115.159.26.94:9001",
 
     imagePath: "",
 

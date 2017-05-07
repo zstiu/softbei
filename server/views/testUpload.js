@@ -8,7 +8,7 @@
             success: function(result) {
                 console.log(result)
                 if (result && result.success && result.data && result.data.pictureUrl) {
-                    previewElem.innerHTML = '<img src="' + result.data.pictureUrl + '" style="max-width: 100%">'
+                    previewElem.innerHTML = '<img src="E:\\code\\softbei\\softbei\\static\\uploadPicture\\' + result.data.pictureUrl + '" style="max - width: 100 % ">'
                 }
             },
             progress: function(data) {
@@ -72,23 +72,40 @@
      * @param  {object} options 上传参数      
      */
     function uploadEvent(options) {
-        let file
-        let formData = new FormData()
+        // let file
+        // let formData = new FormData()
         let input = document.createElement('input')
         input.setAttribute('type', 'file')
         input.setAttribute('name', 'files')
+        input.setAttribute('multiple', 'multiple')
 
         input.click()
         input.onchange = function() {
-            file = input.files[0]
-            formData.append('files', file)
+            console.log(input.files.length)
+            for (let i = 0; i < input.files.length; i++) {
+                file = input.files[i];
+                let formData = new FormData();
+                formData.append('files', file)
+                requestEvent({
+                    formData,
+                    success: options.success,
+                    fail: options.fail,
+                    progress: options.progress
+                })
+            }
 
-            requestEvent({
-                formData,
-                success: options.success,
-                fail: options.fail,
-                progress: options.progress
-            })
+
+            // file = input.files[0];
+            // formData.append('files', file)
+
+            // // console.log(formData.files);
+            // requestEvent({
+            //     formData,
+            //     success: options.success,
+            //     fail: options.fail,
+            //     progress: options.progress
+            // })
+
         }
 
     }

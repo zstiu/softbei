@@ -34,7 +34,7 @@ async function uploadPicture(ctx, options) {
     //     pictureType = options.pictureType
     // }
 
-    let relativePath = path.join(
+    var relativePath = path.join(
         pictureType,
         UtilDatetime.parseStampToFormat(null, 'YYYY/MM/DD')
     )
@@ -65,7 +65,7 @@ async function uploadPicture(ctx, options) {
             let pictureName = Math.random().toString(16).substr(2) + '.' + getSuffixName(filename)
             let _uploadFilePath = path.join(picturePath, pictureName)
             console.log(_uploadFilePath)
-            result.data.pictureUrl = _uploadFilePath;
+            result.data.pictureUrl = path.join(relativePath, pictureName);
             console.log(result.data.pictureUrl);
 
             let saveTo = path.join(_uploadFilePath)
