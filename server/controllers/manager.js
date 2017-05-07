@@ -112,7 +112,7 @@ module.exports = {
             code: ""
         }
 
-        let validateResult = managerService.validatorSignUp(formData)
+        let validateResult = await managerService.validatorSignUp(formData)
 
         if (validateResult.success === false) {
             result = validateResult
@@ -160,6 +160,36 @@ module.exports = {
         } else {
             result.message = userCode.ERROR_SYS
         }
+
+        ctx.body = result
+    },
+
+
+    /**
+     * 上传图片
+     * @param   {obejct} ctx 上下文对象
+     */
+    async uploadPicture(ctx) {
+        let formData = ctx.request.body;
+        // let result = {
+        //     success: false,
+        //     message: '',
+        //     data: null,
+        //     code: ""
+        // }
+
+        let result = await managerService.uploadPicture(ctx)
+
+        // if (validateResult.success === false) {
+        //     result = validateResult
+        //     ctx.body = result
+        //     console.log(result)
+        //     return
+        // }
+
+
+
+
 
         ctx.body = result
     },

@@ -5,8 +5,9 @@ const views = require('koa-views')
 const koaStatic = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const koaLogger = require('koa-logger')
-    // const session = require('koa-session-minimal')
-    // const MysqlStore = require('koa-mysql-session')
+var cors = require('koa-cors');
+// const session = require('koa-session-minimal')
+// const MysqlStore = require('koa-mysql-session')
 
 const config = require('./../config')
 const routers = require('./routers/index')
@@ -37,6 +38,9 @@ app.use(bodyParser())
 app.use(convert(koaStatic(
     path.join(__dirname, './../static')
 )))
+
+//解决跨域
+app.use(cors());
 
 // 配置服务端模板渲染引擎中间件
 // app.use(views(path.join(__dirname, './views'), {

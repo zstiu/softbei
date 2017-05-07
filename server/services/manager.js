@@ -6,6 +6,8 @@ const validator = require('validator')
 const managerModel = require('./../models/manager')
 const tokenModel = require('./../models/access-token')
 const userCode = require('./../codes/user')
+const path = require('path')
+const upload = require('./../utils/upload')
 
 const manager = {
 
@@ -135,7 +137,7 @@ const manager = {
      * @param  {object} manager 用户注册数据
      * @return {object}          校验结果
      */
-    validatorSignUp(manager) {
+    async validatorSignUp(manager) {
         let result = {
             success: false,
             message: '',
@@ -163,7 +165,35 @@ const manager = {
         result.success = true
 
         return result
-    }
+    },
+
+
+
+    /**
+     * 上传图片
+     * @param  {object} ctx 上下文
+     * @return {object}          上传结果
+     */
+    async uploadPicture(ctx) {
+        // let result = {
+        //         success: false,
+        //         message: '',
+        //         data: null,
+        //         code: ""
+        //     }
+        // let serverFilePath = path.join(__dirname, 'static/image')
+
+        let result = await upload.uploadPicture(ctx, {
+            pictureType: 'common',
+            // path: serverFilePath
+        })
+        console.log("managerService:" + result.data.pictureUrl);
+        result.success = true
+
+        return result
+    },
+
+
 
 }
 

@@ -13,6 +13,7 @@ const routers = router
     .post('/user/signOut', userInfoController.signOut)
     .post('/user/update', userInfoController.update)
     .post('/manager/signUp', managerController.signUp)
+    .post('/manager/uploadPicture', managerController.uploadPicture)
 
 
 module.exports = routers
