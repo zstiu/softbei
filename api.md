@@ -155,6 +155,38 @@ method: -> post
 }
 ```
 
+成功时返回
+```
+  {
+    "success": true,
+    "message": "",
+    "data":{
+    "id": 3,
+    "email": "zstiu@foxmail.com",
+    "name": "zstiu",
+    "major": null,
+    "marked": null,
+    "create_time": "1492958357022",
+    "modified_time": null,
+    "score": 0,
+    "level": 0
+    },
+    "code": ""
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "用户未登录",
+  "data": null,
+  "code": 0
+  }
+```
+
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
 ### 更新用户信息  **update**
 method: -> post
 所需数据
