@@ -27,7 +27,8 @@ const user = {
     async getExistOne(formData) {
         let resultData = await userModel.getExistOne({
             'email': formData.email,
-            'name': formData.name
+            'name': formData.name,
+            'phone': formData.phone
         })
         return resultData
     },
@@ -121,7 +122,44 @@ const user = {
         result.success = true
 
         return result
-    }
+    },
+
+
+    /**
+     * 检验手机号是否已经注册
+     * @param  {object} options 用户注册数据
+     * @return {object}          校验结果
+     */
+    async exitPhone(options) {
+        let result = {
+            success: false,
+            message: '',
+            data: null,
+            code: ""
+        }
+
+        // console.log(options.phone);
+        // if (!validator.isMobilePhone(options.phone)) {
+        //     result.message = userCode.ERROR_PHONE
+        //     result.code = "0000";
+        //     return result
+        // }
+
+        let user = await userModel.exitPhone(options);
+        console.log(user);
+        if (user && user.phone === options.phone) {
+            result.message = userCode.FAIL_USER_PHONE_IS_EXIST;
+            result.code = "0001";
+            return result;
+        }
+
+
+        result.success = true
+        result.message = ""
+        result.code = "1111";
+
+        return result
+    },
 
 }
 

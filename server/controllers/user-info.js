@@ -267,6 +267,39 @@ module.exports = {
     },
 
 
+    /**
+     * 检验手机号是否已经注册
+     * @param   {obejct} ctx 上下文对象
+     */
+    async exitPhone(ctx) {
+        let formData = ctx.request.body
+        let result = {
+            success: false,
+            message: '',
+            data: null,
+            code: ""
+        }
+
+        let validateResult = await userInfoService.exitPhone(formData);
+
+        if (validateResult.success === false) {
+            result = validateResult
+            ctx.body = result
+            return
+        }
+
+
+
+        result.success = true
+        result.code = "1111";
+
+        // result.message = userCode.ERROR_SYS
+
+
+        ctx.body = result
+    },
+
+
 
 
 }

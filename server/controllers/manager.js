@@ -1,8 +1,10 @@
 // const userInfoService = require('./../services/user-info')
 // const accessTokenService = require('./../services/access-token')
 const managerService = require('./../services/manager')
+const pictureService = require('./../services/picture')
 const userCode = require('./../codes/user')
 const uuidV4 = require('uuid/v4');
+// var multiparty = require('multiparty');
 
 module.exports = {
 
@@ -170,15 +172,40 @@ module.exports = {
      * @param   {obejct} ctx 上下文对象
      */
     async uploadPicture(ctx) {
-        // let formData = ctx.request.body;
-        // let result = {
-        //     success: false,
-        //     message: '',
-        //     data: null,
-        //     code: ""
-        // }
+        let req = ctx.request.body;
 
-        let result = await managerService.uploadPicture(ctx)
+        // console.log(JSON.stringfy(req));
+
+        let result = {
+            success: false,
+            message: '',
+            data: null,
+            code: ""
+        }
+
+        let uplaodResult = await managerService.uploadPicture(ctx)
+
+        // console.log(uplaodResult.pictureUrl + "!!!!!!!!");
+
+
+
+        let picture = {
+            managerId: uplaodResult.data.managerId || "0",
+            path: uplaodResult.pictureUrl,
+            planId: uplaodResult.data.planId,
+        }
+
+        // let form = new multiparty.Form();
+
+        // form.parse(ctx.request, function(err, fields, files) {
+        //     picture.managerId = fields.managerId;
+        //     picture.planId = fields.planId;
+        //     // res.writeHead(200, { 'content-type': 'text/plain' });
+        //     // res.write('received upload:\n\n');
+        //     // res.end(util.inspect({ fields: fields, files: files }));
+        // });
+
+        let pictureResult = await pictureService.create(picture);
 
         // if (validateResult.success === false) {
         //     result = validateResult
@@ -191,7 +218,7 @@ module.exports = {
 
 
 
-        ctx.body = result
+        ctx.body = managerResult
     },
 
 

@@ -12,6 +12,7 @@ const routers = router
     .post('/user/signUp', userInfoController.signUp)
     .post('/user/signOut', userInfoController.signOut)
     .post('/user/update', userInfoController.update)
+    .post('/user/exitPhone', userInfoController.exitPhone)
     .post('/manager/signUp', managerController.signUp)
     .post('/manager/uploadPicture', managerController.uploadPicture)
 

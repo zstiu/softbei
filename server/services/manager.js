@@ -5,6 +5,7 @@
 const validator = require('validator')
 const managerModel = require('./../models/manager')
 const tokenModel = require('./../models/access-token')
+const pictureModel = require('./../models/picture')
 const userCode = require('./../codes/user')
 const path = require('path')
 const upload = require('./../utils/upload')

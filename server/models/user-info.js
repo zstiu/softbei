@@ -20,7 +20,7 @@ const user = {
     async getExistOne(options) {
         let _sql = `
     SELECT * from user_info
-      where email="${options.email}" or name="${options.name}"
+      where email="${options.email}" or name="${options.name}" or phone="${options.phone}"
       limit 1`
         let result = await dbUtils.query(_sql)
         if (Array.isArray(result) && result.length > 0) {
@@ -79,7 +79,28 @@ const user = {
     async updateUserInfo(user) {
         let result = await dbUtils.updateData("user_info", user, user.id);
         return result;
-    }
+    },
+
+
+    /**
+     * 检验当前手机号是否已注册
+     * @param  {obejct} options 查找条件参数 只有phone
+     * @return {object|null}        查找结果
+     */
+    async exitPhone(options) {
+        let _sql = `
+    SELECT * from user_info
+      where phone="${options.phone}"
+      limit 1`
+        let result = await dbUtils.query(_sql)
+        if (Array.isArray(result) && result.length > 0) {
+            result = result[0]
+        } else {
+            result = null
+        }
+        console.log("result");
+        return result
+    },
 
 
 

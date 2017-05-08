@@ -85,7 +85,9 @@
             for (let i = 0; i < input.files.length; i++) {
                 file = input.files[i];
                 let formData = new FormData();
-                formData.append('files', file)
+                formData.append('files', file);
+                formData.append('managerId', 9);
+                formData.append('planId', 1);
                 requestEvent({
                     formData,
                     success: options.success,

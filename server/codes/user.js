@@ -8,6 +8,8 @@ const userCode = {
 
     ERROR_EMAIL: '请输入正确的邮箱地址',
 
+    ERROR_PHONE: '请输入正确的手机号',
+
     ERROR_PASSWORD: '密码长度应该为6-16',
 
     ERROR_PASSWORD_CONFORM: '两次密码不一致',

@@ -10,7 +10,7 @@
 ### 注册 **signUp**
 method: -> post
 所需数据(标星号为必须字段，下同)
-> * name  
+> * name(1到10个字符，中英文或者下划线“_”或“-”)  
 > * password  
 > * confirmPassword  
 > email  
@@ -237,6 +237,45 @@ method: -> post
   "message": "用户未登录",
   "data": null,
   "code": 0
+  }
+```
+
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+
+### 检验手机号是否被注册  **exitPhone**
+method: -> post
+所需数据
+> * phone  
+
+
+示例http://115.159.26.94:3001/api/user/update
+```
+
+  {
+    "phone": "15195891361"
+  }
+
+
+```
+
+成功时返回
+```
+  {
+  "success": true,
+  "message": "",
+  "data": null,
+  "code": "1111"
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "手机号已被注册",
+  "data": null,
+  "code": "0001"
   }
 ```
 

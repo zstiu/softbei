@@ -78,16 +78,19 @@ async function uploadPicture(ctx, options) {
             file.on('end', function() {
                 console.log('File-end [' + fieldname + '] Finished')
                 result.success = true;
-                resolve(result)
+                // resolve(result)
             })
         })
 
-        // busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
-        //   console.log('Field-field [' + fieldname + ']: value: ' + inspect(val))
-        // })
-        // busboy.on('finish', function() {
-        //   console.log('Done parsing form!')
-        // })
+        busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
+            console.log('Field-field [' + fieldname + ']: value: ' + inspect(val))
+            result.data[fieldname] = inspect(val);
+        })
+        busboy.on('finish', function() {
+            console.log('Done parsing form!')
+            console.log(result.data.managerId);
+            resolve(result)
+        })
 
         busboy.on('error', function(err) {
             console.log('File-error');
