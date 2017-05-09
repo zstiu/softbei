@@ -9,6 +9,8 @@ const pictureModel = require('./../models/picture')
 const userCode = require('./../codes/user')
 const path = require('path')
 const upload = require('./../utils/upload')
+const Busboy = require('busboy');
+const inspect = require('util').inspect
 
 const manager = {
 
@@ -192,6 +194,37 @@ const manager = {
         result.success = true
 
         return result
+    },
+
+    /**
+     * 检验上传信息中的管理员认证
+     * @param  {string} managerName 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async uploadLoged(req) {
+
+        return new Promise((resolve, reject) => {
+            let busboy = new Busboy({ headers: req.headers })
+
+            let formData = {
+                managerId: "",
+                token: ""
+            };
+
+            busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
+                console.log('Field-field [' + fieldname + ']: value: ' + inspect(val))
+                formData[fieldname] = val;
+            })
+            busboy.on('finish', function() {
+                console.log('Done parsing form!');
+                // console.log(result.data.managerId);
+                resolve(formData);
+            })
+
+            // resolve(formData);
+            req.pipe(busboy);
+        });
+
     },
 
 

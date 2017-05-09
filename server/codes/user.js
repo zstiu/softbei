@@ -18,6 +18,8 @@ const userCode = {
 
     ERROR_USER: '用户认证失败',
 
+    ERROR_FORM_DATA: '输入字段缺省',
+
     FAIL_TOKEN_TIME: 'token时间已过期，请重新登录',
 
     FAIL_EMAIL_IS_EXIST: '邮箱已被注册',

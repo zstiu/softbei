@@ -43,7 +43,11 @@ const token = {
      */
     async isLoged(user) {
         let token = await tokenModel.getToken(user);
-        // console.log(token.length);
+        if (token === 0) {
+            console.log("缺省字段");
+            return -2;
+        }
+        console.log(token.length);
         if (token[0] && token[0].accessToken === user.token) {
             if (token[0].deadline < new Date().getTime()) {
                 console.log("登录状态已过期");

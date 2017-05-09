@@ -66,7 +66,7 @@ async function uploadPicture(ctx, options) {
             let _uploadFilePath = path.join(picturePath, pictureName)
             console.log(_uploadFilePath)
             result.data.pictureUrl = path.join(relativePath, pictureName);
-            console.log(result.data.pictureUrl);
+            console.log("result.data.pictureUrl:" + result.data.pictureUrl);
 
             let saveTo = path.join(_uploadFilePath)
             file.pipe(fs.createWriteStream(saveTo))
@@ -87,8 +87,8 @@ async function uploadPicture(ctx, options) {
             result.data[fieldname] = val;
         })
         busboy.on('finish', function() {
-            console.log('Done parsing form!')
-            console.log(result.data.managerId);
+            console.log('Done parsing form!');
+            // console.log("result.data.pictureUrl = " + result.data.pictureUrl);
             resolve(result)
         })
 

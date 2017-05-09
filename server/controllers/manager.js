@@ -4,6 +4,7 @@ const managerService = require('./../services/manager')
 const pictureService = require('./../services/picture')
 const userCode = require('./../codes/user')
 const uuidV4 = require('uuid/v4');
+const Busboy = require('busboy');
 // var multiparty = require('multiparty');
 
 module.exports = {
@@ -182,7 +183,10 @@ module.exports = {
     async uploadPicture(ctx) {
         let req = ctx.request.body;
 
-        // console.log(JSON.stringfy(req));
+
+        // let formData = await managerService.uploadLoged(ctx.req);
+
+
 
         let result = {
             success: false,
@@ -191,42 +195,50 @@ module.exports = {
             code: ""
         }
 
-        let uploadResult = await managerService.uploadPicture(ctx)
+        let uploadResult = await managerService.uploadPicture(ctx);
 
-        // console.log(uplaodResult.pictureUrl + "!!!!!!!!");
-
-
-
-        let picture = {
-            managerId: uploadResult.data.managerId || "0",
-            path: uploadResult.data.pictureUrl,
-            planId: uploadResult.data.planId,
+        let formData = {
+            managerId: uploadResult.data.managerId,
+            token: uploadResult.data.token
         }
 
-        // let form = new multiparty.Form();
+        console.log("formData.managerId = " + formData.managerId);
+        let isLoged = await accessTokenService.isLoged(formData);
+        console.log("isLoged = " + isLoged);
+        if (isLoged === 1) {
+            // let uploadResult = await managerService.uploadPicture(ctx)
+            let picture = {
+                managerId: uploadResult.data.managerId || "0",
+                path: uploadResult.data.pictureUrl,
+                planId: uploadResult.data.planId,
+            }
 
-        // form.parse(ctx.request, function(err, fields, files) {
-        //     picture.managerId = fields.managerId;
-        //     picture.planId = fields.planId;
-        //     // res.writeHead(200, { 'content-type': 'text/plain' });
-        //     // res.write('received upload:\n\n');
-        //     // res.end(util.inspect({ fields: fields, files: files }));
-        // });
+            let pictureResult = await pictureService.create(picture);
 
-        let pictureResult = await pictureService.create(picture);
+            // let resultDate = await accessTokenService.delete(formData);
+            // if (resultDate) {
+            result.success = true;
+            // }
+        } else if (isLoged === -1) {
+            result.success = false;
+            result.code = 'FAIL_USER_NO_LOGIN';
+            result.message = userCode.FAIL_USER_NO_LOGIN;
+        } else if (isLoged === -2) {
+            result.success = false;
+            result.code = 'ERROR_FORM_DATA';
+            result.message = userCode.ERROR_FORM_DATA;
+        } else {
+            result.code = 'FAIL_TOKEN_TIME';
+            result.message = userCode.FAIL_TOKEN_TIME;
+        }
 
-        // if (validateResult.success === false) {
-        //     result = validateResult
-        //     ctx.body = result
-        //     console.log(result)
-        //     return
-        // }
 
 
 
 
 
-        ctx.body = pictureResult
+
+        ctx.body = result
     },
 
 

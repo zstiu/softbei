@@ -88,6 +88,7 @@
                 formData.append('files', file);
                 formData.append('managerId', 9);
                 formData.append('planId', 1);
+                formData.append('token', "63d225df-0a34-44eb-a9e5-470797af65ac");
                 requestEvent({
                     formData,
                     success: options.success,

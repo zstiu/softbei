@@ -23,7 +23,7 @@ method: -> post
     "confirmPassword": "123456",
     "name": "zstiu",
     "email": "zstiu@foxmail.com",
-    "phone"
+    "phone": "15195891362"
     }
 
 ```
@@ -324,6 +324,53 @@ method: -> post
   "message": "两次密码不一致",
   "data": null,
   "code": ""
+  }
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+
+### 登录 **signIn**
+method: -> post
+所需数据(标星号为必须字段，下同)
+> * name  
+> * password  
+
+示例http://115.159.26.94:3001/api/manager/signIn
+```
+  {
+    "password": "123456",
+    "name": "测试3"
+  }
+
+```
+
+成功时返回
+```
+  {
+  "success": true,
+  "message": "",
+  "data":
+  {
+    "id": 9,
+    "email": "zst@foxmail.com",
+    "name": "测试3",
+    "created_time": "1494078342224",
+    "modified_time": null,
+    "phone": "15095891362",
+    "managerId": 9,
+    "token": "63d225df-0a34-44eb-a9e5-470797af65ac"
+  },
+  "code": ""
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "用户名或登录密码错误",
+  "data": null,
+  "code": "FAIL_USER_NAME_OR_PASSWORD_ERROR"
   }
 ```
 * 根据success字段判断是否成功
