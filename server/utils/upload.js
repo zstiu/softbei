@@ -84,7 +84,7 @@ async function uploadPicture(ctx, options) {
 
         busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
             console.log('Field-field [' + fieldname + ']: value: ' + inspect(val))
-            result.data[fieldname] = inspect(val);
+            result.data[fieldname] = val;
         })
         busboy.on('finish', function() {
             console.log('Done parsing form!')

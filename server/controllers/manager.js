@@ -183,16 +183,16 @@ module.exports = {
             code: ""
         }
 
-        let uplaodResult = await managerService.uploadPicture(ctx)
+        let uploadResult = await managerService.uploadPicture(ctx)
 
         // console.log(uplaodResult.pictureUrl + "!!!!!!!!");
 
 
 
         let picture = {
-            managerId: uplaodResult.data.managerId || "0",
-            path: uplaodResult.pictureUrl,
-            planId: uplaodResult.data.planId,
+            managerId: uploadResult.data.managerId || "0",
+            path: uploadResult.data.pictureUrl,
+            planId: uploadResult.data.planId,
         }
 
         // let form = new multiparty.Form();
@@ -218,7 +218,7 @@ module.exports = {
 
 
 
-        ctx.body = managerResult
+        ctx.body = pictureResult
     },
 
 
