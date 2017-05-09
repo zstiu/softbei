@@ -43,12 +43,12 @@ const manager = {
 
     /**
      * 根据用户名和密码查找用户
-     * @param  {object} options 用户名密码对象
+     * @param  {object} options 管理员密码对象
      * @return {object|null}         查找结果
      */
-    async getOneByUserNameAndPassword(options) {
+    async getOneByManagerNameAndPassword(options) {
         let _sql = `
-    SELECT * from user_info
+    SELECT * from manager_info
       where password="${options.password}" and name="${options.name}"
       limit 1`
         let result = await dbUtils.query(_sql)
@@ -58,6 +58,7 @@ const manager = {
         if (result.length > 0) {
             result = result[0]
         } else {
+            console.log(result.length);
             result = null
         }
         return result
@@ -65,13 +66,13 @@ const manager = {
 
     /**
      * 根据用户名查找用户信息
-     * @param  {string} userName 用户账号名称
+     * @param  {string} managerName 用户账号名称
      * @return {object|null}     查找结果
      */
-    async getUserInfoByUserName(userName) {
+    async getManagerInfoByManagerName(managerName) {
 
         let result = await dbUtils.selectDateByName(
-            'user_info', ['id', 'email', 'name', 'major', 'marked', 'create_time', 'modified_time', 'score', 'level'], userName)
+            'manager_info', ['id', 'email', 'name', 'created_time', 'modified_time', 'phone'], managerName)
         if (Array.isArray(result) && result.length > 0) {
             result = result[0]
         } else {
@@ -86,10 +87,10 @@ const manager = {
      * 更新相应用户信息
      * @param {object} user 
      */
-    async updateUserInfo(user) {
-        let result = await dbUtils.updateData("user_info", user, user.id);
-        return result;
-    }
+    // async updateUserInfo(user) {
+    //     let result = await dbUtils.updateData("user_info", user, user.id);
+    //     return result;
+    // }
 
 
 

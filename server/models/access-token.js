@@ -44,21 +44,39 @@ const token = {
      */
     async getToken(user) {
         // let user_sql = "SELECT id FROM ?? WHERE name = ? ";
-        let token_sql = "SELECT * FROM ?? WHERE userId = ? ";
-        let set_token_sql = "UPDATE ?? SET deadline = ? WHERE userId = ?";
-        let deadline = new Date().getTime() + (365 * 24 * 60 * 60 * 1000);
+
+        if (user.managerId) {
+            let token_sql = "SELECT * FROM ?? WHERE managerId = ? ";
+            let set_token_sql = "UPDATE ?? SET deadline = ? WHERE managerId = ?";
+            let deadline = new Date().getTime() + (365 * 24 * 60 * 60 * 1000);
+            await dbUtils.query(set_token_sql, ["access_token", deadline, user.managerId]);
+            let result = await dbUtils.query(token_sql, ["access_token", user.managerId]);
+            console.log(result);
+            return result;
+        } else if (user.id) {
+            let token_sql = "SELECT * FROM ?? WHERE userId = ? ";
+            let set_token_sql = "UPDATE ?? SET deadline = ? WHERE userId = ?";
+            let deadline = new Date().getTime() + (365 * 24 * 60 * 60 * 1000);
+            await dbUtils.query(set_token_sql, ["access_token", deadline, user.id]);
+            let result = await dbUtils.query(token_sql, ["access_token", user.id]);
+            console.log(result);
+            return result;
+        } else {
+
+        }
+
+
 
         // let userId = await dbUtils.query(user_sql, ["user_info", user.name]);
         // console.log(user.id);
-        let result = await dbUtils.query(token_sql, ["access_token", user.id]);
-        console.log(result);
+
 
         // if (result) {
-        await dbUtils.query(set_token_sql, ["access_token", deadline, user.id]);
+
         // }
 
 
-        return result;
+
 
     }
 

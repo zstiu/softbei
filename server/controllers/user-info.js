@@ -18,37 +18,42 @@ module.exports = {
             code: ''
         }
 
+        let userResultByName = await userInfoService.getUserInfoByUserName(formData.name);
 
+        if (userResultByName) {
+            let userResult = await userInfoService.signIn(formData)
 
-        let userResult = await userInfoService.signIn(formData)
-
-        if (userResult) {
-            if (formData.name === userResult.name) {
-                result.success = true
-                let userInfo = await userInfoService.getUserInfoByUserName(formData.name)
-                if (userInfo) {
-                    result.data = userInfo;
-                    // formDate.id = userInfo.id; //为登录用户
-                    let token = await accessTokenService.getToken(userInfo);
-                    if (token[0]) {
-                        result.data.token = token[0].accessToken;
-                    } else {
-                        const access_token = uuidV4();
-                        let token = {
-                            userId: userInfo.id,
-                            accessToken: access_token,
-                            deadline: new Date().getTime() + (365 * 24 * 60 * 60 * 1000), //过期时间一年
-                            type: 1
-                        };
-                        if (await accessTokenService.create(token)) {
-                            result.data.token = access_token;
+            if (userResult) {
+                if (formData.name === userResult.name) {
+                    result.success = true
+                    let userInfo = await userInfoService.getUserInfoByUserName(formData.name)
+                    if (userInfo) {
+                        result.data = userInfo;
+                        // formDate.id = userInfo.id; //为登录用户
+                        let token = await accessTokenService.getToken(userInfo);
+                        if (token[0]) {
+                            result.data.token = token[0].accessToken;
+                        } else {
+                            const access_token = uuidV4();
+                            let token = {
+                                userId: userInfo.id,
+                                accessToken: access_token,
+                                deadline: new Date().getTime() + (365 * 24 * 60 * 60 * 1000), //过期时间一年
+                                type: 1
+                            };
+                            if (await accessTokenService.create(token)) {
+                                result.data.token = access_token;
+                            }
                         }
-                    }
 
+                    }
+                    // else {
+                    //     result.message = userCode.FAIL_USER_NO_LOGIN
+                    // }
+                } else {
+                    result.message = userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR
+                    result.code = 'FAIL_USER_NAME_OR_PASSWORD_ERROR'
                 }
-                // else {
-                //     result.message = userCode.FAIL_USER_NO_LOGIN
-                // }
             } else {
                 result.message = userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR
                 result.code = 'FAIL_USER_NAME_OR_PASSWORD_ERROR'

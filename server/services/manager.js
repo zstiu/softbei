@@ -80,14 +80,14 @@ const manager = {
      * @param  {object} formData 登录表单信息
      * @return {object}          登录业务操作结果
      */
-    // async signIn(formData) {
-    //     let resultData = await userModel.getOneByUserNameAndPassword({
-    //         'password': formData.password,
-    //         'name': formData.name
-    //     })
+    async signIn(formData) {
+        let resultData = await managerModel.getOneByManagerNameAndPassword({
+            'password': formData.password,
+            'name': formData.name
+        })
 
-    //     return resultData
-    // },
+        return resultData
+    },
 
 
     /**
@@ -114,23 +114,23 @@ const manager = {
      * @param  {string} userName 用户名
      * @return {object|null}     查找结果
      */
-    // async getUserInfoByUserName(userName) {
+    async getManagerInfoByManagerName(managerName) {
 
-    //     let resultData = await userModel.getUserInfoByUserName(userName) || {};
-    //     // let userInfo = {
-    //     //     id: resultData.id,
-    //     //     name: resultData.name,
-    //     //     email: resultData.email,
-    //     //     // userName: resultData.name,
-    //     //     major: resultData.major,
-    //     //     marked: resultData.marked,
-    //     //     create_time: resultData.create_time,
-    //     //     modified_time: resultData.modified_time,
-    //     //     score: resultData.score,
-    //     //     level: resultData.level
-    //     // }
-    //     return resultData;
-    // },
+        let resultData = await managerModel.getManagerInfoByManagerName(managerName) || {};
+        // let userInfo = {
+        //     id: resultData.id,
+        //     name: resultData.name,
+        //     email: resultData.email,
+        //     // userName: resultData.name,
+        //     major: resultData.major,
+        //     marked: resultData.marked,
+        //     create_time: resultData.create_time,
+        //     modified_time: resultData.modified_time,
+        //     score: resultData.score,
+        //     level: resultData.level
+        // }
+        return resultData;
+    },
 
 
     /**
