@@ -212,36 +212,6 @@ module.exports = {
                 }
             }
 
-            // let user = {
-            //     id: formData.id,
-            //     // email: formData.email,
-            //     // // password: formData.password,
-            //     // major: formData.major || '',
-            //     // marked: formData.marked || '',
-            //     // name: formData.name,
-            //     modified_time: new Date().getTime(),
-            // }
-
-            // if (formData.name) {
-            //     user.name = formData.name;
-            // }
-
-            // if (formData.email) {
-            //     user.email = formData.email;
-            // }
-
-            // if (formData.major) {
-            //     user.major = formData.major;
-            // }
-
-            // if (formData.introduction) {
-            //     user.introduction = formData.introduction;
-            // }
-
-            // if (formData.sex) {
-            //     user.sex = formData.sex;
-            // }
-
 
 
             let userInfo = await userInfoService.updateUserInfo(formData);
@@ -344,7 +314,7 @@ module.exports = {
      * @param   {obejct} ctx 上下文对象
      */
     async getPicture(ctx) {
-        let formData = ctx.request.body
+        let body = ctx.request.body
         let result = {
             success: false,
             message: '',
@@ -352,13 +322,15 @@ module.exports = {
             code: ""
         }
 
-        let validateResult = await userInfoService.exitPhone(formData);
+        // let validateResult = await userInfoService.exitPhone(formData);
 
-        if (validateResult.success === false) {
-            result = validateResult
-            ctx.body = result
-            return
-        }
+        // if (validateResult.success === false) {
+        //     result = validateResult
+        //     ctx.body = result
+        //     return
+        // }
+
+        result.data = await userInfoService.getPicture(body);
 
 
 

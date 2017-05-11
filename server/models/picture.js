@@ -53,22 +53,34 @@ const picture = {
     //     return result
     // },
 
-    // /**
-    //  * 根据用户名查找用户信息
-    //  * @param  {string} userName 用户账号名称
-    //  * @return {object|null}     查找结果
-    //  */
-    // async getUserInfoByUserName(userName) {
+    /**
+     * 得到指定数量的picture数据
+     * @param  {string} minId 用户浏览到的pictureID
+     * @param  {string} limit 限制的查询条数
+     * @return {object|null}     查找结果
+     */
+    async getPicture(minId, limit) {
 
-    //     let result = await dbUtils.selectDateByName(
-    //         'user_info', ['id', 'email', 'name', 'major', 'marked', 'create_time', 'modified_time', 'score', 'level'], userName)
-    //     if (Array.isArray(result) && result.length > 0) {
-    //         result = result[0]
-    //     } else {
-    //         result = null
-    //     }
-    //     return result
-    // },
+        console.log(typeof minId);
+        console.log(typeof limit);
+
+        let _sql = `SELECT * from picture
+            where id > ${minId} limit  ${minId}, ${limit+minId}`
+
+        console.log(_sql);
+        let result = await dbUtils.query(_sql)
+
+        console.log(result);
+
+
+        // let result = await dbUtils.findDataByPage("picture", "*", minId, minId)
+        // if (Array.isArray(result) && result.length > 0) {
+        //     result = result[0]
+        // } else {
+        //     result = null
+        // }
+        return result;
+    },
 
 
 

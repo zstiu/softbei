@@ -1,6 +1,6 @@
 const config = {
 
-    imageHost: "115.159.26.94:9001", //图片静态服务器
+    imageHost: "115.159.26.94:9001\\", //图片静态服务器
 
     imagePath: "",
 

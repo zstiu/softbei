@@ -158,20 +158,26 @@ method: -> post
 成功时返回
 ```
   {
-    "success": true,
-    "message": "",
-    "data":{
+  "success": true,
+  "message": "",
+  "data":
+  {
     "id": 3,
     "email": "zstiu@foxmail.com",
     "name": "zstiu",
+    "avatarUrl": null,
+    "sex": null,
+    "birthday": null,
     "major": null,
     "marked": null,
+    "introduction": null,
     "create_time": "1492958357022",
     "modified_time": null,
     "score": 0,
-    "level": 0
-    },
-    "code": ""
+    "level": 0,
+    "phone": "15195891362"
+  },
+  "code": ""
   }
 ```
 失败时返回
@@ -195,6 +201,9 @@ method: -> post
 > email(可缺省)  
 > major（可缺省）  
 > marked（可缺省）  
+> birthday（可缺省）  
+> sex（可缺省）  
+> introduction（可缺省）  
 > * token(登录时服务端返回数据)
 
 示例http://115.159.26.94:3001/api/user/update
@@ -371,6 +380,81 @@ method: -> post
   "message": "用户名或登录密码错误",
   "data": null,
   "code": "FAIL_USER_NAME_OR_PASSWORD_ERROR"
+  }
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+
+## 图片模块
+
+> 目录： /picture
+
+### 注册 **getPicture**
+method: -> post
+所需数据(标星号为必须字段，下同)
+> * id (用户id)    
+> * limit (限制返回数据条数，默认为20条)  
+
+
+示例http://115.159.26.94:3001/api/manager/signUp
+```
+  {
+    "id": "12",
+    "limit": 20
+  }
+
+
+```
+
+成功时返回
+```
+{
+"success": true,
+"message": "",
+"data":
+[
+  {
+    "id": 47,
+    "managerId": 9,
+    "path": "115.159.26.94:9001\\common\\2017\\05\\10\\84fc0fe12cdf1.jpg",
+    "type": null,
+    "planId": 1,
+    "acceptedlabel": null,
+    "labelNumber": 0,
+    "isFinished": 0,
+    "uploadTime": "1494412905926"
+  },
+  {"id": 48, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\ea730cbf5b24e.jpg", "type": null,…},
+  {"id": 49, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\d2428ee397187.jpg", "type": null,…},
+  {"id": 50, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\b924a99edcb66.jpg", "type": null,…},
+  {"id": 51, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\9b13af5898d6d.jpg", "type": null,…},
+  {"id": 52, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\06d86e4dce856.jpg", "type": null,…},
+  {"id": 53, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\0451cae6962ed.jpg", "type": null,…},
+  {"id": 54, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\33ec55a956a09.jpg", "type": null,…},
+  {"id": 55, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\4e56fdc09670d.jpg", "type": null,…},
+  {"id": 56, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\d785998498834.jpg", "type": null,…},
+  {"id": 57, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\8044922da2a44.jpg", "type": null,…},
+  {"id": 58, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\dd58ad9ef68fe.jpg", "type": null,…},
+  {"id": 59, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\2eec56b05078f.jpg", "type": null,…},
+  {"id": 60, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\e77c7b9be044b.jpg", "type": null,…},
+  {"id": 61, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\71dfcc78444c5.jpg", "type": null,…},
+  {"id": 62, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\0996cb046120d.jpg", "type": null,…},
+  {"id": 63, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\a0ae6dd55163d.jpg", "type": null,…},
+  {"id": 64, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\62921def4045a.jpg", "type": null,…},
+  {"id": 65, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\485f0b0f99a4b.jpeg", "type": null,…},
+  {"id": 66, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\0838be51c5383.jpg", "type": null,…}
+],
+"code": ""
+}
+```
+失败时返回
+```
+  {
+    "success": false,
+    "message": "输入字段缺省或错误",
+    "data":[],
+    "code": ""
   }
 ```
 * 根据success字段判断是否成功

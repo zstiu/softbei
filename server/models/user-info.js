@@ -83,7 +83,7 @@ const user = {
 
 
     /**
-     * 检验当前手机号是否已注册
+     * 取手机号对应的数据
      * @param  {obejct} options 查找条件参数 只有phone
      * @return {object|null}        查找结果
      */
@@ -101,6 +101,46 @@ const user = {
         console.log("result");
         return result
     },
+
+    /**
+     * 根据用户id 查找用户pictureId
+     * @param  {string} userName 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async getPictureidByUserId(id) {
+
+        let _sql = `SELECT pictureId FROM user_info WHERE id = ${id}`;
+        let user = await dbUtils.query(_sql)
+
+        // let user = await dbUtils.findDataById('user_info', id);
+        // selectDateByName(
+        //     'user_info', ['id', 'email', 'name', 'avatarUrl', 'sex', 'birthday', 'major', 'marked', 'introduction', 'create_time', 'modified_time', 'score', 'level', 'phone'], userName)
+        if (Array.isArray(user) && user.length > 0) {
+            user = user[0]
+        } else {
+            user = null
+        }
+        return user
+    },
+
+
+    /**
+     * 用户id正在查看n个picture
+     * 更新用户pictureId
+     * @param  {string} id 用户id
+     * @param  {string} n 用户正在查看n条数据
+     * @return {object|null}     查找结果
+     */
+    async watchingPicture(id, n) {
+
+        let _sql = `UPDATE user_info SET pictureId=pictureId+${n} WHERE id = ${id}`;
+        console.log(_sql);
+        let result = await dbUtils.query(_sql)
+        console.log(typeof result);
+
+        return result;
+    },
+
 
 
 

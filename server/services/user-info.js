@@ -246,6 +246,35 @@ const user = {
         return result
     },
 
+    /**
+     * 根据用户id 查找用户pictureId
+     * @param  {string} userName 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async getPictureidByUserId(id) {
+
+        let pictureId = await userModel.getPictureidByUserId(id);
+        return pictureId;
+    },
+
+
+
+    /**
+     * 用户id正在查看n个picture
+     * 更新用户pictureId
+     * @param  {string} id 用户id
+     * @param  {string} n 用户正在查看n条数据
+     * @return {object|null}     查找结果
+     */
+    async watchingPicture(id, n) {
+
+
+
+        let result = await userModel.watchingPicture(id, n)
+
+        return result
+    },
+
 }
 
 module.exports = user
