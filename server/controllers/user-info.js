@@ -1,5 +1,6 @@
 const userInfoService = require('./../services/user-info')
 const accessTokenService = require('./../services/access-token')
+const messageService = require('./../services/message')
 const userCode = require('./../codes/user')
 const uuidV4 = require('uuid/v4');
 
@@ -338,6 +339,51 @@ module.exports = {
         result.code = "1111";
 
         // result.message = userCode.ERROR_SYS
+
+
+        ctx.body = result
+    },
+
+    /**
+     * 查找用户的message
+     * @param  {obejct} options 查找条件参数
+     * @return {object|null}        查找结果
+     */
+    async getUserMessage(ctx) {
+
+        let body = ctx.request.body
+        let result = {
+            success: false,
+            message: '',
+            data: [],
+            code: ""
+        }
+
+        let tokenStatus = await accessTokenService.isLoged(body);
+        if (tokenStatus === 1) {
+
+            let message = await messageService.getUserMessage(body.id);
+            // let userInfo = await userInfoService.getUserInfoByUserName(userDate.name);
+            if (message.length > 0) {
+                for (let i = 0; i < message.length; i++) {
+                    result.data.push(message[i]);
+                }
+
+                result.success = true;
+            } else {
+                result.message = userCode.USER_NO_MESSAGE;
+                result.success = true;
+            }
+        } else if (tokenStatus === 0) {
+            result.code = 9999;
+            result.message = userCode.FAIL_TOKEN_TIME;
+        } else {
+            // TODO
+            result.code = 0000;
+            result.message = userCode.FAIL_USER_NO_LOGIN;
+        }
+
+
 
 
         ctx.body = result

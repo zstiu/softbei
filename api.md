@@ -292,6 +292,59 @@ method: -> post
 * 根据message字段标识失败原因
 
 
+### 得到用户消息  **getUserMessage**
+method: -> post
+所需数据
+> * id  
+> * token
+
+
+示例http://115.159.26.94:3001/api/user/getUserMessage
+```
+
+  {
+  "id": "3",
+  "token": "c38fff51-90ad-46c6-9fde-182020c4f2e5"
+  }
+
+
+```
+
+成功时返回
+```
+  {
+  "success": true,
+  "message": "",
+  "data":
+    [
+      {
+        "id": 1,
+        "userId": 3,
+        "managerId": null,
+        "type": "系统",
+        "created_time": "1111111111",
+        "title": "test",
+        "message": "这是一个测试message的数据",
+        "isWatched": 0
+      }
+    ],
+  "code": ""
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "手机号已被注册",
+  "data": null,
+  "code": "0001"
+  }
+```
+
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+
 ## 管理员模块
 
 > 目录： /manager
