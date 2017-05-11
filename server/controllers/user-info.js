@@ -1,6 +1,7 @@
 const userInfoService = require('./../services/user-info')
 const accessTokenService = require('./../services/access-token')
 const messageService = require('./../services/message')
+const labelService = require('./../services/label')
 const userCode = require('./../codes/user')
 const uuidV4 = require('uuid/v4');
 
@@ -384,6 +385,30 @@ module.exports = {
         }
 
 
+
+
+        ctx.body = result
+    },
+
+
+    /**
+     * 贴标签操作
+     * @param  {obejct} options 查找条件参数
+     * @return {object|null}        查找结果
+     */
+    async addPictureLabel(ctx) {
+
+        let body = ctx.request.body
+        let result = {
+            success: false,
+            message: '',
+            data: null,
+            code: ""
+        }
+
+        await labelService.addPictureLabel(body.id, body.pictureId, body.label);
+
+        result.success = true;
 
 
         ctx.body = result

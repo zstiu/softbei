@@ -10,13 +10,19 @@ const userCode = require('./../codes/user')
 const label = {
 
     /**
-     * 数据库新加图片数据
-     * @param  {object} picture 用户信息
-     * @return {object}      创建结果
+     * 数据库新加标签数据
+     * @param  {object} model 用户数据模型
+     * @return {object}       mysql执行结果
      */
-    async create(picture) {
-        picture.uploadTime = new Date().getTime();
-        let result = await pictureModel.create(picture)
+    async addPictureLabel(userId, pictureId, labelInfo) {
+
+        let label = {
+            userId: userId,
+            pictureId: pictureId,
+            label: labelInfo,
+            created_time: new Date().getTime()
+        }
+        let result = await labelModel.create(label)
         return result
     },
 

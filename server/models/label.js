@@ -8,7 +8,10 @@ const picture = {
      * @return {object}       mysql执行结果
      */
     async create(label) {
-        let result = await dbUtils.insertData('label', label)
+        // lwt _sql = "INSERT INTO label SET ?"
+        console.log(label);
+        let result = await dbUtils.insertData("label", label)
+
         return result
     },
 
