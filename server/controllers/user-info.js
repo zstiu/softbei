@@ -191,6 +191,26 @@ module.exports = {
 
         let tokenStatus = await accessTokenService.isLoged(formData);
         if (tokenStatus === 1) {
+            let existOne = await userInfoService.getExistOne(formData)
+                // console.log(existOne)
+
+            if (existOne) {
+                if (existOne.name === formData.name) {
+                    result.message = userCode.FAIL_USER_NAME_IS_EXIST
+                    ctx.body = result
+                    return
+                }
+                if (existOne.email === formData.email) {
+                    result.message = userCode.FAIL_EMAIL_IS_EXIST
+                    ctx.body = result
+                    return
+                }
+                if (existOne.phone === formData.phone) {
+                    result.message = userCode.FAIL_USER_PHONE_IS_EXIST
+                    ctx.body = result
+                    return
+                }
+            }
 
             // let user = {
             //     id: formData.id,
