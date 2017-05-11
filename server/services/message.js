@@ -3,12 +3,12 @@
  */
 
 const validator = require('validator')
-const userModel = require('./../models/user-info')
+const messageModel = require('./../models/message')
 const tokenModel = require('./../models/access-token')
 const userCode = require('./../codes/user')
 const uuidV4 = require('uuid/v4');
 
-const user = {
+const message = {
 
     /**
      * 创建用户
@@ -248,4 +248,4 @@ const user = {
 
 }
 
-module.exports = user
+module.exports = message

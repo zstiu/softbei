@@ -21,43 +21,45 @@ module.exports = {
         let userResultByName = await userInfoService.getUserInfoByUserName(formData.name);
 
         if (userResultByName) {
-            let userResult = await userInfoService.signIn(formData)
+            result = await userInfoService.signIn(formData);
 
-            if (userResult) {
-                if (formData.name === userResult.name) {
-                    result.success = true
-                    let userInfo = await userInfoService.getUserInfoByUserName(formData.name)
-                    if (userInfo) {
-                        result.data = userInfo;
-                        // formDate.id = userInfo.id; //为登录用户
-                        let token = await accessTokenService.getToken(userInfo);
-                        if (token[0]) {
-                            result.data.token = token[0].accessToken;
-                        } else {
-                            const access_token = uuidV4();
-                            let token = {
-                                userId: userInfo.id,
-                                accessToken: access_token,
-                                deadline: new Date().getTime() + (365 * 24 * 60 * 60 * 1000), //过期时间一年
-                                type: 1
-                            };
-                            if (await accessTokenService.create(token)) {
-                                result.data.token = access_token;
-                            }
-                        }
+            // console.log("result.data.token = " + result.data.token);
 
-                    }
-                    // else {
-                    //     result.message = userCode.FAIL_USER_NO_LOGIN
-                    // }
-                } else {
-                    result.message = userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR
-                    result.code = 'FAIL_USER_NAME_OR_PASSWORD_ERROR'
-                }
-            } else {
-                result.message = userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR
-                result.code = 'FAIL_USER_NAME_OR_PASSWORD_ERROR'
-            }
+            // if (userResult) {
+            //     if (formData.name === userResult.name) {
+            //         result.success = true
+            //         let userInfo = await userInfoService.getUserInfoByUserName(formData.name)
+            //         if (userInfo) {
+            //             result.data = userInfo;
+            //             // formDate.id = userInfo.id; //为登录用户
+            //             let token = await accessTokenService.getToken(userInfo);
+            //             if (token[0]) {
+            //                 result.data.token = token[0].accessToken;
+            //             } else {
+            //                 const access_token = uuidV4();
+            //                 let token = {
+            //                     userId: userInfo.id,
+            //                     accessToken: access_token,
+            //                     deadline: new Date().getTime() + (365 * 24 * 60 * 60 * 1000), //过期时间一年
+            //                     type: 1
+            //                 };
+            //                 if (await accessTokenService.create(token)) {
+            //                     result.data.token = access_token;
+            //                 }
+            //             }
+
+            //         }
+            //         // else {
+            //         //     result.message = userCode.FAIL_USER_NO_LOGIN
+            //         // }
+            //     } else {
+            //         result.message = userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR
+            //         result.code = 'FAIL_USER_NAME_OR_PASSWORD_ERROR'
+            //     }
+            // } else {
+            //     result.message = userCode.FAIL_USER_NAME_OR_PASSWORD_ERROR
+            //     result.code = 'FAIL_USER_NAME_OR_PASSWORD_ERROR'
+            // }
         } else {
             result.code = 'FAIL_USER_NO_EXIST';
             result.message = userCode.FAIL_USER_NO_EXIST
@@ -142,6 +144,11 @@ module.exports = {
                 ctx.body = result
                 return
             }
+            if (existOne.phone === formData.phone) {
+                result.message = userCode.FAIL_USER_PHONE_IS_EXIST
+                ctx.body = result
+                return
+            }
         }
 
 
@@ -149,6 +156,7 @@ module.exports = {
             email: formData.email,
             password: formData.password,
             name: formData.name,
+            phone: formData.phone,
             create_time: new Date().getTime(),
             score: 0,
             level: 0,
@@ -157,8 +165,9 @@ module.exports = {
         // console.log(userResult)
 
         if (userResult && userResult.insertId * 1 > 0) {
-            result.success = true
-            result.code = "1111";
+            result = await userInfoService.signIn(formData);
+            // result.success = true
+            // result.code = "1111";
         } else {
             result.message = userCode.ERROR_SYS
         }
@@ -183,34 +192,39 @@ module.exports = {
         let tokenStatus = await accessTokenService.isLoged(formData);
         if (tokenStatus === 1) {
 
-            let user = {
-                id: formData.id,
-                // email: formData.email,
-                // // password: formData.password,
-                // major: formData.major || '',
-                // marked: formData.marked || '',
-                // name: formData.name,
-                modified_time: new Date().getTime(),
-            }
+            // let user = {
+            //     id: formData.id,
+            //     // email: formData.email,
+            //     // // password: formData.password,
+            //     // major: formData.major || '',
+            //     // marked: formData.marked || '',
+            //     // name: formData.name,
+            //     modified_time: new Date().getTime(),
+            // }
 
-            if (formData.name) {
-                user.name = formData.name;
-            }
+            // if (formData.name) {
+            //     user.name = formData.name;
+            // }
 
-            if (formData.email) {
-                user.email = formData.email;
-            }
+            // if (formData.email) {
+            //     user.email = formData.email;
+            // }
 
-            if (formData.major) {
-                user.major = formData.major;
-            }
+            // if (formData.major) {
+            //     user.major = formData.major;
+            // }
 
-            if (formData.marked) {
-                user.marked = formData.marked;
-            }
+            // if (formData.introduction) {
+            //     user.introduction = formData.introduction;
+            // }
+
+            // if (formData.sex) {
+            //     user.sex = formData.sex;
+            // }
 
 
-            let userInfo = await userInfoService.updateUserInfo(user);
+
+            let userInfo = await userInfoService.updateUserInfo(formData);
             if (userInfo) {
                 result.data = userInfo
                 result.success = true
@@ -277,6 +291,39 @@ module.exports = {
      * @param   {obejct} ctx 上下文对象
      */
     async exitPhone(ctx) {
+        let formData = ctx.request.body
+        let result = {
+            success: false,
+            message: '',
+            data: null,
+            code: ""
+        }
+
+        let validateResult = await userInfoService.exitPhone(formData);
+
+        if (validateResult.success === false) {
+            result = validateResult
+            ctx.body = result
+            return
+        }
+
+
+
+        result.success = true
+        result.code = "1111";
+
+        // result.message = userCode.ERROR_SYS
+
+
+        ctx.body = result
+    },
+
+
+    /**
+     * 请求一定数量的图片数据
+     * @param   {obejct} ctx 上下文对象
+     */
+    async getPicture(ctx) {
         let formData = ctx.request.body
         let result = {
             success: false,

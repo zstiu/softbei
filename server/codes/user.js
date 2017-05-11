@@ -34,6 +34,8 @@ const userCode = {
 
     FAIL_USER_NO_EXIST: '用户不存在',
 
+    LOGIN_SUCCESS: '用户登录成功'
+
 }
 
 
