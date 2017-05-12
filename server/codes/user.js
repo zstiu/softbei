@@ -34,6 +34,8 @@ const userCode = {
 
     FAIL_USER_NO_EXIST: '用户不存在',
 
+    FAIL_RESUMMIT: '请勿重复提交',
+
     LOGIN_SUCCESS: '用户登录成功',
 
     USER_NO_MESSAGE: '用户当前无消息'

@@ -1,6 +1,7 @@
 const userInfoService = require('./../services/user-info')
 const accessTokenService = require('./../services/access-token')
 const messageService = require('./../services/message')
+const pictureService = require('./../services/picture')
 const labelService = require('./../services/label')
 const userCode = require('./../codes/user')
 const uuidV4 = require('uuid/v4');
@@ -406,7 +407,36 @@ module.exports = {
             code: ""
         }
 
-        await labelService.addPictureLabel(body.id, body.pictureId, body.label);
+        let label = await labelService.getLabel(body.id, body.pictureId);
+        console.log(label);
+        if (label.length >= 1) {
+            for (let i = 0; i < label.length; i++) {
+                if (body.label === label[i].label) {
+                    result.message = userCode.FAIL_RESUMMIT;
+                    ctx.body = result;
+                    return;
+                }
+            }
+        }
+
+        let level = (await userInfoService.getLevelByUserId(body.id)).level;
+        console.log(level);
+        let weight;
+        if (level == 1) {
+            weight = 1;
+        } else if (level <= 5) {
+            weight = 2;
+        } else if (level <= 10) {
+            weight = 3;
+        } else {
+            result.message = userCode.ERROR_FORM_DATA;
+            ctx.body = result;
+            return;
+        }
+
+        await labelService.addPictureLabel(body.id, body.pictureId, body.label, weight);
+
+        await pictureService.labelOnece(body.pictureId);
 
         result.success = true;
 

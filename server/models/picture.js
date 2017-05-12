@@ -21,16 +21,29 @@ const picture = {
      */
     async getPicture(minId, limit) {
 
-        console.log(typeof minId);
-        console.log(typeof limit);
 
         let _sql = `SELECT * from picture
             where id > ${minId} limit  ${minId}, ${limit+minId}`
 
-        console.log(_sql);
         let result = await dbUtils.query(_sql)
 
-        console.log(result);
+
+        return result;
+    },
+
+
+    /**
+     * labelNumber加一
+     * @param  {string} minId 用户浏览到的pictureID
+     * @param  {string} limit 限制的查询条数
+     * @return {object|null}     查找结果
+     */
+    async plusLabelNumber(pictureId) {
+
+        let _sql = `UPDATE picture SET labelNumber=labelNumber+1 WHERE id = ${pictureId}`
+
+        let result = await dbUtils.query(_sql)
+
 
         return result;
     },

@@ -275,6 +275,17 @@ const user = {
         return result
     },
 
+    /**
+     * 根据用户id 查找用户等级
+     * @param  {string} userName 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async getLevelByUserId(id) {
+
+        let pictureId = await userModel.getLevelByUserId(id);
+        return pictureId;
+    },
+
 }
 
 module.exports = user

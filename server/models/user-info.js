@@ -141,6 +141,23 @@ const user = {
         return result;
     },
 
+    /**
+     * 根据用户id 查找用户等级
+     * @param  {string} userName 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async getLevelByUserId(id) {
+
+        let _sql = `SELECT level FROM user_info WHERE id = ${id}`;
+        let user = await dbUtils.query(_sql)
+
+        if (Array.isArray(user) && user.length > 0) {
+            user = user[0]
+        } else {
+            user = null
+        }
+        return user
+    },
 
 
 

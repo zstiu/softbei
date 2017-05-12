@@ -58,8 +58,8 @@
                 let tot = evt.total
                 let per = Math.floor(100 * loaded / tot)
                 options.progress(per)
-            }
-            xhr.open('post', 'http://115.159.26.94:3001/api/manager/uploadPicture')
+            };
+            // xhr.open('post', 'http://115.159.26.94:3001/api/manager/uploadPicture')
             xhr.open('post', 'http://localhost:3001/api/manager/uploadPicture')
             xhr.send(formData)
             console.log(formDate)
