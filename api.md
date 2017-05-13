@@ -345,6 +345,49 @@ method: -> post
 * 根据message字段标识失败原因
 
 
+### 用户打标签  **addPictureLabel**
+method: -> post
+所需数据
+> * id  
+> * pictureId
+> * label
+
+
+示例http://115.159.26.94:3001/api/user/addPictureLabel
+```
+
+{
+  "id": "3",
+  "pictureId": "47",
+  "label": "大狗"
+}
+
+
+```
+
+成功时返回
+```
+  {
+    "success": true,
+    "message": "",
+    "data": null,
+    "code": ""
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "请勿重复提交",
+  "data": null,
+  "code": ""
+  }
+```
+
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+
 ## 管理员模块
 
 > 目录： /manager
