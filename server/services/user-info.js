@@ -286,6 +286,19 @@ const user = {
         return pictureId;
     },
 
+
+    /**
+     * 用户打一次标签，积分增加
+     * @param  {string} id 用户账号userId
+     * @return {object|null}     查找结果
+     */
+    async plusUserScore(id, n) {
+
+        let result = await userModel.plusUserScore(id, n);
+        return result;
+    },
+
+
 }
 
 module.exports = user

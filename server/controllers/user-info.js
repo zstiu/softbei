@@ -394,7 +394,7 @@ module.exports = {
 
     /**
      * 贴标签操作
-     * @param  {obejct} options 查找条件参数
+     * @param  {object} ctx 上下文
      * @return {object|null}        查找结果
      */
     async addPictureLabel(ctx) {
@@ -408,7 +408,7 @@ module.exports = {
         }
 
         let label = await labelService.getLabel(body.id, body.pictureId);
-        console.log(label);
+        // console.log(label);
         if (label.length >= 1) {
             for (let i = 0; i < label.length; i++) {
                 if (body.label === label[i].label) {
@@ -435,6 +435,9 @@ module.exports = {
         }
 
         await labelService.addPictureLabel(body.id, body.pictureId, body.label, weight);
+
+        //用户积分加一
+        await userInfoService.plusUserScore(body.id, 1);
 
         await pictureService.labelOnece(body.pictureId);
 

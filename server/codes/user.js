@@ -4,7 +4,7 @@
 
 const userCode = {
 
-    ERROR_USER_NAME: '用户名格式为1-10位的小写字母，包括-、_',
+    ERROR_USER_NAME: '用户名格式为1-10位的字母或者汉字，包括-、_,不要有其他符号',
 
     ERROR_EMAIL: '请输入正确的邮箱地址',
 

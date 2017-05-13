@@ -160,6 +160,20 @@ const user = {
     },
 
 
+    /**
+     * 用户打一次标签，积分增加
+     * @param  {string} id 用户账号userId
+     * @return {object|null}     查找结果
+     */
+    async plusUserScore(id, n) {
+
+        let _sql = `UPDATE user_info SET score=score+${n} WHERE id = ${id}`;
+        let result = await dbUtils.query(_sql)
+
+
+        return result;
+    },
+
 
 }
 
