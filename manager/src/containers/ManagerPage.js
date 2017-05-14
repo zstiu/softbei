@@ -44,8 +44,12 @@ class ManagerPage extends Component {
 
   render() {
     const { manager, handelChange } = this.props
-    if (!manager) {
-      return <h1><i>Loading {manager.name}{"'s profile..."}</i></h1>
+    if (!manager.isLogin) {
+      return <h1><i>你未登录...</i><br/>
+              <button onClick={handelChange}>
+          getManager!
+        </button>
+      </h1>
     }
 
     // const { starredRepos, starredRepoOwners, starredPagination } = this.props
@@ -72,10 +76,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handelChange: () => dispatch(
-    { type: "getManager",
-    name: "test",
-    managerId: "9"})
+    handelChange: () => getManager("测试3", "123456")(dispatch)
   }
 }
 

@@ -6,7 +6,7 @@ import { combineReducers } from 'redux'
 
 
 const defaultState = {
-
+    isLogin: false,
     name: "zstiu",
     managerId: "9"
 
@@ -56,6 +56,7 @@ const manager = (state = defaultState, action) => {
             console.log("name = " + name);
             console.log("managerId = " + managerId);
             let newState = {
+                isLogin: true,
                 name: name,
                 managerId: managerId
             }
