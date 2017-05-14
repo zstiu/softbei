@@ -493,7 +493,7 @@ method: -> post
 > * limit (限制返回数据条数，默认为20条)  
 
 
-示例http://115.159.26.94:3001/api/manager/signUp
+示例http://115.159.26.94:3001/api/picture/getPicture
 ```
   {
     "id": "12",
