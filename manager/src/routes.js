@@ -6,7 +6,8 @@ import RepoPage from './containers/RepoPage'
 import ManagerPage from './containers/ManagerPage'
 
 export default <Route path="/" component={App}>
-
+  <Route path="/"
+         component={App} />
   <Route path="/manager"
          component={ManagerPage} />
 </Route>

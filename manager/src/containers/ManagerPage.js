@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { loadUser, loadStarred, getManager } from '../actions'
 import Manager from '../components/Manager'
+import Login from '../components/Login'
 import zip from 'lodash/zip'
+// import './dist/App.css'
 
 const loadManager = (name, managerId) => {
   getManager(name, managerId);
@@ -45,7 +47,8 @@ class ManagerPage extends Component {
   render() {
     const { manager, handelChange } = this.props
     if (!manager.isLogin) {
-      return <h1><i>你未登录...</i><br/>
+      return <h1>
+      <Login />
               <button onClick={handelChange}>
           getManager!
         </button>
