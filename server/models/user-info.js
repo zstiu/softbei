@@ -18,16 +18,16 @@ const user = {
      * @return {object|null}        查找结果
      */
     async getExistOne(options) {
-        let _sql = `
-    SELECT * from user_info
-      where email="${options.email}" or name="${options.name}" or phone="${options.phone}"
-      limit 1`
+
+        let _sql = `SELECT * from user_info where id!=${options.id} and (email="${options.email}" or name="${options.name}" or phone="${options.phone}") limit 1`
+        console.log(_sql);
         let result = await dbUtils.query(_sql)
         if (Array.isArray(result) && result.length > 0) {
             result = result[0]
         } else {
             result = null
         }
+        console.log("exitOne:" + result);
         return result
     },
 
@@ -171,6 +171,15 @@ const user = {
         let result = await dbUtils.query(_sql)
 
 
+        return result;
+    },
+
+    /**
+     * 更新相应用户头像
+     * @param {object} user 
+     */
+    async updateUserAvatar(user) {
+        let result = await dbUtils.updateData("user_info", user, user.id);
         return result;
     },
 

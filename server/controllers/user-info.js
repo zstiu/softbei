@@ -217,9 +217,10 @@ module.exports = {
 
 
 
-            let userInfo = await userInfoService.updateUserInfo(formData);
-            if (userInfo) {
-                result.data = userInfo
+            let updateResult = await userInfoService.updateUserInfo(formData);
+            if (updateResult) {
+                // result.data = userInfo
+                result.code = 1111;
                 result.success = true
             } else {
                 result.message = userCode.ERROR_SYS;
@@ -443,6 +444,43 @@ module.exports = {
 
         result.success = true;
 
+
+        ctx.body = result
+    },
+
+    /**
+     * 更新用户头像
+     * @param   {obejct} ctx 上下文对象
+     */
+    async updateUserAvatar(ctx) {
+        let formData = ctx.request.body
+        let result = {
+            success: false,
+            message: '',
+            data: null,
+            code: ''
+        }
+
+        let tokenStatus = await accessTokenService.isLoged(formData);
+        if (tokenStatus === 1) {
+
+
+            let updateResult = await userInfoService.updateUserAvatar(formData);
+            if (updateResult) {
+                // result.data = userInfo
+                result.code = 1111;
+                result.success = true
+            } else {
+                result.message = userCode.ERROR_SYS;
+            }
+        } else if (tokenStatus === 0) {
+            result.code = 9999;
+            result.message = userCode.FAIL_TOKEN_TIME;
+        } else {
+            // TODO
+            result.code = 0000;
+            result.message = userCode.FAIL_USER_NO_LOGIN;
+        }
 
         ctx.body = result
     },

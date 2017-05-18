@@ -27,6 +27,7 @@ const user = {
      */
     async getExistOne(formData) {
         let resultData = await userModel.getExistOne({
+            'id': formData.id,
             'email': formData.email,
             'name': formData.name,
             'phone': formData.phone
@@ -295,6 +296,24 @@ const user = {
     async plusUserScore(id, n) {
 
         let result = await userModel.plusUserScore(id, n);
+        return result;
+    },
+
+
+    /**
+     * 更新用户头像
+     * @param {object} formData 
+     */
+    async updateUserAvatar(formData) {
+
+        let user = {
+            id: formData.id,
+            avatarUrl: formData.avatarUrl,
+            modified_time: new Date().getTime(),
+        }
+
+
+        let result = await userModel.updateUserAvatar(user);
         return result;
     },
 

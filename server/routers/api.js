@@ -13,6 +13,7 @@ const routers = router
     .post('/user/signUp', userInfoController.signUp)
     .post('/user/signOut', userInfoController.signOut)
     .post('/user/update', userInfoController.update)
+    .post('/user/updateUserAvatar', userInfoController.updateUserAvatar)
     .post('/user/exitPhone', userInfoController.exitPhone)
     .post('/user/getUserMessage', userInfoController.getUserMessage)
     .post('/user/addPictureLabel', userInfoController.addPictureLabel)
@@ -20,6 +21,7 @@ const routers = router
     .post('/manager/signIn', managerController.signIn)
     .post('/manager/uploadPicture', managerController.uploadPicture)
     .post('/picture/getPicture', pictureController.getPicture)
+    .post('/picture/searchPicture', pictureController.searchPicture)
 
 
 module.exports = routers

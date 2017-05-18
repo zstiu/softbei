@@ -38,7 +38,9 @@ const userCode = {
 
     LOGIN_SUCCESS: '用户登录成功',
 
-    USER_NO_MESSAGE: '用户当前无消息'
+    USER_NO_MESSAGE: '用户当前无消息',
+
+    NO_SEARCH_PICTURE: '当前关键字无更多结果',
 
 }
 

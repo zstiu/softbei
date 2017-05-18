@@ -34,8 +34,7 @@ const picture = {
 
     /**
      * labelNumber加一
-     * @param  {string} minId 用户浏览到的pictureID
-     * @param  {string} limit 限制的查询条数
+     * @param  {string} pictureId 
      * @return {object|null}     查找结果
      */
     async plusLabelNumber(pictureId) {
@@ -48,6 +47,28 @@ const picture = {
         return result;
     },
 
+
+    /**
+     * 根据关键字搜索
+     * @param  {string} search 用户浏览到的pictureID
+     * @return {object|null}     查找结果
+     */
+    async searchPicture(search, limit, page) {
+
+        console.log(search, limit, page);
+
+        let start = limit * (page - 1);
+        let end = limit * page - 1;
+        //暂定方案：select语句得到关键字内容
+        //TODO: 对比关键字与图片标签的相似度
+        let _sql = `SELECT * from picture
+            where isFinished='0' and (acceptedLabel LIKE '%${search}%' OR recognitionLabel LIKE '${search}' OR resultLabel LIKE '${search}') LIMIT ${start},${end}`
+        console.log(_sql);
+        let result = await dbUtils.query(_sql)
+
+
+        return result;
+    },
 
 
 

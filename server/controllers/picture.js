@@ -50,6 +50,14 @@ module.exports = {
 
 
         let allPicture = await pictureService.getPicture(pictureId, limit);
+        let watchingPictureResult = userService.watchingPicture(body.id, allPicture.length);
+        if (allPicture.length < limit) { //当pictureId到尾部时，随机从前面取缺少的值补充
+            let randomId = Math.random;
+            let randomPicture = await pictureService.getPicture(pictureId, limit - allPicture.length);
+            for (let tag of randomPicture) {
+                allPicture.push(tag);
+            }
+        }
         console.log(typeof allPicture);
         // console.log(allPicture);
         for (let tag = 0; tag < allPicture.length; tag++) {
@@ -57,26 +65,52 @@ module.exports = {
             result.data.push(allPicture[tag]);
         }
 
-        let watchingPictureResult = userService.watchingPicture(body.id, limit);
-
-        // let validateResult = await userInfoService.exitPhone(formData);
-
-        // if (validateResult.success === false) {
-        //     result = validateResult
-        //     ctx.body = result
-        //     return
-        // }
+        result.success = true;
+        ctx.body = result;
+    },
 
 
+    /**
+     * 搜索pciture
+     * @param  {obejct} ctx 上下文对象
+
+     * 得到指定数量的picture数据
+
+     */
+    async searchPicture(ctx) {
+
+
+
+        let body = ctx.request.body;
+        let result = {
+            success: false,
+            message: '',
+            data: [],
+            code: ""
+        }
+
+
+
+        // console.log(pictureId);
+        let search = body.search;
+        let limit = body.limit;
+        let page = body.page;
+
+
+        let allPicture = await pictureService.searchPicture(search, limit, page);
+        for (let tag = 0; tag < allPicture.length; tag++) {
+            allPicture[tag].path = config.imageHost + allPicture[tag].path;
+            result.data.push(allPicture[tag]);
+        }
+
+        if (allPicture.length < limit) {
+            result.code = "0010";
+            result.message = userCode.NO_SEARCH_PICTURE;
+        }
 
         result.success = true;
-        // result.code = "1111";
 
-        // // result.message = userCode.ERROR_SYS
-
-
-        ctx.body = result
-            // return result
+        ctx.body = result;
     },
 
 
