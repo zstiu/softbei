@@ -40,6 +40,10 @@ class ManagerPage extends Component {
       browserHistory.push(`/login`)
   }
 
+  handelUpload =() => {
+    browserHistory.push('/upload')
+  }
+
 //   renderRepo([ repo, owner ]) {
 //     return (
 //       <Repo
@@ -50,7 +54,7 @@ class ManagerPage extends Component {
 //   }
 
   render() {
-    const { manager, handelLogin } = this.props
+    const { manager, handelLogin, handelUpdate } = this.props
     if (!manager.isLogin) {
       return <h1>
       <h2>请先登录</h2>
@@ -67,6 +71,9 @@ class ManagerPage extends Component {
       <div>
         <Manager manager={manager} />
         <hr />
+        <Button onClick={this.handelUpload}>
+          <Icon type="login" />上传图片
+        </Button>
 
 
       </div>

@@ -195,11 +195,17 @@ module.exports = {
             code: ""
         }
 
+        let query = ctx.request.query;
+
+        console.log("query: " + ctx.request.querystring);
+
         let uploadResult = await managerService.uploadPicture(ctx);
 
         let formData = {
-            managerId: uploadResult.data.managerId,
-            token: uploadResult.data.token
+            // managerId: uploadResult.data.managerId,
+            // token: uploadResult.data.token
+            managerId: query.managerId,
+            token: query.token
         }
 
         console.log("formData.managerId = " + formData.managerId);
@@ -208,9 +214,9 @@ module.exports = {
         if (isLoged === 1) {
             // let uploadResult = await managerService.uploadPicture(ctx)
             let picture = {
-                managerId: uploadResult.data.managerId || "0",
+                managerId: query.managerId || "0",
                 path: uploadResult.data.pictureUrl,
-                planId: uploadResult.data.planId,
+                planId: query.planId || "0",
             }
 
             let pictureResult = await pictureService.create(picture);
