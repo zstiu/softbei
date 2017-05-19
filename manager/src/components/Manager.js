@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 
 const Manager = ({ manager }) => {
   const { name, managerId } = manager

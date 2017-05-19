@@ -18,3 +18,29 @@
 #components-layout-demo-side .ant-layout-sider-collapsed .ant-menu-submenu-vertical>.ant-menu-submenu-title:after {
     display: none;
 }
+
+#components-form-demo-normal-login .login-form {
+    max-width: 300px;
+}
+
+#components-form-demo-normal-login .login-form-forgot {
+    float: right;
+}
+
+#components-form-demo-normal-login .login-form-button {
+    width: 100%;
+}
+
+.upload-list-inline .ant-upload-list-item {
+    float: left;
+    width: 200px;
+    margin-right: 8px;
+}
+
+.upload-list-inline .ant-upload-animate-enter {
+    animation-name: uploadAnimateInlineIn;
+}
+
+.upload-list-inline .ant-upload-animate-leave {
+    animation-name: uploadAnimateInlineOut;
+}

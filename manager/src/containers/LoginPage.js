@@ -1,25 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { loadUser, loadStarred, getManager, loginAction } from '../actions'
-import Manager from '../components/Manager'
+import { loginAction } from '../actions'
+// import Manager from '../components/Manager'
 import Login from '../components/Login'
-import zip from 'lodash/zip'
+// import zip from 'lodash/zip'
+// import './dist/Login.css'
 
 
 class LoginPage extends Component {
   static propTypes = {
     manager: PropTypes.object,
   }
-
-  handleLoadMoreClick = () => {
-    this.props.loadStarred(this.props.login, true)
-  }
-
-//   fetchLogin = (name, password) => (dispatch) => {
-//       console.log("dispatch");
-//     loginAction(name, password)(dispatch)
-//   }
 
 
   render() {
@@ -46,6 +38,7 @@ const mapStateToProps = (state) => {
                 fetchLogin: (name, password) => {
                     loginAction(name, password)(dispatch);
                     browserHistory.push(`/manager`)
+
                     }
             }
         }

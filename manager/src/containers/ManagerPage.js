@@ -1,14 +1,16 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { loadUser, loadStarred, getManager } from '../actions'
+import { browserHistory } from 'react-router'
+// import { getManager } from '../actions'
 import Manager from '../components/Manager'
-import Login from '../components/Login'
-import zip from 'lodash/zip'
+import { Icon, Button } from 'antd';
+// import Login from '../components/Login'
+// import zip from 'lodash/zip'
 // import './dist/App.css'
 
-const loadManager = (name, managerId) => {
-  getManager(name, managerId);
-}
+// const loadManager = (name, managerId) => {
+//   getManager(name, managerId);
+// }
 
 class ManagerPage extends Component {
   static propTypes = {
@@ -29,11 +31,14 @@ class ManagerPage extends Component {
     this.props.loadStarred(this.props.login, true)
   }
 
-//   handelChange = () => {
-//       console.log("getManger..");
-//     loadManager("test", 10);
-//     console.log();
-//   }
+  // handelChange = () => {
+  //     console.log("getManger..");
+  //   loadManager("test", 10);
+  //   console.log();
+  // }
+  handelLogin = () => {
+      browserHistory.push(`/login`)
+  }
 
 //   renderRepo([ repo, owner ]) {
 //     return (
@@ -45,13 +50,15 @@ class ManagerPage extends Component {
 //   }
 
   render() {
-    const { manager, handelChange } = this.props
+    const { manager, handelLogin } = this.props
     if (!manager.isLogin) {
       return <h1>
-      <Login />
-              <button onClick={handelChange}>
-          getManager!
-        </button>
+      <h2>请先登录</h2>
+      
+      <Button onClick={this.handelLogin}>
+        <Icon type="login" />前往登录
+      </Button>
+
       </h1>
     }
 
@@ -60,9 +67,7 @@ class ManagerPage extends Component {
       <div>
         <Manager manager={manager} />
         <hr />
-        <button onClick={handelChange}>
-          getManager!
-        </button>
+
 
       </div>
     )
@@ -79,7 +84,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handelChange: () => getManager("测试3", "123456")(dispatch)
+    // handelChange: () => getManager("测试3", "123456")(dispatch)
   }
 }
 

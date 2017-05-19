@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react'
-import { Link } from 'react-router'
+// import { Link } from 'react-router'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 const FormItem = Form.Item;
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
 
   static propTypes = {
     // value: PropTypes.string.isRequired,

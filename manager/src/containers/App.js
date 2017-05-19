@@ -1,16 +1,16 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
-import Explore from '../components/Explore'
-import { resetErrorMessage } from '../actions'
+import React, { Component } from 'react'
+// import { connect } from 'react-redux'
+// import { browserHistory } from 'react-router'
+// import Explore from '../components/Explore'
+// import { resetErrorMessage } from '../actions'
 
 
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import './dist/App.css'
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer,  Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
-class App extends React.Component {
+class App extends Component {
   
   state = {
     collapsed: false,
@@ -57,7 +57,29 @@ class App extends React.Component {
             </Menu.Item>
           </Menu>
         </Sider>
-        {children}
+
+
+        <Layout>
+          <Header style={{ background: '#fff', padding: 0 }} />
+          <Content style={{ margin: '0 16px' }}>
+            <Breadcrumb style={{ margin: '12px 0' }}>
+              <Breadcrumb.Item>User</Breadcrumb.Item>
+              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            </Breadcrumb>
+            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+
+
+
+              {children}
+            </div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            Ant Design ©2016 Created by Ant UED
+          </Footer>
+        </Layout>
+
+
+        
       </Layout>
     );
   }
