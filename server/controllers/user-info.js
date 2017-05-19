@@ -314,40 +314,6 @@ module.exports = {
 
 
     /**
-     * 请求一定数量的图片数据
-     * @param   {obejct} ctx 上下文对象
-     */
-    async getPicture(ctx) {
-        let body = ctx.request.body
-        let result = {
-            success: false,
-            message: '',
-            data: null,
-            code: ""
-        }
-
-        // let validateResult = await userInfoService.exitPhone(formData);
-
-        // if (validateResult.success === false) {
-        //     result = validateResult
-        //     ctx.body = result
-        //     return
-        // }
-
-        result.data = await userInfoService.getPicture(body);
-
-
-
-        result.success = true
-        result.code = "1111";
-
-        // result.message = userCode.ERROR_SYS
-
-
-        ctx.body = result
-    },
-
-    /**
      * 查找用户的message
      * @param  {obejct} options 查找条件参数
      * @return {object|null}        查找结果

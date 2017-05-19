@@ -63,6 +63,21 @@ const manager = (state = defaultState, action) => {
             console.log(newState);
             return newState;
 
+        case "loginManager":
+            // let name = action.name;
+            // // name: action.name,
+            // let managerId = action.managerId
+            // console.log("name = " + name);
+            // console.log("managerId = " + managerId);
+            newState = {
+                isLogin: true,
+                name: action.name,
+                managerId: action.managerId,
+                token: action.token
+            }
+            console.log(newState);
+            return newState;
+
         default:
             return state
     }

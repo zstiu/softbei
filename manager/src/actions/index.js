@@ -177,6 +177,72 @@ export const getManager = (name, password) => (dispatch, getState) => {
         // return dispatch(fetchManager(name, managerId))
 }
 
+
+const loginManager = (name, password) => {
+
+    const rootUrl = "http://localhost:3001";
+
+    let url = rootUrl + "/api/manager/signIn";
+
+    return new Promise((resolve, reject) => {
+
+        fetch(url, {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                password: password,
+            })
+        }).then(function(response) {
+            console.log("response: " + response);
+            return response.json()
+        }).then(function(json) {
+
+            let action = {
+                type: "loginManager",
+                name: json.data.name,
+                managerId: json.data.managerId,
+                token: json.data.token
+            }
+            console.log(action);
+            resolve(action);
+        })
+
+
+        // window.fetch(_url, fetchParams)
+        //     .then((response) => {
+        //         return response.json();
+        //     }).then((result) => {
+        //         resolve(result)
+        //     }).catch((err) => {
+        //         reject(err)
+        //     })
+    })
+
+
+
+    // return {
+    //     type: "getManager",
+    //     name: name,
+    //     managerId: managerId
+    // }
+
+}
+
+// Fetches a page of stargazers for a particular repo.
+// Bails out if page is cached and user didn't specifically request next page.
+// Relies on Redux Thunk middleware.
+export const loginAction = (name, password) => (dispatch, getState) => {
+
+    console.log("getManager...");
+    loginManager(name, password).then(function(action) {
+            return dispatch(action);
+        })
+        // return dispatch(fetchManager(name, managerId))
+}
+
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 
 // Resets the currently visible error message.
