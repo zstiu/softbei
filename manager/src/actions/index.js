@@ -90,12 +90,15 @@ const loginManager = (name, password) => {
             return response.json()
         }).then(function(json) {
 
+            let data = json.data
+
             if (json.success) {
                 let action = {
                         type: "loginManager",
-                        name: json.data.name,
-                        managerId: json.data.managerId,
-                        token: json.data.token
+                        // name: json.data.name,
+                        // managerId: json.data.managerId,
+                        // token: json.data.token
+                        data
                     }
                     // console.log(action);
 
@@ -128,6 +131,81 @@ export const loginAction = (name, password) =>
         console.log("getManager...");
         // let loginResultAction = loginManager(name, password);
         loginManager(name, password).then(function(action) {
+            // if (action.token) {
+            //     browserHistory.push(`/manager`)
+            // } else {
+
+            // }
+            return dispatch(action);
+        })
+
+
+    }
+
+
+const updateManager = (name, email, phone) => {
+
+    const rootUrl = "http://localhost:3001";
+
+    let url = rootUrl + "/api/manager/signIn";
+
+    return new Promise((resolve, reject) => {
+
+        fetch(url, {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                // password: password,
+            })
+        }).then(function(response) {
+            console.log("response: " + response);
+            return response.json()
+        }).then(function(json) {
+
+            let data = json.data
+
+            if (json.success) {
+                let action = {
+                        type: "loginManager",
+                        // name: json.data.name,
+                        // managerId: json.data.managerId,
+                        // token: json.data.token
+                        data
+                    }
+                    // console.log(action);
+
+                resolve(action);
+                browserHistory.push(`/manager`);
+            } else {
+                let action = {
+                    type: "loginFail",
+                    errorMessage: json.message
+                }
+                console.log(action);
+                resolve(action);
+            }
+
+        })
+
+
+    })
+
+
+
+}
+
+// Fetches a page of stargazers for a particular repo.
+// Bails out if page is cached and user didn't specifically request next page.
+// Relies on Redux Thunk middleware.
+export const updateAction = (name, email, phone) =>
+    (dispatch, getState) => {
+
+        console.log("updateManager...");
+        // let loginResultAction = loginManager(name, password);
+        updateManager(name, email, phone).then(function(action) {
             // if (action.token) {
             //     browserHistory.push(`/manager`)
             // } else {

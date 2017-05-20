@@ -3,39 +3,21 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 // import { getManager } from '../actions'
 import Manager from '../components/Manager'
+import NotLogin from '../components/notLogin'
 import { Icon, Button } from 'antd';
-// import Login from '../components/Login'
-// import zip from 'lodash/zip'
-// import './dist/App.css'
 
-// const loadManager = (name, managerId) => {
-//   getManager(name, managerId);
-// }
 
 class ManagerPage extends Component {
   static propTypes = {
     manager: PropTypes.object,
   }
 
-//   componentWillMount() {
-//     loadData(this.props)
-//   }
-
-//   componentWillReceiveProps(nextProps) {
-//     if (nextProps.login !== this.props.login) {
-//       loadData(nextProps)
-//     }
-//   }
 
   handleLoadMoreClick = () => {
     this.props.loadStarred(this.props.login, true)
   }
 
-  // handelChange = () => {
-  //     console.log("getManger..");
-  //   loadManager("test", 10);
-  //   console.log();
-  // }
+
   handelLogin = () => {
       browserHistory.push(`/login`)
   }
@@ -44,36 +26,24 @@ class ManagerPage extends Component {
     browserHistory.push('/upload')
   }
 
-//   renderRepo([ repo, owner ]) {
-//     return (
-//       <Repo
-//         repo={repo}
-//         owner={owner}
-//         key={repo.fullName} />
-//     )
-//   }
+
 
   render() {
     const { manager, handelLogin, handelUpdate } = this.props
     if (!manager.isLogin) {
-      return <h1>
-      <h2>请先登录</h2>
-      
-      <Button onClick={this.handelLogin}>
-        <Icon type="login" />前往登录
-      </Button>
-
-      </h1>
+      return <NotLogin/>
     }
 
     // const { starredRepos, starredRepoOwners, starredPagination } = this.props
-    return (
+    else return (
       <div>
         <Manager manager={manager} />
-        <hr />
-        <Button onClick={this.handelUpload}>
-          <Icon type="login" />上传图片
-        </Button>
+        {
+        //   <Button onClick={this.handelUpload}>
+        //   <Icon type="login" />上传图片
+        // </Button>
+        }
+        
 
 
       </div>

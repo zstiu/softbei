@@ -67,9 +67,12 @@ const manager = (state = defaultState, action) => {
         case "loginManager":
             newState = {
                 isLogin: true,
-                name: action.name,
-                managerId: action.managerId,
-                token: action.token
+                name: action.data.name,
+                managerId: action.data.managerId,
+                token: action.data.token,
+                email: action.data.email || "未绑定",
+                created_time: action.data.created_time,
+                phone: action.data.phone || "未绑定"
             };
             // browserHistory.push(`/manager`);
             console.log("newState:" + newState);

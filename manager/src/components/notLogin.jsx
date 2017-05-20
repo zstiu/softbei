@@ -20,10 +20,12 @@ class NotLogin extends Component {
             type="warning"
             showIcon
           />
+            {
+            //   <Button onClick={this.handelLogin}>
+            //   <Icon type="login" />前往登录
+            // </Button>
+            }
             
-            <Button onClick={this.handelLogin}>
-              <Icon type="login" />前往登录
-            </Button>
 
             </div>
         )

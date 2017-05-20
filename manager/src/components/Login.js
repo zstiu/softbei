@@ -25,13 +25,20 @@ class LoginForm extends Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { errorMessage } = this.props
+    const { manager } = this.props
     return (
 <div>
+
+         {manager.isLogin?"": <Alert
+            message="Warning"
+            description="你还未登录，登录前所有操作不能进行"
+            type="warning"
+            showIcon
+          />}
       
-        {errorMessage ? <Alert
+        {manager.errorMessage ? <Alert
                     message="Error"
-                    description={this.props.errorMessage}
+                    description={this.props.manager.errorMessage}
                     type="error"
                     showIcon/>:""}
 

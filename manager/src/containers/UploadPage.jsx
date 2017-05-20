@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import config from '../../config.js'
+import config from '../../config.js';
+import NotLogin from '../components/notLogin'
 // import { getManager } from '../actions'
 // import Upload from '../components/Upload'
 // import { Icon, Button } from 'antd';
@@ -21,7 +22,15 @@ class UploadPage extends Component {
 
 
     render() {
-        const { props } = this.props
+        const { props, manager } = this.props
+        
+
+
+    if (!manager.isLogin) {
+      return <NotLogin/>
+    }
+
+
         return (
             <div>
                 <Upload {...props} >
@@ -72,7 +81,8 @@ const mapStateToProps = (state) => {
 //   const starredRepoOwners = starredRepos.map(repo => users[repo.owner])
 
   return {
-    props: props
+    props: props,
+     manager: state.manager
   }
 }
 

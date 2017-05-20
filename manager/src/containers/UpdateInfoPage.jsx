@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { loginAction } from '../actions'
+import { updateAction } from '../actions'
 // import Manager from '../components/Manager'
-import Login from '../components/Login'
+import Update from '../components/Update'
 // import zip from 'lodash/zip'
 // import './dist/Login.css'
 
 
-class LoginPage extends Component {
+class UpdateInfoPage extends Component {
   static propTypes = {
     manager: PropTypes.object,
   }
@@ -17,7 +17,7 @@ class LoginPage extends Component {
   render() {
       const { manager } = this.props
       return (<div>
-      <Login fetchLogin={this.props.fetchLogin} manager={manager} />
+      <Update fetchUpdate={this.props.fetchUpdate} manager={manager} />
       </div>
       )
   }
@@ -36,8 +36,8 @@ class LoginPage extends Component {
     const mapDispatchToProps = (dispatch) => {
         return {
                 // handelChange: () => getManager("测试3", "123456")(dispatch)
-                fetchLogin: (name, password) => {
-                    loginAction(name, password)(dispatch);
+                fetchUpdate: (name, email, phone) => {
+                    updateAction(name, email, phone)(dispatch);
                     // browserHistory.push(`/manager`)
                     }
             }
@@ -49,4 +49,4 @@ class LoginPage extends Component {
 export default connect(
     mapStateToProps, 
     mapDispatchToProps
-)(LoginPage)
+)(UpdateInfoPage)

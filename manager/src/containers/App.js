@@ -19,8 +19,29 @@ class App extends Component {
     manager: PropTypes.object,
   }
 
-  handelChange = ({item, key, keyPath}) => {
-    console.log("点击了${key}")
+  handelChange(e){
+    console.log(e);
+    switch(e.key){
+      case '1': 
+                this.handelLogin();
+                break;
+      case '2': 
+                this.handelUpdate();
+                break;
+      case '3': 
+                this.handelLogin();
+                break;
+      case '4': 
+                this.handelUpload();
+                break;
+      case '5': 
+                this.handelLogin();
+                break;
+      case '6': 
+                this.handelManager();
+                break;                                
+    }
+      
   }
 
   handelLogin = () => {
@@ -39,6 +60,10 @@ class App extends Component {
   handelUpload =() => {
     browserHistory.push('/upload')
   }
+
+  handelUpdate =() => {
+    browserHistory.push('/updateInfo')
+  }
   
   state = {
     collapsed: false,
@@ -52,7 +77,7 @@ class App extends Component {
     });
   }
   render() {
-    const { children, handelLogin, handelManager, handelUpload, manager } = this.props
+    const { children, handelLogin, handelManager, handelUpload, manager, handelChange } = this.props
     return (
       <Layout>
         <Sider
@@ -61,26 +86,26 @@ class App extends Component {
           onCollapse={this.onCollapse}
         >
           <div className="logo" />
-          <Menu theme="dark" mode={this.state.mode} defaultSelectedKeys={['6']} onclick={this.handelChange}>
+          <Menu theme="dark" mode={this.state.mode} defaultSelectedKeys={['6']} defaultOpenKeys={['sub1', 'sub2']} onClick={this.handelChange.bind(this)}>
             <SubMenu
               key="sub1"
               title={<span><Icon type="user" /><span className="nav-text">{manager.isLogin?manager.name:"Manager(未登录)"}</span></span>}
             >
-              <Menu.Item key="1"> <Button onClick={this.handelLogin }>Login</Button>  </Menu.Item>
-              <Menu.Item key="2">Bill</Menu.Item>
+              <Menu.Item key="1">Login</Menu.Item>
+              <Menu.Item key="2">更新信息</Menu.Item>
               <Menu.Item key="3">Alex</Menu.Item>
             </SubMenu>
             <SubMenu
               key="sub2"
               title={<span><Icon type="team" /><span className="nav-text">操作</span></span>}
             >
-              <Menu.Item key="4"><Button onClick={this.handelUpload}>上传图片</Button></Menu.Item>
+              <Menu.Item key="4">上传图片</Menu.Item>
               <Menu.Item key="5">Team 2</Menu.Item>
             </SubMenu>
             <Menu.Item key="6">
               <span>
                 <Icon type="file" />
-                <span className="nav-text"><Button onClick={this.handelManager}>账户</Button></span>
+                <span className="nav-text">信息</span>
               </span>
             </Menu.Item>
           </Menu>
@@ -89,16 +114,20 @@ class App extends Component {
 
         <Layout>
           <Header style={{ background: '#fff', padding: 0 }} />
-          <Content style={{ margin: '0 16px' }}>
+          <Content style={{ margin: '0 16px'}}>
             <Breadcrumb style={{ margin: '12px 0' }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+              <Breadcrumb.Item>Manager</Breadcrumb.Item>
+              <Breadcrumb.Item>{manager.isLogin?manager.name:"(未登录)"}</Breadcrumb.Item>
             </Breadcrumb>
-            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+            <div style={{ padding: 24, background: '#fff', minHeight: 1080  }}>
 
 
-            {manager.isLogin?children:<div><NotLogin/> <LoginPage/></div>}
+            
+
+            {children}
               
+            
+
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
