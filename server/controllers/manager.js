@@ -219,7 +219,7 @@ module.exports = {
                 planId: query.planId || "0",
             }
 
-            let pictureResult = await pictureService.create(picture);
+            let pictureResult = pictureService.create(picture);
 
             // let resultDate = await accessTokenService.delete(formData);
             // if (resultDate) {
@@ -246,112 +246,6 @@ module.exports = {
 
         ctx.body = result
     },
-
-
-    // /**
-    //  * 更新用户信息
-    //  * @param {object} ctx 上下文对象 
-    //  */
-    // async update(ctx) {
-    //     let formData = ctx.request.body
-    //     let result = {
-    //         success: false,
-    //         message: '',
-    //         data: null,
-    //         code: ''
-    //     }
-
-    //     let tokenStatus = await accessTokenService.isLoged(formData);
-    //     if (tokenStatus === 1) {
-
-    //         let user = {
-    //             id: formData.id,
-    //             // email: formData.email,
-    //             // // password: formData.password,
-    //             // major: formData.major || '',
-    //             // marked: formData.marked || '',
-    //             // name: formData.name,
-    //             modified_time: new Date().getTime(),
-    //         }
-
-    //         if (formData.name) {
-    //             user.name = formData.name;
-    //         }
-
-    //         if (formData.email) {
-    //             user.email = formData.email;
-    //         }
-
-    //         if (formData.major) {
-    //             user.major = formData.major;
-    //         }
-
-    //         if (formData.marked) {
-    //             user.marked = formData.marked;
-    //         }
-
-
-    //         let userInfo = await userInfoService.updateUserInfo(user);
-    //         if (userInfo) {
-    //             result.data = userInfo
-    //             result.success = true
-    //         } else {
-    //             result.message = userCode.ERROR_SYS;
-    //         }
-    //     } else if (tokenStatus === 0) {
-    //         result.code = 9999;
-    //         result.message = userCode.FAIL_TOKEN_TIME;
-    //     } else {
-    //         // TODO
-    //         result.code = 0000;
-    //         result.message = userCode.FAIL_USER_NO_LOGIN;
-    //     }
-
-    //     ctx.body = result
-
-    // },
-
-
-
-    /**
-     * 获取用户信息
-     * @param    {obejct} ctx 上下文对象
-     */
-    // async getLoginUserInfo(ctx) {
-    //     // let session = ctx.session
-    //     // let isLogin = session.isLogin
-    //     // let userName = session.userName
-
-    //     // console.log('session=', session)
-    //     let userDate = ctx.request.body;
-
-    //     let result = {
-    //         success: false,
-    //         message: '',
-    //         data: null,
-    //         code: ''
-    //     }
-    //     let tokenStatus = await accessTokenService.isLoged(userDate);
-    //     if (tokenStatus === 1) {
-    //         let userInfo = await userInfoService.getUserInfoByUserName(userDate.name);
-    //         if (userInfo) {
-    //             result.data = userInfo
-    //             result.success = true
-    //         } else {
-    //             result.message = userCode.ERROR_SYS;
-    //         }
-    //     } else if (tokenStatus === 0) {
-    //         result.code = 9999;
-    //         result.message = userCode.FAIL_TOKEN_TIME;
-    //     } else {
-    //         // TODO
-    //         result.code = 0000;
-    //         result.message = userCode.FAIL_USER_NO_LOGIN;
-    //     }
-
-    //     ctx.body = result
-    // },
-
 
 
 

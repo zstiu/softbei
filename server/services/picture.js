@@ -6,6 +6,8 @@ const validator = require('validator')
 const pictureModel = require('./../models/picture')
 const tokenModel = require('./../models/access-token')
 const userCode = require('./../codes/user')
+const imageTag = require('./../utils/imageTag.js');
+const config = require('../../config')
 
 const picture = {
 
@@ -16,6 +18,16 @@ const picture = {
      */
     async create(picture) {
         picture.uploadTime = new Date().getTime();
+        //根据pictureUrl，使用图像·识别，加入recognitionLabel与type
+
+        let allPath = config.imageHost + "common/2017/05/10/00a8cf281dca4.jpg" //picture.path
+
+        let tag = await imageTag(allPath)
+
+        console.log(tag);
+
+        let recognitionLabel = "a";
+
         let result = await pictureModel.create(picture)
         return result
     },

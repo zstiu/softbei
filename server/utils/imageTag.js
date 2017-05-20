@@ -1,20 +1,23 @@
 var tencentyoutuyun = require('./imageTag');
-let config = require('../config.js');
+let config = require('../../config.js');
 var conf = tencentyoutuyun.conf;
 var youtu = tencentyoutuyun.youtu;
 
 // 设置开发者和应用信息, 请填写你在开放平台
-var appid = config.imagetag.appid;
-var secretId = config.imagetag.secretId;
-var secretKey = config.imagetag.secretKey;
+var appid = config.imageRecognition.AppId;
+var secretId = config.imageRecognition.SecretId;
+var secretKey = config.imageRecognition.SecretKey;
 var userid = '****';
 
 conf.setAppInfo(appid, secretId, secretKey, userid, 0);
 
 let imageTag = function(imageUrl) {
+    // console.log("断点1")
+
+    console.log(appid, secretId, secretKey)
 
     return new Promise((resolve, reject) => {
-
+        console.log(imageUrl);
         youtu.imagetag(imageUrl, function(data) {
             resolve(JSON.stringify(data));
         });
@@ -27,7 +30,7 @@ let imageTag = function(imageUrl) {
 
 }
 
-export default imageTag;
+module.exports = imageTag;
 
 
 // youtu.imagetag('https://threejs.org/files/projects/mustang.png', function(data) {

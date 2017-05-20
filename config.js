@@ -2,8 +2,8 @@ const config = {
 
     imageRecognition: { //腾讯图像识别api
 
-        AppID: "10083287",
-        SecretID: "AKIDTWSUYfedS9g9c6D8arxzBGDxUr1yQGfr",
+        AppId: "10083287",
+        SecretId: "AKIDTWSUYfedS9g9c6D8arxzBGDxUr1yQGfr",
         SecretKey: "74ufQ3UiniRyHOJ1Yw89xYw99wWv8GIQ"
 
     },
@@ -16,7 +16,7 @@ const config = {
 
     imagerPlus: "http://apicn.imageplusplus.com/analyze?api_key=4197724817ffc185214ad52cfccb8409&api_secret=83e077342e88ea3dbfd900ffb3767916&url=http://115.159.26.94:9001//common//2017//05//10//00a8cf281dca4.jpg",
 
-    imageHost: "115.159.26.94:9001\\", //图片静态服务器
+    imageHost: "http://115.159.26.94:9001/", //图片静态服务器
 
     imagePath: "",
 
