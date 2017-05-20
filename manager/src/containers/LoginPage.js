@@ -15,8 +15,9 @@ class LoginPage extends Component {
 
 
   render() {
+      const { manager } = this.props
       return (<h1>
-      <Login fetchLogin={this.props.fetchLogin} />
+      <Login fetchLogin={this.props.fetchLogin} errorMessage={manager.errorMessage} />
 
       </h1>)
   }
@@ -28,7 +29,7 @@ const mapStateToProps = (state) => {
 
 
     return {
-        // manager: state.manager
+        manager: state.manager
     }
     }
 
@@ -37,7 +38,7 @@ const mapStateToProps = (state) => {
                 // handelChange: () => getManager("测试3", "123456")(dispatch)
                 fetchLogin: (name, password) => {
                     loginAction(name, password)(dispatch);
-                    browserHistory.push(`/manager`)
+                    // browserHistory.push(`/manager`)
 
                     }
             }

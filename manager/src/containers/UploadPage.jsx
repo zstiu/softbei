@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
+import config from '../../config.js'
 // import { getManager } from '../actions'
 // import Upload from '../components/Upload'
 // import { Icon, Button } from 'antd';
@@ -57,7 +58,7 @@ const mapStateToProps = (state) => {
         } = state.manager
 
         const props = {
-            action: '//localhost:3001/api/manager/uploadPicture?managerId='+managerId+'&token='+token,
+            action: '//' + config.apiUrl + '/manager/uploadPicture?managerId='+managerId+'&token='+token,
             listType: 'picture',
             defaultFileList: [...fileList],
             className: 'upload-list-inline',

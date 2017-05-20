@@ -1,5 +1,6 @@
 import { CALL_API, Schemas } from '../middleware/api'
 import 'whatwg-fetch';
+import { browserHistory } from 'react-router'
 
 export const USER_REQUEST = 'USER_REQUEST'
 export const USER_SUCCESS = 'USER_SUCCESS'
@@ -200,14 +201,26 @@ const loginManager = (name, password) => {
             return response.json()
         }).then(function(json) {
 
-            let action = {
-                type: "loginManager",
-                name: json.data.name,
-                managerId: json.data.managerId,
-                token: json.data.token
+            if (json.success) {
+                let action = {
+                        type: "loginManager",
+                        name: json.data.name,
+                        managerId: json.data.managerId,
+                        token: json.data.token
+                    }
+                    // console.log(action);
+
+                resolve(action);
+                browserHistory.push(`/manager`);
+            } else {
+                let action = {
+                    type: "loginFail",
+                    errorMessage: json.message
+                }
+                console.log(action);
+                resolve(action);
             }
-            console.log(action);
-            resolve(action);
+
         })
 
 
@@ -234,14 +247,23 @@ const loginManager = (name, password) => {
 // Fetches a page of stargazers for a particular repo.
 // Bails out if page is cached and user didn't specifically request next page.
 // Relies on Redux Thunk middleware.
-export const loginAction = (name, password) => (dispatch, getState) => {
+export const loginAction = (name, password) =>
+    (dispatch, getState) => {
 
-    console.log("getManager...");
-    loginManager(name, password).then(function(action) {
+        console.log("getManager...");
+        // let loginResultAction = loginManager(name, password);
+        loginManager(name, password).then(function(action) {
+            // if (action.token) {
+            //     browserHistory.push(`/manager`)
+            // } else {
+
+            // }
             return dispatch(action);
         })
-        // return dispatch(fetchManager(name, managerId))
-}
+
+
+    }
+
 
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 

@@ -3,6 +3,7 @@
 // import paginate from './paginate'
 import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
+import { browserHistory } from 'react-router'
 
 
 const defaultState = {
@@ -64,18 +65,26 @@ const manager = (state = defaultState, action) => {
             return newState;
 
         case "loginManager":
+            newState = {
+                isLogin: true,
+                name: action.name,
+                managerId: action.managerId,
+                token: action.token
+            };
+            // browserHistory.push(`/manager`);
+            console.log("newState:" + newState);
+            return newState;
+
+        case "loginFail":
             // let name = action.name;
             // // name: action.name,
             // let managerId = action.managerId
             // console.log("name = " + name);
             // console.log("managerId = " + managerId);
             newState = {
-                isLogin: true,
-                name: action.name,
-                managerId: action.managerId,
-                token: action.token
+                isLogin: false,
+                errorMessage: action.errorMessage
             }
-            console.log(newState);
             return newState;
 
         default:

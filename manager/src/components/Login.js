@@ -1,13 +1,14 @@
 import React, { PropTypes, Component } from 'react'
 // import { Link } from 'react-router'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Alert  } from 'antd';
 const FormItem = Form.Item;
 
 class LoginForm extends Component {
 
   static propTypes = {
     // value: PropTypes.string.isRequired,
-    fetchLogin: PropTypes.func.isRequired
+    fetchLogin: PropTypes.func.isRequired,
+    errorMessage: PropTypes.string
   }
 
   handleSubmit = (e) => {
@@ -24,7 +25,19 @@ class LoginForm extends Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { errorMessage } = this.props
     return (
+<div>
+      
+        {errorMessage ? <Alert
+                    message="Error"
+                    description={this.props.errorMessage}
+                    type="error"
+                    showIcon/>:""}
+
+        
+      
+
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem>
           {getFieldDecorator('userName', {
@@ -54,38 +67,12 @@ class LoginForm extends Component {
           Or <a href="">register now!</a>
         </FormItem>
       </Form>
+</div>
     );
   }
 }
 
 const Login = Form.create()(LoginForm);
-
-// class Login extends Component {
-//   // const { name, managerId } = manager
-//   static propTypes = {
-//     value: PropTypes.string.isRequired,
-//     onChange: PropTypes.func.isRequired
-//   }
-
-
-//   handelChange = () => {
-//     console.log(this.refs.name.value)
-//     // this.props.onChange(this.getInputValue())
-//   }
-//   render() {
-//     return (
-//       <div>
-//         name：<Input ref="name"/>
-//         <br/>
-//         password：<Input ref="password"/>
-//         <br/>
-//           <button onClick={this.handelChange}>
-//             登录
-//           </button>
-//       </div>
-//     )
-//   }
-// }
 
 
 
