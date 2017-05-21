@@ -20,13 +20,20 @@ const picture = {
         picture.uploadTime = new Date().getTime();
         //根据pictureUrl，使用图像·识别，加入recognitionLabel与type
 
-        let allPath = config.imageHost + "common/2017/05/10/00a8cf281dca4.jpg" //picture.path
+        let allPath = config.imageHost + picture.path;
+        // let allPath = "http://115.159.26.94:9001/" + picture.path;
 
-        let tag = await imageTag(allPath)
+        console.log(allPath);
 
-        console.log(tag);
+        let tags = (await imageTag(allPath)).data.tags
 
-        let recognitionLabel = "a";
+        console.log(typeof tags);
+
+        let recognitionLabel = JSON.stringify(tags)
+
+        console.log(recognitionLabel);
+
+        picture.recognitionLabel = recognitionLabel;
 
         let result = await pictureModel.create(picture)
         return result

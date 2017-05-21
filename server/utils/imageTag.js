@@ -12,14 +12,11 @@ var userid = '****';
 conf.setAppInfo(appid, secretId, secretKey, userid, 0);
 
 let imageTag = function(imageUrl) {
-    // console.log("断点1")
-
-    console.log(appid, secretId, secretKey)
 
     return new Promise((resolve, reject) => {
-        console.log(imageUrl);
         youtu.imagetag(imageUrl, function(data) {
-            resolve(JSON.stringify(data));
+            console.log(data);
+            resolve(data);
         });
         //{"httpcode":200,"code":200,"message":"HTTP OK","data":{"errorcode":0,"e
         // rrormsg":"OK","tags":[{"tag_name":"天空","tag_confidence":15},{"tag_name":"汽车"

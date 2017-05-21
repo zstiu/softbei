@@ -66,6 +66,9 @@ async function uploadPicture(ctx, options) {
             let _uploadFilePath = path.join(picturePath, pictureName)
             console.log(_uploadFilePath)
             result.data.pictureUrl = path.join(relativePath, pictureName);
+
+            result.data.pictureUrl = result.data.pictureUrl.replace(/\\/g, '/')
+
             console.log("result.data.pictureUrl:" + result.data.pictureUrl);
 
             let saveTo = path.join(_uploadFilePath)

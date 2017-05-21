@@ -67,7 +67,8 @@ const mapStateToProps = (state) => {
         } = state.manager
 
         const props = {
-            action: '//' + config.apiUrl + '/manager/uploadPicture?managerId='+managerId+'&token='+token,
+            // action: '//' + config.apiUrl + '/manager/uploadPicture?managerId='+managerId+'&token='+token,
+            action: '//115.159.26.94:3001/api/manager/uploadPicture?managerId='+managerId+'&token='+token,
             listType: 'picture',
             defaultFileList: [...fileList],
             className: 'upload-list-inline',
