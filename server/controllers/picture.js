@@ -22,7 +22,9 @@ module.exports = {
         let result = {
             success: false,
             message: '',
-            data: [],
+            data: {
+                pictureList: []
+            },
             code: ""
         }
 
@@ -62,7 +64,7 @@ module.exports = {
         // console.log(allPicture);
         for (let tag = 0; tag < allPicture.length; tag++) {
             allPicture[tag].path = config.imageHost + allPicture[tag].path;
-            result.data.push(allPicture[tag]);
+            result.data.pictureList.push(allPicture[tag]);
         }
 
         result.success = true;
@@ -85,7 +87,9 @@ module.exports = {
         let result = {
             success: false,
             message: '',
-            data: [],
+            data: {
+                pictureList: []
+            },
             code: ""
         }
 
@@ -97,10 +101,18 @@ module.exports = {
         let page = body.page;
 
 
+        //检验数据是否正常
+        if (limit <= 0 || page <= 0) {
+            result.message = userCode.ERROR_FORM_DATA
+            ctx.body = result;
+            return
+        }
+
+
         let allPicture = await pictureService.searchPicture(search, limit, page);
         for (let tag = 0; tag < allPicture.length; tag++) {
             allPicture[tag].path = config.imageHost + allPicture[tag].path;
-            result.data.push(allPicture[tag]);
+            result.data.pictureList.push(allPicture[tag]);
         }
 
         if (allPicture.length < limit) {

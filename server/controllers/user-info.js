@@ -324,7 +324,9 @@ module.exports = {
         let result = {
             success: false,
             message: '',
-            data: [],
+            data: {
+                messageList: []
+            },
             code: ""
         }
 
@@ -335,7 +337,7 @@ module.exports = {
             // let userInfo = await userInfoService.getUserInfoByUserName(userDate.name);
             if (message.length > 0) {
                 for (let i = 0; i < message.length; i++) {
-                    result.data.push(message[i]);
+                    result.data.messageList.push(message[i]);
                 }
 
                 result.success = true;

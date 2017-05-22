@@ -25,11 +25,11 @@ const picture = {
 
         console.log(allPath);
 
-        let tags = (await imageTag(allPath)).data.tags
+        // let tags = (await imageTag(allPath)).data.tags
 
-        console.log(typeof tags);
+        // console.log(typeof tags);
 
-        let recognitionLabel = JSON.stringify(tags)
+        let recognitionLabel = await imageTag(allPath)
 
         console.log(recognitionLabel);
 

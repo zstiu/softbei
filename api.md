@@ -69,20 +69,25 @@ method: -> post
 ```
   {
   "success": true,
-  "message": "",
+  "message": "用户登录成功",
   "data":
-  {
-    "id": 3,
-    "email": "zstiu@foxmail.com",
-    "name": "zstiu",
-    "major": null,
-    "marked": null,
-    "create_time": "1492958357022",
-    "modified_time": null,
-    "score": 0,
-    "level": 0,
-    "token": "c38fff51-90ad-46c6-9fde-182020c4f2e5"
-  },
+    {
+      "id": 3,
+      "email": "zstiu@foxmail.com",
+      "name": "zstiu",
+      "avatarUrl": null,
+      "sex": null,
+      "birthday": null,
+      "major": null,
+      "marked": null,
+      "introduction": null,
+      "create_time": "1492958357022",
+      "modified_time": null,
+      "score": 0,
+      "level": 0,
+      "phone": "15195891362",
+      "token": "c38fff51-90ad-46c6-9fde-182020c4f2e5"
+    },
   "code": ""
   }
 ```
@@ -259,7 +264,7 @@ method: -> post
 > * phone  
 
 
-示例http://115.159.26.94:3001/api/user/update
+示例http://115.159.26.94:3001/api/user/exitPhone
 ```
 
   {
@@ -313,22 +318,25 @@ method: -> post
 成功时返回
 ```
   {
-  "success": true,
-  "message": "",
-  "data":
-    [
+    "success": true,
+    "message": "",
+    "data":
       {
-        "id": 1,
-        "userId": 3,
-        "managerId": null,
-        "type": "系统",
-        "created_time": "1111111111",
-        "title": "test",
-        "message": "这是一个测试message的数据",
-        "isWatched": 0
-      }
-    ],
-  "code": ""
+        "messageList":
+        [
+          {
+            "id": 1,
+            "userId": 3,
+            "managerId": null,
+            "type": "系统",
+            "created_time": "1111111111",
+            "title": "test",
+            "message": "这是一个测试message的数据",
+            "isWatched": 0
+          }
+        ]
+      },
+    "code": ""
   }
 ```
 失败时返回
@@ -386,6 +394,46 @@ method: -> post
 
 * 根据success字段判断是否成功
 * 根据message字段标识失败原因
+
+
+### 更新用户头像 **updateUserAvatar**
+method: -> post
+所需数据(标星号为必须字段，下同)
+> * id  
+> * token  
+
+示例http://115.159.26.94:3001/api/user/updateUserAvatar
+```
+{
+	"id": "12",
+  "token": "5be52e3f-a5fa-44c9-8e82-21cdfe217b84",
+  "avatarUrl": "test"
+}
+
+
+```
+
+成功时返回
+```
+  {
+    "success": true,
+    "message": "",
+    "data": null,
+    "code": 1111
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "用户未登录",
+  "data": null,
+  "code": 0
+  }
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
 
 
 ## 管理员模块
@@ -486,7 +534,7 @@ method: -> post
 
 > 目录： /picture
 
-### 注册 **getPicture**
+### 得到推送picture **getPicture**
 method: -> post
 所需数据(标星号为必须字段，下同)
 > * id (用户id)    
@@ -506,42 +554,125 @@ method: -> post
 成功时返回
 ```
 {
-"success": true,
-"message": "",
-"data":
-[
+  "success": true,
+  "message": "",
+  "data":
   {
-    "id": 47,
-    "managerId": 9,
-    "path": "115.159.26.94:9001\\common\\2017\\05\\10\\84fc0fe12cdf1.jpg",
-    "type": null,
-    "planId": 1,
-    "acceptedlabel": null,
-    "labelNumber": 0,
-    "isFinished": 0,
-    "uploadTime": "1494412905926"
+    "pictureList":
+    [
+      {
+      "id": 67,
+      "managerId": 9,
+      "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\2b3b30de4e6e5.jpg",
+      "type": null,
+      "planId": 1,
+      "acceptedLabel": null,
+      "labelNumber": 0,
+      "isFinished": "0",
+      "resultLabel": null,
+      "uploadTime": "1494412908810",
+      "recognitionLabel": null
+      },
+      {"id": 68, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\86aa824b506d1.jpg",…},
+      {"id": 69, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\f6af14cb6154c.jpg",…},
+      {"id": 70, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\2c9f03856da43.jpg",…},
+      {"id": 71, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\6704b25b8fc75.jpg",…},
+      {"id": 72, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\22a5ebc2a6c64.jpg",…},
+      {"id": 73, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\ac37649f2af95.jpg",…},
+      {"id": 74, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\280a4747cc936.jpg",…},
+      {"id": 75, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\5a7b6ec09f11d.jpg",…},
+      {"id": 76, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\eade771658919.jpg",…},
+      {"id": 77, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\0b942907d5bf8.jpg",…},
+      {"id": 78, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\8f4f096350abe.jpg",…},
+      {"id": 79, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\7627964e152ba.jpg",…},
+      {"id": 80, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\db7b57eb5495e.jpg",…},
+      {"id": 81, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\bd07bc5711345.jpg",…},
+      {"id": 82, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\8f3eaea413c92.jpg",…},
+      {"id": 83, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\4b53a511953ff.jpg",…},
+      {"id": 84, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\29350d68e74f8.jpg",…},
+      {"id": 85, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\3d34fac056ce8.jpg",…},
+      {"id": 86, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\7e25db27d7249.jpg",…},
+      {"id": 87, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\ab5fd1247a099.jpg",…},
+      {"id": 88, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\12\\32fb76c95644b.png",…},
+      {"id": 89, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\16\\0938e6490dbc5.jpg",…},
+      {"id": 90, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\20\\8d4f346e7e9c5.jpg",…},
+      {"id": 91, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\20\\a9ab5184d7778.jpg",…},
+      {"id": 92, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\20\\ba40d50d600fa.jpg",…},
+      {"id": 93, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\07f6eca76aa71.jpg",…},
+      {"id": 94, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\b4595c1fd2e09.jpg",…},
+      {"id": 95, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\5d0888a6ef163.jpg",…},
+      {"id": 96, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\67a057855e214.jpg",…},
+      {"id": 97, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\66f3f09878c39.jpg",…},
+      {"id": 98, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\a6097b260682d.jpg",…},
+      {"id": 99, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\a34925063c912.jpg",…},
+      {"id": 100, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\60581f8aa7cca.jpg",…},
+      {"id": 101, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\d393cf009d27a.jpg",…},
+      {"id": 102, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\66b1d3455181b.jpg",…},
+      {"id": 103, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\216d897d0bbdc.jpg",…},
+      {"id": 104, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\4479298e1230b.jpg",…},
+      {"id": 105, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\41406df01ef9a.jpg",…},
+      {"id": 106, "managerId": 9, "path": "http://115.159.26.94:9001/common\\2017\\05\\21\\799846ce86d3a.jpg",…}
+    ]
   },
-  {"id": 48, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\ea730cbf5b24e.jpg", "type": null,…},
-  {"id": 49, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\d2428ee397187.jpg", "type": null,…},
-  {"id": 50, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\b924a99edcb66.jpg", "type": null,…},
-  {"id": 51, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\9b13af5898d6d.jpg", "type": null,…},
-  {"id": 52, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\06d86e4dce856.jpg", "type": null,…},
-  {"id": 53, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\0451cae6962ed.jpg", "type": null,…},
-  {"id": 54, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\33ec55a956a09.jpg", "type": null,…},
-  {"id": 55, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\4e56fdc09670d.jpg", "type": null,…},
-  {"id": 56, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\d785998498834.jpg", "type": null,…},
-  {"id": 57, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\8044922da2a44.jpg", "type": null,…},
-  {"id": 58, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\dd58ad9ef68fe.jpg", "type": null,…},
-  {"id": 59, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\2eec56b05078f.jpg", "type": null,…},
-  {"id": 60, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\e77c7b9be044b.jpg", "type": null,…},
-  {"id": 61, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\71dfcc78444c5.jpg", "type": null,…},
-  {"id": 62, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\0996cb046120d.jpg", "type": null,…},
-  {"id": 63, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\a0ae6dd55163d.jpg", "type": null,…},
-  {"id": 64, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\62921def4045a.jpg", "type": null,…},
-  {"id": 65, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\485f0b0f99a4b.jpeg", "type": null,…},
-  {"id": 66, "managerId": 9, "path": "115.159.26.94:9001\\common\\2017\\05\\10\\0838be51c5383.jpg", "type": null,…}
-],
-"code": ""
+  "code": ""
+}
+```
+失败时返回
+```
+  {
+    "success": false,
+    "message": "输入字段缺省或错误",
+    "data":[],
+    "code": ""
+  }
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+### 搜索图片 **searchPicture**
+method: -> post
+所需数据(标星号为必须字段，下同)
+> * id (用户id)    
+> * limit (限制返回数据条数，默认为20条)  
+> * page (当前的页数)  
+
+
+示例http://115.159.26.94:3001/api/picture/searchPicture
+```
+{
+  "search": "小",
+  "limit": 20,
+  "page": 1
+}
+
+```
+
+成功时返回
+```
+{
+  "success": true,
+  "message": "当前关键字无更多结果",
+  "data":
+    {
+    "pictureList":
+      [
+        {
+        "id": 115,
+        "managerId": 9,
+        "path": "http://115.159.26.94:9001/common/2017/05/21/78c55938848c3.jpg",
+        "type": null,
+        "planId": 0,
+        "acceptedLabel": "小可爱",
+        "labelNumber": 0,
+        "isFinished": "0",
+        "resultLabel": null,
+        "uploadTime": "1495340284547",
+        "recognitionLabel": "[]"
+        },
+        {"id": 116, "managerId": 9, "path": "http://115.159.26.94:9001/common/2017/05/21/0d70bcdcb95fa.jpg",…}
+      ]
+    },
+  "code": "0010"
 }
 ```
 失败时返回

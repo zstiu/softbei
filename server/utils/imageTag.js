@@ -16,7 +16,8 @@ let imageTag = function(imageUrl) {
     return new Promise((resolve, reject) => {
         youtu.imagetag(imageUrl, function(data) {
             console.log(data);
-            resolve(data);
+            let result = data.data.tags
+            resolve(JSON.stringify(result));
         });
         //{"httpcode":200,"code":200,"message":"HTTP OK","data":{"errorcode":0,"e
         // rrormsg":"OK","tags":[{"tag_name":"天空","tag_confidence":15},{"tag_name":"汽车"
