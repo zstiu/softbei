@@ -389,6 +389,14 @@ module.exports = {
         }
 
         let level = (await userInfoService.getLevelByUserId(body.id)).level;
+
+        //如果对某个picture打过多标签进行限制
+        if (label.length >= level) {
+            result.message = userCode.FAIL_TOO_MUCH_LABEL;
+            ctx.body = result;
+            return
+        }
+
         console.log(level);
         let weight;
         if (level == 1) {

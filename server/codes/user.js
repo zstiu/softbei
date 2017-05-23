@@ -36,6 +36,8 @@ const userCode = {
 
     FAIL_RESUMMIT: '请勿重复提交',
 
+    FAIL_TOO_MUCH_LABEL: '同一图片的打标签次数已超出限额',
+
     LOGIN_SUCCESS: '用户登录成功',
 
     USER_NO_MESSAGE: '用户当前无消息',

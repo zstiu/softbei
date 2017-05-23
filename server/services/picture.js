@@ -31,7 +31,11 @@ const picture = {
 
         let recognitionLabel = await imageTag(allPath)
 
-        console.log(recognitionLabel);
+        while (recognitionLabel == "[]") {
+            recognitionLabel = await imageTag(allPath);
+        }
+
+        console.info("识别出的标签" + recognitionLabel);
 
         picture.recognitionLabel = recognitionLabel;
 
