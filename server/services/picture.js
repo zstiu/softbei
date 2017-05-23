@@ -7,6 +7,7 @@ const pictureModel = require('./../models/picture')
 const tokenModel = require('./../models/access-token')
 const userCode = require('./../codes/user')
 const imageTag = require('./../utils/imageTag.js');
+const textClassify = require('./../utils/textClassify.js');
 const config = require('../../config')
 
 const picture = {
@@ -31,13 +32,18 @@ const picture = {
 
         let recognitionLabel = await imageTag(allPath)
 
+        let type = await textClassify(recognitionLabel);
+
         // while (recognitionLabel == "[]") {
         //     recognitionLabel = await imageTag(allPath);
         // }
 
         console.info("识别出的标签" + recognitionLabel);
+        console.info("识别出的type" + type);
 
         picture.recognitionLabel = recognitionLabel;
+
+        picture.type = type;
 
         let result = await pictureModel.create(picture)
         return result
