@@ -14,12 +14,11 @@ conf.setAppInfo(appid, secretId, secretKey, userid, 0);
 let imageTag = function(imageUrl) {
 
     return new Promise((resolve, reject) => {
-        setTimeout(youtu.imagetag(imageUrl, function(data) {
+        youtu.imagetag(imageUrl, function(data) {
             console.log(data);
             let result = data.data.tags
             resolve(JSON.stringify(result));
-        }), 1000)
-
+        });
         //{"httpcode":200,"code":200,"message":"HTTP OK","data":{"errorcode":0,"e
         // rrormsg":"OK","tags":[{"tag_name":"天空","tag_confidence":15},{"tag_name":"汽车"
         // ,"tag_confidence":77},{"tag_name":"海报","tag_confidence":25}],"faces":[]}}
