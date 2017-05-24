@@ -5,6 +5,7 @@ import UserPage from './containers/UserPage'
 import RepoPage from './containers/RepoPage'
 import ManagerPage from './containers/ManagerPage'
 import LoginPage from './containers/LoginPage'
+import SignUpPage from './containers/SignUpPage'
 import UploadPage from './containers/UploadPage'
 import UpdateInfo from './containers/UpdateInfoPage'
 
@@ -15,6 +16,8 @@ export default <Route path="/" component={App}>
          component={ManagerPage} />
   <Route path="/login"
          component={LoginPage} />
+  <Route path="/signUp"
+         component={SignUpPage} />
   <Route path="/upload"
          component={UploadPage} />
   <Route path="/updateInfo"

@@ -8,7 +8,7 @@ class LoginForm extends Component {
   static propTypes = {
     // value: PropTypes.string.isRequired,
     fetchLogin: PropTypes.func.isRequired,
-    errorMessage: PropTypes.string
+    manager: PropTypes.object.isRequired
   }
 
   handleSubmit = (e) => {

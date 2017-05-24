@@ -152,9 +152,11 @@ const manager = {
             result.message = userCode.ERROR_USER_NAME
             return result
         }
-        if (!validator.isEmail(manager.email)) {
-            result.message = userCode.ERROR_EMAIL
-            return result
+        if (typeof userInfo.email === String) {
+            if (!validator.isEmail(manager.email)) {
+                result.message = userCode.ERROR_EMAIL
+                return result
+            }
         }
         if (!/[\w+]{6,16}/.test(manager.password)) {
             result.message = userCode.ERROR_PASSWORD

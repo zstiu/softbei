@@ -416,6 +416,8 @@ module.exports = {
         //更新picture对应的type
         await pictureService.updatePictureType(body.pictureId)
 
+        //更新user对应的type
+        await userInfoService.updateUserType(body.id)
 
         //用户积分加一
         await userInfoService.plusUserScore(body.id, 1);

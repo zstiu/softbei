@@ -184,6 +184,42 @@ const user = {
     },
 
 
+    /**
+     * 通过userId,查询label表中已打最多的三个标签,
+     * @param  {string} userId 用户id
+     * @return {object}       mysql执行结果
+     */
+    async getMostTypeInLabel(userId) {
+
+        let _sqlSelect = `
+        SELECT type,count(*) as count FROM label WHERE userId=${userId} group by type having count>0 LIMIT 0,3
+        `
+        console.log(_sqlSelect);
+        let selectResult = await dbUtils.query(_sqlSelect)
+        console.log(selectResult);
+
+        return selectResult;
+    },
+
+    /**
+     * 更新user表的type
+     * @param  {string} userId 图片id
+     * @return {object}       mysql执行结果
+     */
+    async updateUserType(userId, type) {
+
+
+        let _sqlUpdate = `
+        UPDATE user_info SET type='${type}' WHERE id=${userId}
+        `
+        console.log(_sqlUpdate);
+        let updateResult = await dbUtils.query(_sqlUpdate)
+        console.log(updateResult)
+
+        return updateResult;
+    },
+
+
 }
 
 

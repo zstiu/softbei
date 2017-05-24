@@ -318,6 +318,27 @@ const user = {
     },
 
 
+    /**
+     * 通过userId,查询label表中已打最多的三个标签,更新user表的type
+     * @param  {string} userId 用户id
+     * @return {object}       mysql执行结果
+     */
+    async updateUserType(userId) {
+
+        let selectResult = await userModel.getMostTypeInLabel(userId);
+
+        let newType = '';
+        for (var index = 0; index < selectResult.length - 1; index++) {
+            newType = newType + selectResult[index].type + ",";
+        }
+        newType = newType + selectResult[index].type;
+
+        let result = await userModel.updateUserType(userId, newType)
+
+        return result
+    },
+
+
 }
 
 module.exports = user

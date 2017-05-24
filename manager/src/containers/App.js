@@ -29,7 +29,7 @@ class App extends Component {
                 this.handelUpdate();
                 break;
       case '3': 
-                this.handelLogin();
+                this.handelSignUp();
                 break;
       case '4': 
                 this.handelUpload();
@@ -46,7 +46,11 @@ class App extends Component {
 
   handelLogin = () => {
     console.log("进入login");
-      browserHistory.push(`/login`)
+      browserHistory.push('/login')
+  }
+
+  handelSignUp = () => {
+    browserHistory.push('/signUp')
   }
 
   handelUpload =() => {
@@ -91,9 +95,9 @@ class App extends Component {
               key="sub1"
               title={<span><Icon type="user" /><span className="nav-text">{manager.isLogin?manager.name:"Manager(未登录)"}</span></span>}
             >
-              <Menu.Item key="1">Login</Menu.Item>
+              <Menu.Item key="1">登录</Menu.Item>
               <Menu.Item key="2">更新信息</Menu.Item>
-              <Menu.Item key="3">Alex</Menu.Item>
+              <Menu.Item key="3">注册</Menu.Item>
             </SubMenu>
             <SubMenu
               key="sub2"

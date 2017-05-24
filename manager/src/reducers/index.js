@@ -90,6 +90,32 @@ const manager = (state = defaultState, action) => {
             }
             return newState;
 
+        case "signUpManager":
+            newState = {
+                signUpSuccess: true,
+                // name: action.data.name,
+                // managerId: action.data.managerId,
+                // token: action.data.token,
+                // email: action.data.email || "未绑定",
+                // created_time: action.data.created_time,
+                // phone: action.data.phone || "未绑定"
+            };
+            // browserHistory.push(`/manager`);
+            console.log("newState:" + newState);
+            return newState;
+
+        case "signUpFail":
+            // let name = action.name;
+            // // name: action.name,
+            // let managerId = action.managerId
+            // console.log("name = " + name);
+            // console.log("managerId = " + managerId);
+            newState = {
+                signUpSuccess: false,
+                errorMessage: action.errorMessage
+            }
+            return newState;
+
         default:
             return state
     }

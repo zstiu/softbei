@@ -446,8 +446,8 @@ method: -> post
 > * name  
 > * password  
 > * confirmPassword  
-> * email  
-> * phone
+>   email  
+>   phone
 
 示例http://115.159.26.94:3001/api/manager/signUp
 ```

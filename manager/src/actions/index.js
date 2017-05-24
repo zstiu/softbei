@@ -1,12 +1,14 @@
 import { CALL_API, Schemas } from '../middleware/api'
 import 'whatwg-fetch';
 import { browserHistory } from 'react-router'
+import config from '../../config.js'
+const rootUrl = "http://" + config.apiUrl
 
 
 
 const fetchManager = (name, password) => {
 
-    const rootUrl = "http://localhost:3001";
+    // const rootUrl = "http://localhost:3001";
 
     let url = rootUrl + "/api/manager/signIn";
 
@@ -68,11 +70,12 @@ export const getManager = (name, password) => (dispatch, getState) => {
 }
 
 
+//以下实现登录
 const loginManager = (name, password) => {
 
-    const rootUrl = "http://localhost:3001";
+    // const rootUrl = "http://localhost:3001";
 
-    let url = rootUrl + "/api/manager/signIn";
+    let url = rootUrl + "/manager/signIn";
 
     return new Promise((resolve, reject) => {
 
@@ -143,11 +146,90 @@ export const loginAction = (name, password) =>
     }
 
 
+
+const signUpManager = (name, password, confirmPassword, email, phone) => {
+
+    // const rootUrl = "http://localhost:3001";
+
+    let url = rootUrl + "/manager/signUp";
+
+    return new Promise((resolve, reject) => {
+
+        fetch(url, {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                password: password,
+                confirmPassword: confirmPassword,
+                email: email,
+                phone: phone
+            })
+        }).then(function(response) {
+            console.log("response: " + response);
+            return response.json()
+        }).then(function(json) {
+
+            let data = json.data
+
+            if (json.success) {
+                let action = {
+                        type: "signUpManager",
+                        // name: json.data.name,
+                        // managerId: json.data.managerId,
+                        // token: json.data.token
+                        data
+                    }
+                    // console.log(action);
+
+                resolve(action);
+            } else {
+                let action = {
+                    type: "signUpFail",
+                    errorMessage: json.message
+                }
+                console.log(action);
+                resolve(action);
+            }
+
+        })
+
+
+    })
+
+
+
+}
+
+// Fetches a page of stargazers for a particular repo.
+// Bails out if page is cached and user didn't specifically request next page.
+// Relies on Redux Thunk middleware.
+export const signUpAction = (name, password, confirmPassword, email, phone) =>
+    (dispatch, getState) => {
+
+        console.log("signUpManager...");
+        // let loginResultAction = loginManager(name, password);
+        signUpManager(name, password, confirmPassword, email, phone).then(function(action) {
+            // if (action.token) {
+            //     browserHistory.push(`/manager`)
+            // } else {
+
+            // }
+            return dispatch(action);
+        })
+
+
+    }
+
+
+
 const updateManager = (name, email, phone) => {
 
-    const rootUrl = "http://localhost:3001";
+    // const rootUrl = "http://localhost:3001";
 
-    let url = rootUrl + "/api/manager/signIn";
+    let url = rootUrl + "/manager/signIn";
 
     return new Promise((resolve, reject) => {
 
