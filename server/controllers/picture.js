@@ -34,8 +34,9 @@ module.exports = {
 
         // console.log("到达");
         let pictureIdResult = await userService.getPictureidByUserId(body.id);
+        let pictureId;
         if (pictureIdResult) {
-            var pictureId = pictureIdResult.pictureId;
+            pictureId = pictureIdResult.pictureId;
         } else {
             result.message = userCode.ERROR_FORM_DATA
             ctx.body = result;
@@ -49,18 +50,30 @@ module.exports = {
 
         // console.log(limit);
 
+        let typeString = await userService.getType(body.id)
+
+        let type = typeString.split(",");
+
+        console.log(type)
+
+        console.log("pictureId:" + pictureId);
+
+        let allPicture = await pictureService.getPicture(pictureId, type, limit);
+
+        let lastPictureId = allPicture[allPicture.length - 1].id;
 
 
-        let allPicture = await pictureService.getPicture(pictureId, limit);
-        let watchingPictureResult = userService.watchingPicture(body.id, allPicture.length);
+        let watchingPictureResult = userService.watchingPicture(body.id, lastPictureId);
+
+
         if (allPicture.length < limit) { //当pictureId到尾部时，随机从前面取缺少的值补充
-            let randomId = Math.random;
-            let randomPicture = await pictureService.getPicture(pictureId, limit - allPicture.length);
+            // let randomId = Math.random;
+            let randomPicture = await pictureService.getRandomPicture(limit - allPicture.length);
             for (let tag of randomPicture) {
                 allPicture.push(tag);
             }
         }
-        console.log(typeof allPicture);
+        // console.log(typeof allPicture);
         // console.log(allPicture);
         for (let tag = 0; tag < allPicture.length; tag++) {
             allPicture[tag].path = config.imageHost + allPicture[tag].path;

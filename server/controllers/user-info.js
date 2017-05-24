@@ -5,6 +5,7 @@ const pictureService = require('./../services/picture')
 const labelService = require('./../services/label')
 const userCode = require('./../codes/user')
 const uuidV4 = require('uuid/v4');
+let config = require('../../config.js');
 
 module.exports = {
 
@@ -376,6 +377,8 @@ module.exports = {
             code: ""
         }
 
+        let tagArray = body.label.split(",");
+
         let label = await labelService.getLabel(body.id, body.pictureId);
         // console.log(label);
         if (label.length >= 1) {
@@ -391,7 +394,7 @@ module.exports = {
         let level = (await userInfoService.getLevelByUserId(body.id)).level;
 
         //如果对某个picture打过多标签进行限制
-        if (label.length >= level + 1) {
+        if (label.length + tagArray.length > (level / 5) + 1) {
             result.message = userCode.FAIL_TOO_MUCH_LABEL;
             ctx.body = result;
             return
@@ -400,34 +403,47 @@ module.exports = {
         console.log(level);
         let weight;
         if (level == 1) {
-            weight = 1;
+            weight = 1 * tagArray.length;
         } else if (level <= 5) {
-            weight = 2;
+            weight = 2 * tagArray.length;
         } else if (level <= 10) {
-            weight = 3;
+            weight = 3 * tagArray.length;
         } else {
             result.message = userCode.ERROR_FORM_DATA;
             ctx.body = result;
             return;
         }
 
-        await labelService.addPictureLabel(body.id, body.pictureId, body.label, weight);
+        //先完成成功返回，后续异步运行
+        result.success = true;
+        ctx.body = result;
+
+        labelService.addPictureLabel(body.id, body.pictureId, tagArray, weight);
+        // await labelService.addPictureLabel(body.id, body.pictureId, body.label, weight);
 
         //更新picture对应的type
-        await pictureService.updatePictureType(body.pictureId)
+        pictureService.updatePictureType(body.pictureId)
 
         //更新user对应的type
-        await userInfoService.updateUserType(body.id)
+        userInfoService.updateUserType(body.id)
 
         //用户积分加一
-        await userInfoService.plusUserScore(body.id, 1);
+        userInfoService.plusUserScore(body.id, tagArray.length);
 
-        await pictureService.labelOnece(body.pictureId);
+        let newScore = await userInfoService.getScoreByUserId(body.id);
 
-        result.success = true;
+        console.log("newScore:" + newScore);
+
+        if (config.scoreLevel[level + 1] <= newScore) {
+            userInfoService.plusUserLevel(body.id);
+        }
+        //picture的被打标签次数加一
+        // pictureService.labelOnece(body.pictureId);
+
+        // result.success = true;
 
 
-        ctx.body = result
+        // ctx.body = result
     },
 
     /**

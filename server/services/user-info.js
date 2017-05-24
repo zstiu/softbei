@@ -267,11 +267,11 @@ const user = {
      * @param  {string} n 用户正在查看n条数据
      * @return {object|null}     查找结果
      */
-    async watchingPicture(id, n) {
+    async watchingPicture(id, lastPictureId) {
 
 
 
-        let result = await userModel.watchingPicture(id, n)
+        let result = await userModel.watchingPicture(id, lastPictureId)
 
         return result
     },
@@ -283,8 +283,20 @@ const user = {
      */
     async getLevelByUserId(id) {
 
-        let pictureId = await userModel.getLevelByUserId(id);
-        return pictureId;
+        let level = await userModel.getLevelByUserId(id);
+        return level;
+    },
+
+
+    /**
+     * 根据用户id 查找用户积分
+     * @param  {number} id 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async getScoreByUserId(id) {
+
+        let score = await userModel.getScoreByUserId(id);
+        return score;
     },
 
 
@@ -296,6 +308,17 @@ const user = {
     async plusUserScore(id, n) {
 
         let result = await userModel.plusUserScore(id, n);
+        return result;
+    },
+
+    /**
+     * 用户升一级
+     * @param  {string} id 用户账号userId
+     * @return {object|null}     查找结果
+     */
+    async plusUserLevel(id) {
+
+        let result = await userModel.plusUserLevel(id);
         return result;
     },
 
@@ -337,6 +360,19 @@ const user = {
 
         return result
     },
+
+
+    /**
+     * 根据用户id 查找用户兴趣type
+     * @param  {number} id 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async getType(id) {
+
+        let type = await userModel.getType(id);
+        return type;
+    },
+
 
 
 }

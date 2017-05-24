@@ -55,9 +55,9 @@ const picture = {
      * @param  {string} limit 限制的查询条数
      * @return {object|null}     查找结果
      */
-    async getPicture(minId, limit) {
+    async getPicture(minId, type, limit) {
 
-        let getPicture = await pictureModel.getPicture(minId, limit);
+        let getPicture = await pictureModel.getPicture(minId, type, limit);
 
         // let result = await dbUtils.findDataByPage("picture", "*", minId, minId)
         // if (Array.isArray(result) && result.length > 0) {
@@ -127,6 +127,26 @@ const picture = {
         let result = await pictureModel.updatePictureType(pictureId, newType)
 
         return result
+    },
+
+
+    /**
+     * 得到指定数量的随机picture数据
+     * @param  {string} minId 用户浏览到的pictureID
+     * @param  {string} limit 限制的查询条数
+     * @return {object|null}     查找结果
+     */
+    async getRandomPicture(limit) {
+
+        let getPicture = await pictureModel.getRandomPicture(limit);
+
+        // let result = await dbUtils.findDataByPage("picture", "*", minId, minId)
+        // if (Array.isArray(result) && result.length > 0) {
+        //     result = result[0]
+        // } else {
+        //     result = null
+        // }
+        return getPicture
     },
 
 

@@ -131,9 +131,9 @@ const user = {
      * @param  {string} n 用户正在查看n条数据
      * @return {object|null}     查找结果
      */
-    async watchingPicture(id, n) {
+    async watchingPicture(id, lastPictureId) {
 
-        let _sql = `UPDATE user_info SET pictureId=pictureId+${n} WHERE id = ${id}`;
+        let _sql = `UPDATE user_info SET pictureId=${lastPictureId} WHERE id = ${id}`;
         console.log(_sql);
         let result = await dbUtils.query(_sql)
         console.log(typeof result);
@@ -159,6 +159,24 @@ const user = {
         return user
     },
 
+    /**
+     * 根据用户id 查找用户积分
+     * @param  {number} id 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async getScoreByUserId(id) {
+
+        let _sql = `SELECT score FROM user_info WHERE id = ${id}`;
+        let user = await dbUtils.query(_sql)
+
+        if (Array.isArray(user) && user.length > 0) {
+            score = user[0].score
+        } else {
+            score = null
+        }
+        return score
+    },
+
 
     /**
      * 用户打一次标签，积分增加
@@ -168,6 +186,20 @@ const user = {
     async plusUserScore(id, n) {
 
         let _sql = `UPDATE user_info SET score=score+${n} WHERE id = ${id}`;
+        let result = await dbUtils.query(_sql)
+
+
+        return result;
+    },
+
+    /**
+     * 用户打一次标签，积分增加
+     * @param  {string} id 用户账号userId
+     * @return {object|null}     查找结果
+     */
+    async plusUserLevel(id) {
+
+        let _sql = `UPDATE user_info SET level=level+1 WHERE id = ${id}`;
         let result = await dbUtils.query(_sql)
 
 
@@ -217,6 +249,26 @@ const user = {
         console.log(updateResult)
 
         return updateResult;
+    },
+
+    /**
+     * 根据用户id 查找用户兴趣type
+     * @param  {number} id 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async getType(id) {
+
+        let _sql = `SELECT type FROM user_info WHERE id = ${id}`;
+        let user = await dbUtils.query(_sql)
+        console.log(user)
+        let type = "";
+
+        if (Array.isArray(user) && user.length > 0) {
+            type = user[0].type
+        } else {
+            type = null
+        }
+        return type
     },
 
 

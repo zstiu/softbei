@@ -51,7 +51,8 @@ const textClassify = function(content) {
                 if (classes[maxKey].class === "未分类") {
                     resolve("其他");
                 } else {
-                    resolve(classes[maxKey].class)
+                    let result = config.imageType[classes[maxKey].class_num]
+                    resolve(result)
                 }
             } else {
                 resolve("其他");

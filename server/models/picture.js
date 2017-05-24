@@ -19,14 +19,28 @@ const picture = {
      * @param  {string} limit 限制的查询条数
      * @return {object|null}     查找结果
      */
-    async getPicture(minId, limit) {
+    async getPicture(minId, type, limit) {
 
+        let _sql = ``
 
-        let _sql = `SELECT * from picture
-            where id > ${minId} limit  0, ${limit}`
+        switch (type.length) {
+            case 0:
+                _sql = `SELECT * from picture where id > ${minId} limit  0, ${limit}`
+                break;
+            case 1:
+                _sql = `SELECT * from picture where id > ${minId} AND type LIKE '%${type[0]}%' limit  0, ${limit}`
+                break;
+            case 2:
+                _sql = `SELECT * from picture where id > ${minId} AND (type LIKE '%${type[0]}%' OR type LIKE '%${type[1]}%') limit  0, ${limit}`
+                break;
+            case 3:
+                _sql = `SELECT * from picture where id > ${minId} AND (type LIKE '%${type[0]}%' OR type LIKE '%${type[1]}%' OR type LIKE '%${type[2]}%') limit  0, ${limit}`
+                break;
+        }
 
+        console.log(_sql);
         let result = await dbUtils.query(_sql)
-
+        console.log(result)
 
         return result;
     },
@@ -62,7 +76,7 @@ const picture = {
         //暂定方案：select语句得到关键字内容
         //TODO: 对比关键字与图片标签的相似度
         let _sql = `SELECT * from picture
-            where isFinished='0' and (acceptedLabel LIKE '%${search}%' OR recognitionLabel LIKE '${search}' OR resultLabel LIKE '${search}') LIMIT ${start},${end}`
+            where isFinished='0' and (type LIKE '%${search}%' OR acceptedLabel LIKE '%${search}%' OR recognitionLabel LIKE '${search}' OR resultLabel LIKE '${search}') LIMIT ${start},${end}`
         console.log(_sql);
         let result = await dbUtils.query(_sql)
 
@@ -104,6 +118,26 @@ const picture = {
         console.log(updateResult)
 
         return updateResult;
+    },
+
+
+    /**
+     * 得到指定数量的随机picture数据
+     * @param  {string} minId 用户浏览到的pictureID
+     * @param  {string} limit 限制的查询条数
+     * @return {object|null}     查找结果
+     */
+    async getRandomPicture(limit) {
+
+        let _sql = `SELECT * FROM picture  ORDER BY  RAND() LIMIT ${limit}`
+
+
+
+        console.log(_sql);
+        let result = await dbUtils.query(_sql)
+        console.log(result)
+
+        return result;
     },
 
 

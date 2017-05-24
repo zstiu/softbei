@@ -15,20 +15,26 @@ const label = {
      * @param  {object} model 用户数据模型
      * @return {object}       mysql执行结果
      */
-    async addPictureLabel(userId, pictureId, labelInfo, weight) {
+    async addPictureLabel(userId, pictureId, labelArray, weight) {
 
-        let type = await textClassify(labelInfo);
+        let type = await textClassify(labelArray);
 
-        let label = {
-            userId: userId,
-            pictureId: pictureId,
-            label: labelInfo,
-            type: type,
-            weight: weight,
-            created_time: new Date().getTime()
+        for (var index = 0; index < labelArray.length; index++) {
+            var labelInfo = labelArray[index];
+            let label = {
+                userId: userId,
+                pictureId: pictureId,
+                label: labelInfo,
+                type: type,
+                weight: weight,
+                created_time: new Date().getTime()
+            }
+            labelModel.create(label)
+
         }
-        let result = await labelModel.create(label)
-        return result
+
+
+        return
     },
 
 

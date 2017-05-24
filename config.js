@@ -155,6 +155,20 @@ const config = {
         wordembeddingUrl: "/rpc/2.0/nlp/v1/wordembedding?access_token=24.7447c35cc3122b751cde61f97de5886d.2592000.1497693713.282335-9663505" // + this.access_token //词向量api
     },
 
+    scoreLevel: [ //积分与等级的规则
+        0, //0级
+        25, //1级
+        50, //2级
+        150, //3级
+        300, //4级
+        600, //5级
+        1500, //6级
+        3000, //7级
+        8000, //8级
+        18000, //9级
+        40000 //10级
+    ],
+
     imagerPlus: "http://apicn.imageplusplus.com/analyze?api_key=4197724817ffc185214ad52cfccb8409&api_secret=83e077342e88ea3dbfd900ffb3767916&url=http://115.159.26.94:9001//common//2017//05//10//00a8cf281dca4.jpg",
 
     imageHost: "http://115.159.26.94:9001/", //图片静态服务器
