@@ -485,5 +485,43 @@ module.exports = {
 
 
 
+    /**
+     * 拿到历史打过的标签
+     * @param  {obejct} ctx 上下文对象
+
+     * 得到指定数量的picture数据
+
+     */
+    async getHistoryLabel(ctx) {
+
+
+
+        let body = ctx.request.body;
+        let result = {
+            success: false,
+            message: '',
+            data: {
+                labelList: []
+            },
+            code: ""
+        }
+
+        let limit = body.limit || 20;
+
+        let page = body.page || 1;
+
+        let labelList = await labelService.getHistoryLabel(body.id, limit, page)
+
+
+
+
+
+        result.success = true;
+        result.data.labelList = labelList
+        ctx.body = result;
+    },
+
+
+
 
 }

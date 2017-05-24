@@ -435,6 +435,68 @@ method: -> post
 * 根据message字段标识失败原因
 
 
+### 得到历史标签 **getHistoryLabel**
+method: -> post
+所需数据(标星号为必须字段，下同)
+> * id  
+> * limit
+> * page  
+
+示例http://115.159.26.94:3001/api/user/getHistoryLabel
+```
+{
+	"id": "4",
+  "limit": 20,
+  "page": 1
+}
+```
+
+成功时返回
+```
+  {
+    "success": true,
+    "message": "",
+    "data":
+      {
+      "labelList":
+        [
+          {
+          "id": 9,
+          "userId": 3,
+          "pictureId": 115,
+          "label": "大狗",
+          "type": "动物",
+          "weight": 3,
+          "created_time": "1495564021572",
+          "managerId": null,
+          "planId": null
+          },
+          {"id": 10, "userId": 3, "pictureId": 115, "label": "猫咪", "type": "动物",…},
+          {"id": 13, "userId": 5, "pictureId": 116, "label": "狗", "type": "动物",…},
+          {"id": 14, "userId": 6, "pictureId": 116, "label": "猎物", "type": "其他",…},
+          {"id": 15, "userId": 10, "pictureId": 116, "label": "狗狗", "type": "动物",…},
+          {"id": 21, "userId": 14, "pictureId": 116, "label": "跑步", "type": "体育",…},
+          {"id": 22, "userId": 13, "pictureId": 116, "label": "猫咪", "type": "动物",…},
+          {"id": 33, "userId": 4, "pictureId": 116, "label": "小狗", "type": "其他",…},
+          {"id": 34, "userId": 4, "pictureId": 116, "label": "小猫", "type": "其他",…}
+        ]
+      },
+    "code": ""
+  }
+```
+失败时返回
+```
+  {
+  "success": false,
+  "message": "用户未登录",
+  "data": null,
+  "code": 0
+  }
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+
 
 ## 管理员模块
 

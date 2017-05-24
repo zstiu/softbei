@@ -47,6 +47,30 @@ const picture = {
     },
 
 
+    /**
+     * 通过userId pictureId 取label 用于判断是否重复提交
+     * @param  {string} userId 用户id
+     * @param  {string} pictureId 图片id
+     * @return {object}       mysql执行结果
+     */
+    async getHistoryLabel(userId, limit, page) {
+
+        let start = limit * (page - 1);
+        let end = limit * page - 1;
+        //暂定方案：select语句得到关键字内容
+        //TODO: 对比关键字与图片标签的相似度
+        let _sql = `SELECT * from label
+            LIMIT ${start},${end}`
+            // console.log(_sql);
+
+        // let _sql = `SELECT label FROM label WHERE userId = ${userId} AND pictureId = ${pictureId}`;
+        let result = await dbUtils.query(_sql)
+
+        // let result = await dbUtils.getLabel(userId, pictureId);
+        return result
+    },
+
+
 }
 
 

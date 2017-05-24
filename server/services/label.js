@@ -51,6 +51,19 @@ const label = {
     },
 
 
+    /**
+     * 通过userId pictureId 取label 用于判断是否重复提交
+     * @param  {string} userId 用户id
+     * @param  {string} pictureId 图片id
+     * @return {object}       mysql执行结果
+     */
+    async getHistoryLabel(userId, limit, page) {
+
+        let result = await labelModel.getHistoryLabel(userId, limit, page);
+        return result
+    },
+
+
 
 
 }
