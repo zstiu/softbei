@@ -6,6 +6,7 @@ const validator = require('validator')
 const labelModel = require('./../models/label')
 const tokenModel = require('./../models/access-token')
 const userCode = require('./../codes/user')
+const textClassify = require('./../utils/textClassify.js');
 
 const label = {
 
@@ -16,10 +17,13 @@ const label = {
      */
     async addPictureLabel(userId, pictureId, labelInfo, weight) {
 
+        let type = await textClassify(labelInfo);
+
         let label = {
             userId: userId,
             pictureId: pictureId,
             label: labelInfo,
+            type: type,
             weight: weight,
             created_time: new Date().getTime()
         }
@@ -39,6 +43,9 @@ const label = {
         let result = await labelModel.getLabel(userId, pictureId);
         return result
     },
+
+
+
 
 }
 

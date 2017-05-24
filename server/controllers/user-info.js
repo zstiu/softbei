@@ -391,7 +391,7 @@ module.exports = {
         let level = (await userInfoService.getLevelByUserId(body.id)).level;
 
         //如果对某个picture打过多标签进行限制
-        if (label.length >= level) {
+        if (label.length >= level + 1) {
             result.message = userCode.FAIL_TOO_MUCH_LABEL;
             ctx.body = result;
             return
@@ -412,6 +412,10 @@ module.exports = {
         }
 
         await labelService.addPictureLabel(body.id, body.pictureId, body.label, weight);
+
+        //更新picture对应的type
+        await pictureService.updatePictureType(body.pictureId)
+
 
         //用户积分加一
         await userInfoService.plusUserScore(body.id, 1);

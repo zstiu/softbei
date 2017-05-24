@@ -31,6 +31,22 @@ const picture = {
     },
 
 
+    /**
+     * 通过pictureId label 取某一picture对应某一label数量
+     * @param  {string} pictureId 图片id
+     * @param  {string} label label值
+     * @return {object}       mysql执行结果
+     */
+    async getNumberOfLabel(pictureId, label) {
+
+        let _sql = `SELECT label FROM label WHERE userId = ${userId} AND pictureId = ${pictureId}`;
+        let result = await dbUtils.query(_sql)
+
+        // let result = await dbUtils.getLabel(userId, pictureId);
+        return result
+    },
+
+
 }
 
 

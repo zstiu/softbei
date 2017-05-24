@@ -109,6 +109,26 @@ const picture = {
         return result
     },
 
+    /**
+     * 通过pictureId,查询label表中已打最多的三个标签,更新picture表的type
+     * @param  {string} pictureId 图片id
+     * @return {object}       mysql执行结果
+     */
+    async updatePictureType(pictureId) {
+
+        let selectResult = await pictureModel.getMostTypeInLabel(pictureId);
+
+        let newType = '';
+        for (var index = 0; index < selectResult.length - 1; index++) {
+            newType = newType + selectResult[index].type + ",";
+        }
+        newType = newType + selectResult[index].type;
+
+        let result = await pictureModel.updatePictureType(pictureId, newType)
+
+        return result
+    },
+
 
 
 }
