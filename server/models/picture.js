@@ -110,7 +110,7 @@ const picture = {
     async getMostLabelNameInLabel(pictureId) {
 
         let _sqlSelect = `
-        SELECT label,count(*) as count FROM label WHERE pictureId=${pictureId} group by type having count>0 LIMIT 0,3
+        SELECT label,count(*) as count FROM label WHERE pictureId=${pictureId} group by type having count>20 LIMIT 0,3
         `
         console.log(_sqlSelect);
         let selectResult = await dbUtils.query(_sqlSelect)
@@ -178,6 +178,23 @@ const picture = {
     },
 
 
+    /**
+     * 得到指定picture的managerId
+     * @param  {number} id
+     * @return {object|null}     查找结果
+     */
+    async getManagerIdOfPicture(id) {
+
+        let _sql = `SELECT managerId FROM picture WHERE id=${id}`
+
+
+
+        console.log(_sql);
+        let result = await dbUtils.query(_sql)
+        console.log(result)
+
+        return result;
+    },
 
 
 }

@@ -418,7 +418,9 @@ module.exports = {
         result.success = true;
         ctx.body = result;
 
-        labelService.addPictureLabel(body.id, body.pictureId, tagArray, weight);
+        let managerId = await pictureService.getManagerIdOfPicture(body.pictureId);
+
+        labelService.addPictureLabel(body.id, body.pictureId, tagArray, weight, managerId);
         // await labelService.addPictureLabel(body.id, body.pictureId, body.label, weight);
 
         //更新picture对应的type

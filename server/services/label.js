@@ -15,7 +15,7 @@ const label = {
      * @param  {object} model 用户数据模型
      * @return {object}       mysql执行结果
      */
-    async addPictureLabel(userId, pictureId, labelArray, weight) {
+    async addPictureLabel(userId, pictureId, labelArray, weight, managerId) {
 
         let type = await textClassify(labelArray);
 
@@ -27,7 +27,8 @@ const label = {
                 label: labelInfo,
                 type: type,
                 weight: weight,
-                created_time: new Date().getTime()
+                created_time: new Date().getTime(),
+                managerId: managerId
             }
             labelModel.create(label)
 

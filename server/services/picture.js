@@ -160,15 +160,28 @@ const picture = {
 
         let getPicture = await pictureModel.getRandomPicture(limit);
 
+        return getPicture
+    },
+
+    /**
+     * 得到指定picture的managerId
+     * @param  {number} id 用
+     * @return {object|null}     查找结果
+     */
+    async getManagerIdOfPicture(id) {
+
+        let managerIdResult = await pictureModel.getManagerIdOfPicture(id);
+
+        let managerId = managerIdResult[0].managerId
+
         // let result = await dbUtils.findDataByPage("picture", "*", minId, minId)
         // if (Array.isArray(result) && result.length > 0) {
         //     result = result[0]
         // } else {
         //     result = null
         // }
-        return getPicture
+        return managerId
     },
-
 
 
 }
