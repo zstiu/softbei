@@ -110,7 +110,7 @@ const picture = {
     },
 
     /**
-     * 通过pictureId,查询label表中已打最多的三个标签,更新picture表的type
+     * 通过pictureId,查询label表中已打最多的三个标签type,更新picture表的type
      * @param  {string} pictureId 图片id
      * @return {object}       mysql执行结果
      */
@@ -129,6 +129,26 @@ const picture = {
         return result
     },
 
+
+    /**
+     * 通过pictureId,查询label表中已打最多的三个超过20的标签,更新picture表的acceptedLabel
+     * @param  {string} pictureId 图片id
+     * @return {object}       mysql执行结果
+     */
+    async updatePictureAcceptedLabel(pictureId) {
+
+        let selectResult = await pictureModel.getMostLabelNameInLabel(pictureId);
+
+        let newLabel = '';
+        for (var index = 0; index < selectResult.length - 1; index++) {
+            newLabel = newLabel + selectResult[index].label + ",";
+        }
+        newLabel = newLabel + selectResult[index].label;
+
+        let result = await pictureModel.updatePictureAcceptedLabel(pictureId, newLabel)
+
+        return result
+    },
 
     /**
      * 得到指定数量的随机picture数据

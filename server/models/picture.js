@@ -107,6 +107,25 @@ const picture = {
      * @param  {string} pictureId 图片id
      * @return {object}       mysql执行结果
      */
+    async getMostLabelNameInLabel(pictureId) {
+
+        let _sqlSelect = `
+        SELECT label,count(*) as count FROM label WHERE pictureId=${pictureId} group by type having count>0 LIMIT 0,3
+        `
+        console.log(_sqlSelect);
+        let selectResult = await dbUtils.query(_sqlSelect)
+        console.log(selectResult);
+
+        return selectResult;
+    },
+
+
+
+    /**
+     * 通过pictureId,查询label表中已打最多的三个标签,更新picture表的type
+     * @param  {string} pictureId 图片id
+     * @return {object}       mysql执行结果
+     */
     async updatePictureType(pictureId, type) {
 
 
@@ -120,6 +139,24 @@ const picture = {
         return updateResult;
     },
 
+
+    /**
+     * 通过pictureId,查询label表中已打最多的三个标签,更新picture表的type
+     * @param  {string} pictureId 图片id
+     * @return {object}       mysql执行结果
+     */
+    async updatePictureAcceptedLabel(pictureId, label) {
+
+
+        let _sqlUpdate = `
+        UPDATE picture SET acceptedLabel='${label}' WHERE id=${pictureId}
+        `
+        console.log(_sqlUpdate);
+        let updateResult = await dbUtils.query(_sqlUpdate)
+        console.log(updateResult)
+
+        return updateResult;
+    },
 
     /**
      * 得到指定数量的随机picture数据

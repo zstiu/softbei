@@ -438,7 +438,7 @@ method: -> post
 ### 得到历史标签 **getHistoryLabel**
 method: -> post
 所需数据(标星号为必须字段，下同)
-> * id  
+> * id  //用户id
 > * limit
 > * page  
 

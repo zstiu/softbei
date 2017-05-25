@@ -424,6 +424,9 @@ module.exports = {
         //更新picture对应的type
         pictureService.updatePictureType(body.pictureId)
 
+        //更新picture对应的acceptLabel
+        pictureService.updatePictureAcceptedLabel(body.pictureId)
+
         //更新user对应的type
         userInfoService.updateUserType(body.id)
 
