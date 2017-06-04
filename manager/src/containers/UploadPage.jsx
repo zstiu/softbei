@@ -34,9 +34,9 @@ class UploadPage extends Component {
         return (
             <div>
                 <Upload {...props} >
-                <Button>
-                    <Icon type="upload" /> upload
-                </Button>
+                    <Button>
+                        <Icon type="upload" /> upload
+                    </Button>
                 </Upload>
             </div>
         )

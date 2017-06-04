@@ -82,33 +82,6 @@ module.exports = {
             // }
     },
 
-    // /**
-    //  * 用户登出操作
-    //  * TODO：先检验用户登陆状态，删除token表相应数据
-    //  * @param {object} ctx 
-    //  */
-    // async signOut(ctx) {
-    //     let formData = ctx.request.body
-    //     let result = {
-    //         success: false,
-    //         message: '',
-    //         data: null,
-    //         code: ''
-    //     }
-    //     if (await accessTokenService.isLoged(formData)) {
-    //         let resultDate = await accessTokenService.delete(formData);
-    //         if (resultDate) {
-    //             result.success = true;
-    //         }
-    //     } else {
-    //         result.code = 'FAIL_USER_NO_LOGIN';
-    //         result.message = userCode.FAIL_USER_NO_LOGIN;
-    //     }
-
-
-    //     ctx.body = result
-
-    // },
 
     /**
      * 注册操作
@@ -224,6 +197,7 @@ module.exports = {
             // let resultDate = await accessTokenService.delete(formData);
             // if (resultDate) {
             result.success = true;
+            result.data = picture.path;
             // }
         } else if (isLoged === -1) {
             result.success = false;
@@ -243,6 +217,72 @@ module.exports = {
 
 
 
+
+        ctx.body = result
+    },
+
+
+    /**
+     * 得到所有已上传图片
+     * @param   {obejct} ctx 上下文对象
+     */
+    async getAllPicture(ctx) {
+        let formData = ctx.request.body
+        let result = {
+            success: false,
+            message: '',
+            data: null,
+            code: ""
+        }
+
+        let validateResult = await managerService.validatorSignUp(formData)
+
+        if (validateResult.success === false) {
+            result = validateResult
+            ctx.body = result
+            return
+        }
+
+        let existOne = await managerService.getExistOne(formData)
+        console.log(existOne)
+
+        if (existOne) {
+            if (existOne.name === formData.name) {
+                result.message = userCode.FAIL_USER_NAME_IS_EXIST
+                ctx.body = result
+                return
+            }
+            if (existOne.email === formData.email) {
+                result.message = userCode.FAIL_EMAIL_IS_EXIST
+                ctx.body = result
+                return
+            }
+            if (existOne.phone === formData.phone) {
+                result.message = userCode.FAIL_USER_PHONE_IS_EXIST
+                ctx.body = result
+                return
+            }
+        }
+
+
+        let managerResult = await managerService.createManager({
+            password: formData.password,
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            created_time: new Date().getTime()
+        })
+
+        // let managerTable = await managerService.createManagerTable("manager_" + managerResult.id);
+
+        // console.log(userResult)
+
+        if (managerResult && managerResult.insertId * 1 > 0) {
+            result.success = true
+            result.code = "1111";
+        } else {
+            result.message = userCode.ERROR_SYS
+        }
 
         ctx.body = result
     },
