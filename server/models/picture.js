@@ -197,6 +197,23 @@ const picture = {
     },
 
 
+    /**
+     * 通过id得到指定picture
+     * @param  {number} id
+     * @return {object|null}  picture   查找结果
+     */
+    async getPictureById(id) {
+
+        let _sql = `SELECT * FROM picture WHERE id=${id}`
+
+        let result = await dbUtils.query(_sql)
+
+
+        return result;
+    },
+
+
+
 }
 
 

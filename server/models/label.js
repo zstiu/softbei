@@ -57,10 +57,9 @@ const picture = {
 
         let start = limit * (page - 1);
         let end = limit * page - 1;
-        //暂定方案：select语句得到关键字内容
-        //TODO: 对比关键字与图片标签的相似度
-        let _sql = `SELECT * from label
-            LIMIT ${start},${end}`
+
+        let _sql = `SELECT userId,pictureId,label,type,u.created_time,name as managerName from label as u 
+left join manager_info a on u.managerId = a.id  WHERE userId = ${userId} LIMIT ${start},${end}`
             // console.log(_sql);
 
         // let _sql = `SELECT label FROM label WHERE userId = ${userId} AND pictureId = ${pictureId}`;

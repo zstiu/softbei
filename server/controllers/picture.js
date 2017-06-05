@@ -140,5 +140,46 @@ module.exports = {
 
 
 
+    /**
+     * 根据id得到相应pciture
+     * @param  {obejct} ctx 上下文对象
+
+     * 得到指定数量的picture数据
+
+     */
+    async getPictureById(ctx) {
+
+
+
+        let body = ctx.request.body;
+        let result = {
+            success: false,
+            message: '',
+            data: {
+
+            },
+            code: ""
+        }
+
+        let id = body.id;
+
+
+        let picture = await pictureService.getPictureById(id);
+
+        if (picture) {
+            picture.path = config.imageHost + picture.path;
+            result.success = true;
+            result.data = picture;
+        } else {
+            result.success = false;
+            result.code = "0000";
+            result.message = userCode.FAIL_GET_NO_DATA;
+        }
+
+
+
+        ctx.body = result;
+    },
+
 
 }

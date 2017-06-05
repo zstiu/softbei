@@ -23,6 +23,6 @@ const routers = router
     .post('/manager/uploadPicture', managerController.uploadPicture)
     .post('/picture/getPicture', pictureController.getPicture)
     .post('/picture/searchPicture', pictureController.searchPicture)
-
+    .post('/picture/getPictureById', pictureController.getPictureById)
 
 module.exports = routers

@@ -184,6 +184,27 @@ const picture = {
     },
 
 
+    /**
+     * 通过id得到指定picture
+     * @param  {number} id 用
+     * @return {object|null}     查找结果
+     */
+    async getPictureById(id) {
+
+        let pictureResult = await pictureModel.getPictureById(id);
+
+        let picture = pictureResult[0]
+
+        // let result = await dbUtils.findDataByPage("picture", "*", minId, minId)
+        // if (Array.isArray(result) && result.length > 0) {
+        //     result = result[0]
+        // } else {
+        //     result = null
+        // }
+        return picture
+    },
+
+
 }
 
 module.exports = picture
