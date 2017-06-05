@@ -58,7 +58,7 @@ const picture = {
         let start = limit * (page - 1);
         let end = limit * page - 1;
 
-        let _sql = `SELECT userId,pictureId,label,type,u.created_time,name as managerName from label as u 
+        let _sql = `SELECT u.id as labelId,userId,pictureId,label,type,u.created_time,name as managerName from label as u 
 left join manager_info a on u.managerId = a.id  WHERE userId = ${userId} LIMIT ${start},${end}`
             // console.log(_sql);
 

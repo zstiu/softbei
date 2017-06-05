@@ -182,4 +182,59 @@ module.exports = {
     },
 
 
+
+    /**
+     * 通过type得到pciture
+     * @param  {obejct} ctx 上下文对象
+
+     * 得到指定数量的picture数据
+
+     */
+    async getPictureByType(ctx) {
+
+
+
+        let body = ctx.request.body;
+        let result = {
+            success: false,
+            message: '',
+            data: {
+                pictureList: []
+            },
+            code: ""
+        }
+
+
+
+        // console.log(pictureId);
+        let type = body.type;
+        let limit = body.limit;
+        let page = body.page;
+
+
+        //检验数据是否正常
+        if (limit <= 0 || page <= 0) {
+            result.message = userCode.ERROR_FORM_DATA
+            ctx.body = result;
+            return
+        }
+
+
+        let allPicture = await pictureService.getPictureByType(type, limit, page);
+        for (let tag = 0; tag < allPicture.length; tag++) {
+            allPicture[tag].path = config.imageHost + allPicture[tag].path;
+            result.data.pictureList.push(allPicture[tag]);
+        }
+
+        if (allPicture.length < limit) {
+            result.code = "0010";
+            result.message = userCode.NO_TYPE_PICTURE;
+        }
+
+        result.success = true;
+
+        ctx.body = result;
+    }
+
+
 }

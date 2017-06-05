@@ -24,5 +24,6 @@ const routers = router
     .post('/picture/getPicture', pictureController.getPicture)
     .post('/picture/searchPicture', pictureController.searchPicture)
     .post('/picture/getPictureById', pictureController.getPictureById)
+    .post('/picture/getPictureByType', pictureController.getPictureByType)
 
 module.exports = routers

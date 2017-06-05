@@ -46,6 +46,8 @@ const userCode = {
 
     NO_SEARCH_PICTURE: '当前关键字无更多结果',
 
+    NO_TYPE_PICTURE: '当前分类无更多结果',
+
 }
 
 

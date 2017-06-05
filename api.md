@@ -461,24 +461,15 @@ method: -> post
       "labelList":
         [
           {
-          "id": 9,
-          "userId": 3,
-          "pictureId": 115,
-          "label": "大狗",
-          "type": "动物",
-          "weight": 3,
-          "created_time": "1495564021572",
-          "managerId": null,
-          "planId": null
-          },
-          {"id": 10, "userId": 3, "pictureId": 115, "label": "猫咪", "type": "动物",…},
-          {"id": 13, "userId": 5, "pictureId": 116, "label": "狗", "type": "动物",…},
-          {"id": 14, "userId": 6, "pictureId": 116, "label": "猎物", "type": "其他",…},
-          {"id": 15, "userId": 10, "pictureId": 116, "label": "狗狗", "type": "动物",…},
-          {"id": 21, "userId": 14, "pictureId": 116, "label": "跑步", "type": "体育",…},
-          {"id": 22, "userId": 13, "pictureId": 116, "label": "猫咪", "type": "动物",…},
-          {"id": 33, "userId": 4, "pictureId": 116, "label": "小狗", "type": "其他",…},
-          {"id": 34, "userId": 4, "pictureId": 116, "label": "小猫", "type": "其他",…}
+            "labelId": 46,
+            "userId": 4,
+            "pictureId": 116,
+            "label": "猫咪",
+            "type": "其他",
+            "created_time": "1495728106775",
+            "managerName": "测试3"
+            },
+          {"userId": 4, "pictureId": 116, "label": "狗狗", "type": "其他", "created_time": "1495700926442",…}
         ]
       },
     "code": ""
@@ -743,6 +734,115 @@ method: -> post
     "success": false,
     "message": "输入字段缺省或错误",
     "data":[],
+    "code": ""
+  }
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+
+### 通过id获取picture **getPictureById**
+method: -> post
+所需数据(标星号为必须字段，下同)
+> * id (picture的id)   
+
+
+示例115.159.26.94:3001/api/picture/getPictureById
+```
+{
+	"id": "47"
+}
+
+
+```
+
+成功时返回
+```
+{
+    "success": true,
+    "message": "",
+    "data":
+        {
+          "id": 47,
+          "managerId": 9,
+          "path": "http://115.159.26.94:9001/common\\2017\\05\\10\\84fc0fe12cdf1.jpg",
+          "type": null,
+          "planId": 1,
+          "acceptedLabel": "小鱼，小狗",
+          "labelNumber": 2,
+          "isFinished": "1",
+          "resultLabel": null,
+          "uploadTime": "1494412905926",
+          "recognitionLabel": null
+          },
+    "code": ""
+}
+```
+失败时返回
+```
+  {
+    "success": false,
+    "message": "查询无数据",
+    "data":{},
+    "code": "0000"
+  }
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
+### 获取相应分类的picture **getPictureByType**
+method: -> post
+所需数据(标星号为必须字段，下同)
+> * type    
+> * limit (限制返回数据条数，默认为20条)  
+> * page (当前的页数)  
+
+
+示例115.159.26.94:3001/api/picture/getPictureById
+```
+{
+	"type": "体育",
+  "limit": 20,
+  "page":1
+}
+
+
+```
+
+成功时返回
+```
+  {
+    "success": true,
+    "message": "当前分类无更多结果",
+    "data":
+      {
+      "pictureList":
+        [
+          {
+          "pictureId": 116,
+          "path": "http://115.159.26.94:9001/common/2017/05/21/0d70bcdcb95fa.jpg",
+          "type": "体育,动物,其他",
+          "acceptedLabel": "跑步,狗,猎物",
+          "labelNumber": 11,
+          "isFinished": "0",
+          "uploadTime": "1495340378940",
+          "recognitionLabel": "[]",
+          "managerName": "测试3"
+          }
+        ]
+      },
+    "code": "0010"
+  }
+```
+失败时返回
+```
+  {
+    "success": false,
+    "message": "输入字段缺省或错误",
+    "data":
+      {
+      "pictureList":[]
+      },
     "code": ""
   }
 ```
