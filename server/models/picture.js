@@ -28,13 +28,13 @@ const picture = {
                 _sql = `SELECT * from picture where id > ${minId} limit  0, ${limit}`
                 break;
             case 1:
-                _sql = `SELECT * from picture where id > ${minId} AND type LIKE '%${type[0]}%' limit  0, ${limit}`
+                _sql = `SELECT * from picture where id > ${minId} AND (type LIKE '%${type[0]}%' OR type LIKE '%其他%') limit  0, ${limit}`
                 break;
             case 2:
-                _sql = `SELECT * from picture where id > ${minId} AND (type LIKE '%${type[0]}%' OR type LIKE '%${type[1]}%') limit  0, ${limit}`
+                _sql = `SELECT * from picture where id > ${minId} AND (type LIKE '%${type[0]}%' OR type LIKE '%${type[1]}%' OR type LIKE '%其他%') limit  0, ${limit}`
                 break;
             case 3:
-                _sql = `SELECT * from picture where id > ${minId} AND (type LIKE '%${type[0]}%' OR type LIKE '%${type[1]}%' OR type LIKE '%${type[2]}%') limit  0, ${limit}`
+                _sql = `SELECT * from picture where id > ${minId} AND (type LIKE '%${type[0]}%' OR type LIKE '%${type[1]}%' OR type LIKE '%${type[2]}%' OR type LIKE '%其他%') limit  0, ${limit}`
                 break;
         }
 
@@ -232,6 +232,31 @@ const picture = {
 
         return result;
     },
+
+
+    /**
+     * 得到id对应manager的所有picture完成状态
+     * @param  {string} id 
+     * @return {object|null}     查找结果
+     */
+    async getAllPictureInfo(id) {
+
+        //查询所有labelNumbaer与大于100作为可导出的labelNumber
+        let _sql = `SELECT
+                        count(labelNumber) as total,
+                        count(labelNumber > 100 OR NULL) as finished
+                    FROM
+                        picture
+                    WHERE
+                        managerId=${id}`
+        console.log(_sql);
+        let result = await dbUtils.query(_sql)
+
+
+        return result;
+    },
+
+
 
 }
 

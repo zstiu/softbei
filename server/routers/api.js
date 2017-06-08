@@ -21,6 +21,7 @@ const routers = router
     .post('/manager/signUp', managerController.signUp)
     .post('/manager/signIn', managerController.signIn)
     .post('/manager/uploadPicture', managerController.uploadPicture)
+    .post('/manager/getAllPictureInfo', managerController.getAllPictureInfo)
     .post('/picture/getPicture', pictureController.getPicture)
     .post('/picture/searchPicture', pictureController.searchPicture)
     .post('/picture/getPictureById', pictureController.getPictureById)

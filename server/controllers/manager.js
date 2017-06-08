@@ -223,66 +223,23 @@ module.exports = {
 
 
     /**
-     * 得到所有已上传图片
+     * 得到id对应的管理员所有已上传图片的信息（用于在web端查看任务进度）
      * @param   {obejct} ctx 上下文对象
      */
-    async getAllPicture(ctx) {
-        let formData = ctx.request.body
+    async getAllPictureInfo(ctx) {
+        let body = ctx.request.body
         let result = {
             success: false,
             message: '',
-            data: null,
+            data: {},
             code: ""
         }
 
-        let validateResult = await managerService.validatorSignUp(formData)
+        let pictureResult = await pictureService.getAllPictureInfo(body.managerId);
 
-        if (validateResult.success === false) {
-            result = validateResult
-            ctx.body = result
-            return
-        }
-
-        let existOne = await managerService.getExistOne(formData)
-        console.log(existOne)
-
-        if (existOne) {
-            if (existOne.name === formData.name) {
-                result.message = userCode.FAIL_USER_NAME_IS_EXIST
-                ctx.body = result
-                return
-            }
-            if (existOne.email === formData.email) {
-                result.message = userCode.FAIL_EMAIL_IS_EXIST
-                ctx.body = result
-                return
-            }
-            if (existOne.phone === formData.phone) {
-                result.message = userCode.FAIL_USER_PHONE_IS_EXIST
-                ctx.body = result
-                return
-            }
-        }
+        result.data = pictureResult;
 
 
-        let managerResult = await managerService.createManager({
-            password: formData.password,
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            created_time: new Date().getTime()
-        })
-
-        // let managerTable = await managerService.createManagerTable("manager_" + managerResult.id);
-
-        // console.log(userResult)
-
-        if (managerResult && managerResult.insertId * 1 > 0) {
-            result.success = true
-            result.code = "1111";
-        } else {
-            result.message = userCode.ERROR_SYS
-        }
 
         ctx.body = result
     },

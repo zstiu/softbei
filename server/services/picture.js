@@ -228,6 +228,29 @@ const picture = {
         return result
     },
 
+    /**
+     * 得到id对应的管理员所有已上传图片的信息（用于在web端查看任务进度）
+     * @param  {string} type 类型
+     * @param  {number} limit 结果条数
+     * @param  {number} page 第几页
+     * 得到指定数量的picture数据
+
+     */
+    async getAllPictureInfo(id) {
+
+        //todo:调用词性分析api，文本分词，搜索多个分词
+        let result = await pictureModel.getAllPictureInfo(id);
+
+        // let result = await dbUtils.findDataByPage("picture", "*", minId, minId)
+        // if (Array.isArray(result) && result.length > 0) {
+        //     result = result[0]
+        // } else {
+        //     result = null
+        // }
+        return result
+    },
+
+
 }
 
 module.exports = picture
