@@ -238,7 +238,7 @@ module.exports = {
         let pictureResult = await pictureService.getAllPictureInfo(body.managerId);
 
         result.data = pictureResult[0];
-
+        result.success = true;
 
 
         ctx.body = result
