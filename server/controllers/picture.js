@@ -60,10 +60,14 @@ module.exports = {
 
         let allPicture = await pictureService.getPicture(pictureId, type, limit);
 
-        let lastPictureId = allPicture[allPicture.length - 1].id;
+        if (allPicture.length > 0) {
+            let lastPictureId = allPicture[allPicture.length - 1].id;
 
 
-        let watchingPictureResult = userService.watchingPicture(body.id, lastPictureId);
+            let watchingPictureResult = userService.watchingPicture(body.id, lastPictureId);
+        }
+
+
 
 
         if (allPicture.length < limit) { //当pictureId到尾部时，随机从前面取缺少的值补充

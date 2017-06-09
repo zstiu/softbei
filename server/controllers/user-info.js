@@ -164,6 +164,7 @@ module.exports = {
             create_time: new Date().getTime(),
             score: 0,
             level: 0,
+            type: "其他"
         })
 
         // console.log(userResult)
