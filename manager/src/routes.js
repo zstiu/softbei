@@ -8,6 +8,7 @@ import LoginPage from './containers/LoginPage'
 import SignUpPage from './containers/SignUpPage'
 import UploadPage from './containers/UploadPage'
 import UpdateInfo from './containers/UpdateInfoPage'
+import ShowPage from './containers/ShowPage'
 
 export default <Route path="/" component={App}>
   <Route path="/"
@@ -22,4 +23,6 @@ export default <Route path="/" component={App}>
          component={UploadPage} />
   <Route path="/updateInfo"
          component={UpdateInfo} />
+  <Route path="/show"
+         component={ShowPage} />
 </Route>

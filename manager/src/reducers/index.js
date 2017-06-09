@@ -6,14 +6,19 @@ import { combineReducers } from 'redux'
 import { browserHistory } from 'react-router'
 
 
-const defaultState = {
+const defaultManagerState = {
     isLogin: false,
     name: "zstiu",
     managerId: "9"
 
 };
 
-const manager = (state = defaultState, action) => {
+const defaultInfoState = {
+    total: "读取中...",
+    finished: "读取中..."
+};
+
+const manager = (state = defaultManagerState, action) => {
     const { type } = action
 
     console.log("type = " + type);
@@ -36,6 +41,7 @@ const manager = (state = defaultState, action) => {
         case "loginManager":
             newState = {
                 isLogin: true,
+                id: action.data.id,
                 name: action.data.name,
                 managerId: action.data.managerId,
                 token: action.data.token,
@@ -75,9 +81,31 @@ const manager = (state = defaultState, action) => {
 }
 
 
+const info = (state = {}, action) => {
+    const { type } = action
+
+    console.log("type = " + type);
+
+    switch (action.type) {
+        case "pictureInfo":
+            let newState = {
+                total: action.data.total,
+                finished: action.data.finished
+            }
+            return newState;
+
+        default:
+            return state
+    }
+}
+
+
+
+
 const rootReducer = combineReducers({
     // entities,
     manager,
+    info,
     // pagination,
     // errorMessage,
     routing

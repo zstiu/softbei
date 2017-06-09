@@ -300,6 +300,83 @@ export const updateAction = (name, email, phone) =>
     }
 
 
+
+
+//以下实现获取picture完成情况
+const getPictureInfo = (id) => {
+
+    // const rootUrl = "http://localhost:3001";
+
+    let url = rootUrl + "/manager/getAllPictureInfo";
+
+    return new Promise((resolve, reject) => {
+
+        fetch(url, {
+            method: "post",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                managerId: id
+            })
+        }).then(function(response) {
+            console.log("response: " + response);
+            return response.json()
+        }).then(function(json) {
+
+            let data = json.data
+
+            if (json.success) {
+                let action = {
+                        type: "pictureInfo",
+                        // name: json.data.name,
+                        // managerId: json.data.managerId,
+                        // token: json.data.token
+                        data
+                    }
+                    // console.log(action);
+
+                resolve(action);
+                // browserHistory.push(`/show`);
+            } else {
+                let action = {
+                    type: "pictureInfoFail",
+                    errorMessage: json.message
+                }
+                console.log(action);
+                resolve(action);
+            }
+
+        })
+
+
+    })
+
+
+
+}
+
+// Fetches a page of stargazers for a particular repo.
+// Bails out if page is cached and user didn't specifically request next page.
+// Relies on Redux Thunk middleware.
+export const getPictureInfoAction = (id) =>
+    (dispatch, getState) => {
+
+        // console.log("getManager...");
+        // let loginResultAction = loginManager(name, password);
+        getPictureInfo(id).then(function(action) {
+            // if (action.token) {
+            //     browserHistory.push(`/manager`)
+            // } else {
+
+            // }
+            return dispatch(action);
+        })
+
+
+    }
+
+
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 
 // Resets the currently visible error message.

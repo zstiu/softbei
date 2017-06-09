@@ -35,7 +35,7 @@ class App extends Component {
                 this.handelUpload();
                 break;
       case '5': 
-                this.handelLogin();
+                this.handelShow();
                 break;
       case '6': 
                 this.handelManager();
@@ -45,7 +45,6 @@ class App extends Component {
   }
 
   handelLogin = () => {
-    console.log("进入login");
       browserHistory.push('/login')
   }
 
@@ -61,8 +60,9 @@ class App extends Component {
     browserHistory.push('/manager')
   }
 
-  handelUpload =() => {
-    browserHistory.push('/upload')
+  handelShow =(id) => {
+
+    browserHistory.push('/show')
   }
 
   handelUpdate =() => {
@@ -81,7 +81,7 @@ class App extends Component {
     });
   }
   render() {
-    const { children, handelLogin, handelManager, handelUpload, manager, handelChange } = this.props
+    const { children, handelLogin, handelManager, handelUpload, manager, handelChange, handelShow } = this.props
     return (
       <Layout>
         <Sider
@@ -104,7 +104,7 @@ class App extends Component {
               title={<span><Icon type="team" /><span className="nav-text">操作</span></span>}
             >
               <Menu.Item key="4">上传图片</Menu.Item>
-              <Menu.Item key="5">Team 2</Menu.Item>
+              <Menu.Item key="5">查看任务进度</Menu.Item>
             </SubMenu>
             <Menu.Item key="6">
               <span>
@@ -157,6 +157,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     // handelChange: () => getManager("测试3", "123456")(dispatch)
+    // fetchGetPictureInfo: (name, password) => {
+    //                 loginAction(name, password)(dispatch);
+    //                 // browserHistory.push(`/manager`)
+    //                 }
   }
 }
 
