@@ -51,9 +51,9 @@ const picture = {
      * @param  {string} pictureId 
      * @return {object|null}     查找结果
      */
-    async plusLabelNumber(pictureId) {
+    async labeled(pictureId, n) {
 
-        let _sql = `UPDATE picture SET labelNumber=labelNumber+1 WHERE id = ${pictureId}`
+        let _sql = `UPDATE picture SET labelNumber=labelNumber+${n} WHERE id = ${pictureId}`
 
         let result = await dbUtils.query(_sql)
 

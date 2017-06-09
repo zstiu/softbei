@@ -443,8 +443,11 @@ module.exports = {
         if (config.scoreLevel[level + 1] <= newScore) {
             userInfoService.plusUserLevel(body.id);
         }
-        //picture的被打标签次数加一
-        // pictureService.labelOnece(body.pictureId);
+        // picture的被打标签次数加一
+        pictureService.labeled(body.pictureId, tagArray.length);
+
+        //更新用户level
+        userInfoService.updateUserLevel(body.id);
 
         // result.success = true;
 

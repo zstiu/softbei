@@ -69,14 +69,14 @@ const picture = {
     },
 
     /**
-     * 给一个picture打了一次picture
+     * 给一个picture打了n次标签
      * @param  {string} minId 用户浏览到的pictureID
      * @param  {string} limit 限制的查询条数
      * @return {object|null}     查找结果
      */
-    async labelOnece(pictureId) {
+    async labeled(pictureId, n) {
 
-        let getPicture = await pictureModel.plusLabelNumber(pictureId);
+        let getPicture = await pictureModel.labeled(pictureId, n);
 
         // let result = await dbUtils.findDataByPage("picture", "*", minId, minId)
         // if (Array.isArray(result) && result.length > 0) {
@@ -119,10 +119,14 @@ const picture = {
         let selectResult = await pictureModel.getMostTypeInLabel(pictureId);
 
         let newType = '';
-        for (var index = 0; index < selectResult.length - 1; index++) {
-            newType = newType + selectResult[index].type + ",";
+
+        if (selectResult.length > 0) {
+            for (var index = 0; index < selectResult.length - 1; index++) {
+                newType = newType + selectResult[index].type + ",";
+            }
+            newType = newType + selectResult[index].type;
         }
-        newType = newType + selectResult[index].type;
+
 
         let result = await pictureModel.updatePictureType(pictureId, newType)
 
@@ -140,10 +144,14 @@ const picture = {
         let selectResult = await pictureModel.getMostLabelNameInLabel(pictureId);
 
         let newLabel = '';
-        for (var index = 0; index < selectResult.length - 1; index++) {
-            newLabel = newLabel + selectResult[index].label + ",";
+
+        if (selectResult.length > 0) {
+            for (var index = 0; index < selectResult.length - 1; index++) {
+                newLabel = newLabel + selectResult[index].label + ",";
+            }
+            newLabel = newLabel + selectResult[index].label;
         }
-        newLabel = newLabel + selectResult[index].label;
+
 
         let result = await pictureModel.updatePictureAcceptedLabel(pictureId, newLabel)
 

@@ -272,6 +272,40 @@ const user = {
     },
 
 
+    /**
+     * 根据用户id 查找用户score和level
+     * @param  {number} id 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async getScoreLevel(id) {
+
+        let _sql = `SELECT score,level FROM user_info WHERE id = ${id}`;
+        let result = await dbUtils.query(_sql);
+        // console.log(user)
+        // let type = "";
+
+
+        return result[0]
+    },
+
+
+    /**
+     * 根据用户id 更新用户level
+     * @param  {number} id 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async updateUserLevel(id, n) {
+
+        let _sql = `UPDATE user_info SET level=${n} WHERE id = ${id}`;
+        let result = await dbUtils.query(_sql);
+        console.log("_sql = " + _sql);
+        // let type = "";
+
+
+        return result
+    },
+
+
 }
 
 

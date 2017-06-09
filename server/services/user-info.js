@@ -7,6 +7,7 @@ const userModel = require('./../models/user-info')
 const tokenModel = require('./../models/access-token')
 const userCode = require('./../codes/user')
 const uuidV4 = require('uuid/v4');
+const config = require('../../config');
 
 const user = {
 
@@ -351,10 +352,14 @@ const user = {
         let selectResult = await userModel.getMostTypeInLabel(userId);
 
         let newType = '';
-        for (var index = 0; index < selectResult.length - 1; index++) {
-            newType = newType + selectResult[index].type + ",";
+
+        if (selectResult.length > 0) {
+            for (var index = 0; index < selectResult.length - 1; index++) {
+                newType = newType + selectResult[index].type + ",";
+            }
+            newType = newType + selectResult[index].type;
         }
-        newType = newType + selectResult[index].type;
+
 
         let result = await userModel.updateUserType(userId, newType)
 
@@ -371,6 +376,35 @@ const user = {
 
         let type = await userModel.getType(id);
         return type;
+    },
+
+    /**
+     * 通过userId,更新score对应的正确level
+     * @param  {string} userId 用户id
+     * @return {object}       mysql执行结果
+     */
+    async updateUserLevel(userId) {
+
+        let scoreLevelResult = await userModel.getScoreLevel(userId);
+
+        console.log("score = " + scoreLevelResult.score);
+        console.log("level = " + scoreLevelResult.level);
+
+        console.log(config.scoreLevel[scoreLevelResult.level])
+
+        if (config.scoreLevel[scoreLevelResult.level] < scoreLevelResult.score && scoreLevelResult.level < 10) {
+            console.log("进入循环")
+            for (var index = 0; index < config.scoreLevel.length; index++) {
+                console.log("level = " + config.scoreLevel[index]);
+                if (scoreLevelResult.score < config.scoreLevel[index]) {
+                    await userModel.updateUserLevel(userId, index);
+                    break;
+                }
+
+            }
+        }
+
+
     },
 
 
