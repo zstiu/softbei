@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { getPictureInfoAction } from '../actions'
+import NotLogin from '../components/notLogin'
 // import Manager from '../components/Manager'
 import Show from '../components/Show'
 // import zip from 'lodash/zip'
@@ -17,7 +18,12 @@ class ShowPage extends Component {
 
   render() {
       const { manager, info } = this.props
-      return (<div>
+
+          if (!manager.isLogin) {
+            return <NotLogin/>
+            }
+
+      else return (<div>
       <Show fetchShow={this.props.fetchShow} manager={manager} info={info} />
       </div>
       )

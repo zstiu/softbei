@@ -175,6 +175,8 @@ const config = {
 
     imagePath: "",
 
+    outPath: "/",
+
     port: 3001,
 
     database: {
