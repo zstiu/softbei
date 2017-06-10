@@ -18,6 +18,7 @@ const routers = router
     .post('/user/getUserMessage', userInfoController.getUserMessage)
     .post('/user/addPictureLabel', userInfoController.addPictureLabel)
     .post('/user/getHistoryLabel', userInfoController.getHistoryLabel)
+    .post('/user/cleanHistoryLabel', userInfoController.cleanHistoryLabel)
     .post('/manager/signUp', managerController.signUp)
     .post('/manager/signIn', managerController.signIn)
     .post('/manager/uploadPicture', managerController.uploadPicture)

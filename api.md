@@ -488,6 +488,34 @@ method: -> post
 * 根据message字段标识失败原因
 
 
+### 清除历史标签 **cleanHistoryLabel**
+method: -> post
+所需数据(标星号为必须字段，下同)
+> * id  //用户id
+
+示例http://115.159.26.94:3001/api/user/cleanHistoryLabel
+```
+{
+	"id": 4
+}
+```
+
+成功时返回
+```
+  {
+    "success": true,
+    "message": "",
+    "data":{},
+    "code": ""
+  }
+```
+失败时返回
+```
+  (暂无失败情况)
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
 
 ## 管理员模块
 

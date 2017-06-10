@@ -48,6 +48,8 @@ const userCode = {
 
     NO_TYPE_PICTURE: '当前分类无更多结果',
 
+    NO_HISTORY_PICTURE: '当前分类无更多结果',
+
 }
 
 

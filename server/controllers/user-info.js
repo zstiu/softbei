@@ -522,11 +522,45 @@ module.exports = {
         let labelList = await labelService.getHistoryLabel(body.id, limit, page)
 
 
-
+        if (labelList.length < limit) {
+            result.code = "0010";
+            result.message = userCode.NO_HISTORY_PICTURE;
+        }
 
 
         result.success = true;
         result.data.labelList = labelList
+        ctx.body = result;
+    },
+
+
+    /**
+     * 清除历史打过的标签
+     * @param  {obejct} ctx 上下文对象
+
+     */
+    async cleanHistoryLabel(ctx) {
+
+
+
+        let body = ctx.request.body;
+        let result = {
+            success: false,
+            message: '',
+            data: {},
+            code: ""
+        }
+
+        let limit = body.limit || 20;
+
+        let page = body.page || 1;
+
+        let cleanResult = await labelService.cleanHistoryLabel(body.id)
+
+        // console.log(cleanResult);
+
+
+        result.success = true;
         ctx.body = result;
     },
 

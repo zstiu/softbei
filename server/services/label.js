@@ -53,7 +53,7 @@ const label = {
 
 
     /**
-     * 通过userId pictureId 取label 用于判断是否重复提交
+     * 通过userId 得到指定数量的历史标签
      * @param  {string} userId 用户id
      * @param  {string} pictureId 图片id
      * @return {object}       mysql执行结果
@@ -64,6 +64,17 @@ const label = {
         return result
     },
 
+
+    /**
+     * 清除userId打过的历史标签
+     * @param  {string} userId 用户id
+     * @return {object}       mysql执行结果
+     */
+    async cleanHistoryLabel(userId) {
+
+        let result = await labelModel.cleanHistoryLabel(userId);
+        return result
+    },
 
 
 

@@ -56,10 +56,10 @@ const picture = {
     async getHistoryLabel(userId, limit, page) {
 
         let start = limit * (page - 1);
-        let end = limit * page - 1;
+        // let end = limit * page - 1;
 
         let _sql = `SELECT u.id as labelId,userId,pictureId,label,type,u.created_time,name as managerName from label as u 
-left join manager_info a on u.managerId = a.id  WHERE userId = ${userId} LIMIT ${start},${end}`
+left join manager_info a on u.managerId = a.id  WHERE userId = ${userId} AND isCleanUp="0" LIMIT ${start},${limit}`
             // console.log(_sql);
 
         // let _sql = `SELECT label FROM label WHERE userId = ${userId} AND pictureId = ${pictureId}`;
@@ -69,6 +69,24 @@ left join manager_info a on u.managerId = a.id  WHERE userId = ${userId} LIMIT $
         return result
     },
 
+
+    /**
+     * 清除userId对应的所有label
+     * @param  {string} userId 用户id
+     * @return {object}       mysql执行结果
+     */
+    async cleanHistoryLabel(userId) {
+
+
+        let _sql = `UPDATE label SET isCleanUp=1 WHERE userId = ${userId}`
+            // console.log(_sql);
+
+        // let _sql = `SELECT label FROM label WHERE userId = ${userId} AND pictureId = ${pictureId}`;
+        let result = await dbUtils.query(_sql)
+
+        // let result = await dbUtils.getLabel(userId, pictureId);
+        return result
+    },
 
 }
 

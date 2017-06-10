@@ -75,7 +75,11 @@ const picture = {
         // let end = limit * page;
         //暂定方案：select语句得到关键字内容
         //TODO: 对比关键字与图片标签的相似度
-        let _sql = `SELECT * from picture
+
+        // SELECT u.id as pictureId,path,type,acceptedLabel,labelNumber,isFinished,uploadTime,recognitionLabel,name as managerName from picture as u left join manager_info a on u.managerId = a.id 
+        //     where isFinished='0' and (type LIKE '%${type}%' OR type LIKE '%其他%' ) LIMIT ${start},${limit}
+
+        let _sql = `SELECT u.id as pictureId,path,type,acceptedLabel,labelNumber,isFinished,uploadTime,recognitionLabel,name as managerName from picture as u left join manager_info a on u.managerId = a.id 
             where isFinished='0' and (type LIKE '%${search}%' OR acceptedLabel LIKE '%${search}%' OR recognitionLabel LIKE '${search}' OR resultLabel LIKE '${search}') LIMIT ${start},${limit}`
         console.log(_sql);
         let result = await dbUtils.query(_sql)
