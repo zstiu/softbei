@@ -152,7 +152,7 @@ const manager = {
             result.message = userCode.ERROR_USER_NAME
             return result
         }
-        if (typeof userInfo.email === String) {
+        if (typeof manager.email === String) {
             if (!validator.isEmail(manager.email)) {
                 result.message = userCode.ERROR_EMAIL
                 return result
