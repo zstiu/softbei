@@ -19,7 +19,14 @@ const user = {
      */
     async getExistOne(options) {
 
-        let _sql = `SELECT * from user_info where id!=${options.id} and (email="${options.email}" or name="${options.name}" or phone="${options.phone}") limit 1`
+        let _sql = ``;
+
+        if (options.id) {
+            _sql = `SELECT * from user_info where id!=${options.id} and (email="${options.email}" or name="${options.name}" or phone="${options.phone}") limit 1`;
+        } else {
+            _sql = `SELECT * from user_info where (email="${options.email}" or name="${options.name}" or phone="${options.phone}") limit 1`;
+        }
+
         console.log(_sql);
         let result = await dbUtils.query(_sql)
         if (Array.isArray(result) && result.length > 0) {
