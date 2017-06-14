@@ -77,6 +77,17 @@ const label = {
     },
 
 
+    /**
+     * 通过userId 得到指定数量的历史标签
+     * @param  {string} userId 用户id
+     * @param  {string} pictureId 图片id
+     * @return {object}       mysql执行结果
+     */
+    async getLabelByUseridPictureid(userId, pictureId) {
+
+        let result = await labelModel.getLabelByUseridPictureid(userId, pictureId);
+        return result
+    },
 
 }
 

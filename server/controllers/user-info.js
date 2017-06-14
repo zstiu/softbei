@@ -565,6 +565,42 @@ module.exports = {
     },
 
 
+    /**
+     * 拿到userId对应的打过的某个picture的label
+     * @param  {obejct} ctx 上下文对象
+
+     * 得到指定数量的picture数据
+
+     */
+    async getLabelByUseridPictureid(ctx) {
+
+
+
+        let body = ctx.request.body;
+        let result = {
+            success: false,
+            message: '',
+            data: {
+                labelList: []
+            },
+            code: ""
+        }
+
+        let limit = body.limit || 20;
+
+        let page = body.page || 1;
+
+        let labelList = await labelService.getLabelByUseridPictureid(body.id, body.pictureId)
+
+
+
+
+
+        result.success = true;
+        result.data.labelList = labelList
+        ctx.body = result;
+    },
+
 
 
 }

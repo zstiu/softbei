@@ -88,6 +88,27 @@ left join manager_info a on u.managerId = a.id  WHERE userId = ${userId} AND isC
         return result
     },
 
+
+    /**
+     * 通过userId pictureId 取label 用于判断是否重复提交
+     * @param  {string} userId 用户id
+     * @param  {string} pictureId 图片id
+     * @return {object}       mysql执行结果
+     */
+    async getLabelByUseridPictureid(userId, pictureId) {
+
+        let _sql = `SELECT u.id as labelId,userId,pictureId,label,type,u.created_time,name as managerName from label as u 
+left join manager_info a on u.managerId = a.id  WHERE userId = ${userId} AND pictureId=${pictureId}`
+            // console.log(_sql);
+
+        // let _sql = `SELECT label FROM label WHERE userId = ${userId} AND pictureId = ${pictureId}`;
+        let result = await dbUtils.query(_sql)
+
+        // let result = await dbUtils.getLabel(userId, pictureId);
+        return result
+    },
+
+
 }
 
 
