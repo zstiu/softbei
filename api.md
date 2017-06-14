@@ -517,6 +517,42 @@ method: -> post
 * 根据message字段标识失败原因
 
 
+### 得到相应user和picture对应的历史标签 **getLabelByUseridPictureid**
+method: -> post
+所需数据(标星号为必须字段，下同)
+> * id  //用户id
+> * pictureId
+
+示例http://115.159.26.94:3001/api/user/getLabelByUseridPictureid
+```
+{
+	"id": 3,
+  "pictureId" : 142
+}
+```
+
+成功时返回
+```
+  {
+    "success": true,
+    "message": "",
+    "data":
+      {
+      "labelList":
+        [
+        {"labelId": 48, "userId": 3, "pictureId": 142, "label": "测试", "type": "其他",…}
+        ]
+      },
+    "code": ""
+  }
+```
+失败时返回
+```
+  (暂无失败情况)
+```
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
 ## 管理员模块
 
 > 目录： /manager
