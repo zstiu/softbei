@@ -553,6 +553,49 @@ method: -> post
 * 根据success字段判断是否成功
 * 根据message字段标识失败原因
 
+
+### 更新用户对应的picture的标签  **updatePictureLabel**
+method: -> post
+所需数据
+> * id  
+> * pictureId
+> * label
+
+
+示例http://115.159.26.94:3001/api/user/updatePictureLabel
+```
+
+{
+  "id": "3",
+  "pictureId": "115",
+  "label": "ahdi,测试1,测试2"
+}
+
+
+```
+
+成功时返回
+```
+  {
+    "success": true,
+    "message": "",
+    "data": null,
+    "code": ""
+  }
+```
+失败时返回
+```
+  {
+    "success": false,
+    "message": "同一图片的打标签次数已超出限额",
+    "data": null,
+    "code": ""
+  }
+```
+
+* 根据success字段判断是否成功
+* 根据message字段标识失败原因
+
 ## 管理员模块
 
 > 目录： /manager

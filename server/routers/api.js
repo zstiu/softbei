@@ -20,6 +20,7 @@ const routers = router
     .post('/user/getHistoryLabel', userInfoController.getHistoryLabel)
     .post('/user/cleanHistoryLabel', userInfoController.cleanHistoryLabel)
     .post('/user/getLabelByUseridPictureid', userInfoController.getLabelByUseridPictureid)
+    .post('/user/updatePictureLabel', userInfoController.updatePictureLabel)
     .post('/manager/signUp', managerController.signUp)
     .post('/manager/signIn', managerController.signIn)
     .post('/manager/uploadPicture', managerController.uploadPicture)

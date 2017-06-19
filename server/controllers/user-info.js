@@ -602,5 +602,102 @@ module.exports = {
     },
 
 
+    /**
+     * 更新标签操作
+     * @param  {object} ctx 上下文
+     * @return {object|null}        查找结果
+     */
+    async updatePictureLabel(ctx) {
+
+        let body = ctx.request.body
+        let result = {
+            success: false,
+            message: '',
+            data: null,
+            code: ""
+        }
+
+        let tagArray = body.label.split(",");
+
+        let level = (await userInfoService.getLevelByUserId(body.id)).level;
+
+        //如果对某个picture打过多标签进行限制
+        if (tagArray.length > (level / 5) + 1) {
+            result.message = userCode.FAIL_TOO_MUCH_LABEL;
+            ctx.body = result;
+            return
+        }
+
+
+
+        let deleteResult = await labelService.deleteHistoryLabel(body.id, body.pictureId);
+        // // console.log(label);
+        // if (label.length >= 1) {
+        //     for (let i = 0; i < label.length; i++) {
+        //         if (body.label === label[i].label) {
+        //             result.message = userCode.FAIL_RESUMMIT;
+        //             ctx.body = result;
+        //             return;
+        //         }
+        //     }
+        // }
+
+
+
+        console.log(level);
+        let weight;
+        if (level == 1) {
+            weight = 1 * tagArray.length;
+        } else if (level <= 5) {
+            weight = 2 * tagArray.length;
+        } else if (level <= 10) {
+            weight = 3 * tagArray.length;
+        } else {
+            result.message = userCode.ERROR_FORM_DATA;
+            ctx.body = result;
+            return;
+        }
+
+        //先完成成功返回，后续异步运行
+        result.success = true;
+        ctx.body = result;
+
+        let managerId = await pictureService.getManagerIdOfPicture(body.pictureId);
+
+        labelService.addPictureLabel(body.id, body.pictureId, tagArray, weight, managerId);
+        // await labelService.addPictureLabel(body.id, body.pictureId, body.label, weight);
+
+        //更新picture对应的type
+        pictureService.updatePictureType(body.pictureId)
+
+        //更新picture对应的acceptLabel
+        pictureService.updatePictureAcceptedLabel(body.pictureId)
+
+        //更新user对应的type
+        userInfoService.updateUserType(body.id)
+
+        //用户积分加一
+        userInfoService.plusUserScore(body.id, tagArray.length);
+
+        let newScore = await userInfoService.getScoreByUserId(body.id);
+
+        console.log("newScore:" + newScore);
+
+        if (config.scoreLevel[level + 1] <= newScore) {
+            userInfoService.plusUserLevel(body.id);
+        }
+        // picture的被打标签次数加一
+        pictureService.labeled(body.pictureId, tagArray.length);
+
+        //更新用户level
+        userInfoService.updateUserLevel(body.id);
+
+        // result.success = true;
+
+
+        // ctx.body = result
+    },
+
+
 
 }

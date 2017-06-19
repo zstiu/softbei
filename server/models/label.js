@@ -109,6 +109,25 @@ left join manager_info a on u.managerId = a.id  WHERE userId = ${userId} AND pic
     },
 
 
+    /**
+     * 清除userId对应的所有label
+     * @param  {string} userId 用户id
+     * @return {object}       mysql执行结果
+     */
+    async deleteHistoryLabel(userId, pictureId) {
+
+
+        let _sql = `DELETE FROM label WHERE userId = ${userId} AND pictureId=${pictureId}`
+            // console.log(_sql);
+
+        // let _sql = `SELECT label FROM label WHERE userId = ${userId} AND pictureId = ${pictureId}`;
+        let result = await dbUtils.query(_sql)
+
+        // let result = await dbUtils.getLabel(userId, pictureId);
+        return result
+    },
+
+
 }
 
 

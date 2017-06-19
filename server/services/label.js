@@ -89,6 +89,20 @@ const label = {
         return result
     },
 
+
+
+
+    /**
+     * 删除userId对pictureId打过的历史标签
+     * @param  {string} userId 用户id
+     * @return {object}       mysql执行结果
+     */
+    async deleteHistoryLabel(userId, pictureId) {
+
+        let result = await labelModel.deleteHistoryLabel(userId, pictureId);
+        return result
+    },
+
 }
 
 module.exports = label
