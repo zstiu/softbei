@@ -145,12 +145,16 @@ const picture = {
 
         let newLabel = '';
 
+        console.log("result[0] =" + selectResult);
+
         if (selectResult.length > 0) {
             for (var index = 0; index < selectResult.length - 1; index++) {
                 newLabel = newLabel + selectResult[index].label + ",";
             }
             newLabel = newLabel + selectResult[index].label;
         }
+
+        console.log("newLabel=" + newLabel);
 
 
         let result = await pictureModel.updatePictureAcceptedLabel(pictureId, newLabel)

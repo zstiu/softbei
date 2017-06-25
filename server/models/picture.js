@@ -114,11 +114,11 @@ const picture = {
     async getMostLabelNameInLabel(pictureId) {
 
         let _sqlSelect = `
-        SELECT label,count(*) as count FROM label WHERE pictureId=${pictureId} group by type having count>20 LIMIT 0,3
+        SELECT label,count(*) as count FROM label WHERE pictureId=${pictureId} group by label having count>=1 LIMIT 0,3
         `
         console.log(_sqlSelect);
         let selectResult = await dbUtils.query(_sqlSelect)
-        console.log(selectResult);
+        console.log("selectResult = " + selectResult);
 
         return selectResult;
     },

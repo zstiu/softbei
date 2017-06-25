@@ -159,7 +159,7 @@ class UpdateInfoForm extends React.Component {
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit" size="large">Register</Button>
+          <Button type="primary" htmlType="submit" size="large">update</Button>
         </FormItem>
       </Form>
     );

@@ -622,7 +622,7 @@ module.exports = {
         let level = (await userInfoService.getLevelByUserId(body.id)).level;
 
         //如果对某个picture打过多标签进行限制
-        if (tagArray.length > (level / 5) + 1) {
+        if (tagArray.length > (level / 2) + 1) {
             result.message = userCode.FAIL_TOO_MUCH_LABEL;
             ctx.body = result;
             return
