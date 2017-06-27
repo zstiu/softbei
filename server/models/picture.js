@@ -246,9 +246,15 @@ const picture = {
     async getAllPictureInfo(id) {
 
         //查询所有labelNumbaer与大于100作为可导出的labelNumber
+        // let _sql = `SELECT
+        //                 count(labelNumber) as total,
+        //                 count(labelNumber > 100 OR NULL) as finished
+        //             FROM
+        //                 picture
+        //             WHERE
+        //                 managerId=${id}`
         let _sql = `SELECT
-                        count(labelNumber) as total,
-                        count(labelNumber > 100 OR NULL) as finished
+                        *
                     FROM
                         picture
                     WHERE

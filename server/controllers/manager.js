@@ -231,13 +231,15 @@ module.exports = {
         let result = {
             success: false,
             message: '',
-            data: {},
+            data: {
+                pictureList: []
+            },
             code: ""
         }
 
         let pictureResult = await pictureService.getAllPictureInfo(body.managerId);
 
-        result.data = pictureResult[0];
+        result.data.pictureList = pictureResult;
         result.success = true;
 
 
