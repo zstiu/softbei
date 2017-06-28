@@ -313,6 +313,23 @@ const user = {
     },
 
 
+
+    /**
+     * 根据用户id 更新用户level
+     * @param  {number} id 用户账号名称
+     * @return {object|null}     查找结果
+     */
+    async getAllUserInfo() {
+
+        let _sql = `SELECT name,phone,email,score,level,type FROM user_info`;
+        let result = await dbUtils.query(_sql);
+        console.log("_sql = " + _sql);
+        // let type = "";
+
+
+        return result
+    },
+
 }
 
 

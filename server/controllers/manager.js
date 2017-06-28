@@ -2,6 +2,7 @@
 const accessTokenService = require('./../services/access-token')
 const managerService = require('./../services/manager')
 const pictureService = require('./../services/picture')
+const userService = require('./../services/user-info')
 const userCode = require('./../codes/user')
 const uuidV4 = require('uuid/v4');
 const Busboy = require('busboy');
@@ -246,6 +247,30 @@ module.exports = {
         ctx.body = result
     },
 
+
+    /**
+     * 得到所有用户信息（用于在web端查看用户资料）
+     * @param   {obejct} ctx 上下文对象
+     */
+    async getAllUserInfo(ctx) {
+        let body = ctx.request.body
+        let result = {
+            success: false,
+            message: '',
+            data: {
+                userList: []
+            },
+            code: ""
+        }
+
+        let userResult = await userService.getAllUserInfo();
+
+        result.data.userList = userResult;
+        result.success = true;
+
+
+        ctx.body = result
+    },
 
 
 }

@@ -403,8 +403,15 @@ const user = {
 
             }
         }
+    },
 
-
+    /**
+     * 得到所有用户信息
+     * @return {object|null}      查找结果
+     */
+    async getAllUserInfo() {
+        let resultData = await userModel.getAllUserInfo()
+        return resultData
     },
 
 
